@@ -9,7 +9,7 @@ public class Message {
 	 
 	//Construct.
 	public Message(){
-		
+		//Rhett Pushed A Big'en.
 	}
 	
 	public void setReceiverIp(String receiver){
