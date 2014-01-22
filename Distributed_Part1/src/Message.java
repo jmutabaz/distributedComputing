@@ -4,7 +4,7 @@ public class Message {
 	private String _Message;
 	private String _SenderIp;
 	/*Hi....Im Alex. My mom told me today after school we would go to the fair...But when
-	 she picked me up from school she hit me with a wrench....
+	 she picked me up from school she hit me with a wrench....Twice...
 	 */
 	 
 	//Construct.
