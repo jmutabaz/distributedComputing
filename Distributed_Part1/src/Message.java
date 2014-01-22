@@ -7,16 +7,9 @@ public class Message {
 	 she picked me up from school she hit me with a wrench....Twice...no actually it was
 	 three times...I got hit so many times that i tend to forget...but when I got home 
 	 she sat me down and asked me "Alex, do you know why I beat you with a wrench?" and 
-	 then I said.... 
-	 
-	 
-	 
-	 "Was it because of the Strippers?"
-	 
-	 
-	 
-	 
+	 then I said....
 	 */
+	//Rhett Test.
 	//This is a test from Paul .
 	//Construct.
 	public Message(){
