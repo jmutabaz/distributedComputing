@@ -24,12 +24,12 @@ public class StartUp {
 		System.out.println("|     2) Send Message...                ");
 		System.out.println("|     3) Exit...                        ");
 		System.out.print("| You Picked: ");
-		
+
 		//Read in the input into int choice in the Try/Catch.
 		try{
-		    BufferedReader bufferRead = new BufferedReader(new InputStreamReader(System.in));
-		    String s = bufferRead.readLine();
-		    choice = Integer.parseInt(s);
+			BufferedReader bufferRead = new BufferedReader(new InputStreamReader(System.in));
+			String s = bufferRead.readLine();
+			choice = Integer.parseInt(s);
 		}
 		catch(IOException e)
 		{
@@ -41,20 +41,20 @@ public class StartUp {
 			System.out.println("| Starting Up...\n|");
 		//Break from here with the menu options.
 		switch(choice){
-			case 1:
-				//Start Listening.
-				break;
-			case 2:
-				//Send Message.
-				break;
-			case 3:
-				//Exit.
-				break;
-			default:
-				//All Others.
-				System.out.print("| Broke");
+		case 1:
+			//Start Listening.
+			break;
+		case 2:
+			//Send Message.
+			break;
+		case 3:
+			//Exit.
+			break;
+		default:
+			//All Others.
+			System.out.print("| Broke");
 		}
-		
+
 		SThread x = new SThread();
 		x.start();
 		while(!x.reportIfMessage())
@@ -65,8 +65,8 @@ public class StartUp {
 		//x.stop();
 		System.out.println("| Message: " + x.reportMessage());
 		x.join();
-		
-		
+
+
 		//Print Out Finishing Message.
 		System.out.println("|\n.---------------------------------------.");
 		System.out.println("| Thanks for Using Our Program!         |");
