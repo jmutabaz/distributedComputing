@@ -17,11 +17,12 @@ public class Message {
 	 
 	 
 	 */
-	 
+	//This is a test from Paul .
 	//Construct.
 	public Message(){
 		//Rhett Pushed A Big'en.
 		//Clint added this
+		//Clint added this too
 	}
 	
 	public void setReceiverIp(String receiver){
