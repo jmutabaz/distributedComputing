@@ -48,7 +48,8 @@ public class SThread extends Thread
 			}
 		}
 		
-		/*try
+		/* - Rhett - Out for Testing.
+		try
 		{
 		// Initial sends/receives
 		destination = in.readLine(); // initial read (the destination for writing)
