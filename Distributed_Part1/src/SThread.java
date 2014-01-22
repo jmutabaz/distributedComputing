@@ -10,7 +10,7 @@ public class SThread extends Thread
 	private BufferedReader in; // reader (for reading from the machine connected to)
 	private String inputLine, outputLine, destination, addr; // communication strings
 	private Socket outSocket; // socket for communicating with a destination
-	private int ind; // indext in the routing table
+	private int ind; // index in the routing table
 	private boolean _hasMessage = false;
 	private String _message;
 
@@ -56,7 +56,8 @@ public class SThread extends Thread
 					outSocket = (Socket) RTable[i][1]; // gets the socket for communication from the table
 					System.out.println("Found destination: " + destination);
 					outTo = new PrintWriter(outSocket.getOutputStream(), true); // assigns a writer
-				}}
+				}
+			}
 
 			// Communication loop	
 			while ((inputLine = in.readLine()) != null) {
@@ -71,12 +72,12 @@ public class SThread extends Thread
 			}// end while		 
 		}// end try
 		catch (IOException e) {
-			System.err.println("Could not listen to socket.");
+			System.err.println("Could not listen to socket.\nReason: " + e.toString());
 			System.exit(1);
 		}
 		
 		/* - Code Needed For "StartUp.java" - Above is for
-		 * Norma Run.
+		 * Normal Run.
 		for(int i = 0; i < 1; i++)
 		{
 			try {
