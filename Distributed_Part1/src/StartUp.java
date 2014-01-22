@@ -54,7 +54,7 @@ public class StartUp {
 			//All Others.
 			System.out.print("| Broke");
 		}
-
+		
 		SThread x = new SThread();
 		x.start();
 		while(!x.reportIfMessage())

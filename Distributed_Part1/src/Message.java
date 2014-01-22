@@ -1,11 +1,35 @@
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 
+
+/* Public Class To Be Passed between Sockets.
+ * Contains Get and Set Methods for the Message Data.
+ */
 public class Message {
+	// IP of Server to Send To.
 	private String _ReceiverIp;
+	// Message to Send Out.
 	private String _Message;
+	// Senders IP.
 	private String _SenderIp;
 
+	// Construct with Empty Params.
+	// Sets Host Address.
 	public Message(){
-
+		try {
+			InetAddress addr = InetAddress.getLocalHost();
+			_SenderIp = addr.getHostAddress();
+		} catch (UnknownHostException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	//Construct with Full Param List.
+	public Message(String MyIP, String ReceiverIP, String Message){
+		_ReceiverIp = ReceiverIP;
+		_SenderIp = MyIP;
+		_Message = Message;
 	}
 
 	public void setReceiverIp(String receiver){

@@ -12,6 +12,7 @@ public class TCPServer {
 		//String routerName = "j263-08.cse1.spsu.edu"; // ServerRouter host name
 		String routerName = "192.168.1.6"; // ServerRouter host name
 		int SockNum = 5555; // port number
+		String DestinationIP = "192.168.1.5";// destination IP (Client)
 
 		// Tries to connect to the ServerRouter
 		try {
@@ -31,7 +32,7 @@ public class TCPServer {
 		// Variables for message passing			
 		String fromServer; // messages sent to ServerRouter
 		String fromClient; // messages received from ServerRouter      
-		String address ="192.168.1.5"; // destination IP (Client)
+		String address = DestinationIP; // destination IP (Client)
 
 		// Communication process (initial sends/receives)
 		out.println(address);// initial send (IP of the destination Client)
