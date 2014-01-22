@@ -12,11 +12,11 @@
 			//Accepting connections
          ServerSocket serverSocket = null; // server socket for accepting connections
          try {
-            serverSocket = new ServerSocket(5555);
-            System.out.println("ServerRouter is Listening on port: 5555.");
+            serverSocket = new ServerSocket(SockNum);
+            System.out.println("ServerRouter is Listening on port: " + SockNum + ".");
          }
              catch (IOException e) {
-               System.err.println("Could not listen on port: 5555.");
+               System.err.println("Could not listen on port: " + SockNum + ".\nReason: " + e.toString());
                System.exit(1);
             }
 			
