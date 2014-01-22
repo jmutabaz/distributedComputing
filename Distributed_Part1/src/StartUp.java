@@ -5,7 +5,7 @@ import java.io.InputStreamReader;
 
 public class StartUp {
 	//Rhett - 1/22/2014
-	public static void main(String[] args) {
+	public static void main(String[] args) throws IOException, InterruptedException {
 		// Start Program From Here.
 		// Menu Options and Choices to Pick From.
 		int choice = -1;
@@ -35,11 +35,10 @@ public class StartUp {
 		{
 			e.printStackTrace();
 		}
-		
+		System.out.println("|");
 		//Show Starting Up Message.
 		if(choice == 1 || choice == 2)
-			System.out.println("| Starting Up...");
-		
+			System.out.println("| Starting Up...\n|");
 		//Break from here with the menu options.
 		switch(choice){
 			case 1:
@@ -56,14 +55,24 @@ public class StartUp {
 				System.out.print("| Broke");
 		}
 		
+		SThread x = new SThread();
+		x.start();
+		while(!x.reportIfMessage())
+		{
+			Thread.sleep(1000);
+		}
+		System.out.println("| Has Message!!!!!");
+		//x.stop();
+		System.out.println("| Message: " + x.reportMessage());
+		x.join();
+		
+		
 		//Print Out Finishing Message.
-		System.out.println(".---------------------------------------.");
+		System.out.println("|\n.---------------------------------------.");
 		System.out.println("| Thanks for Using Our Program!         |");
 		System.out.println("|                                       |");
 		System.out.println("|      Exiting Now...                   |");
 		System.out.println("'---------------------------------------'");
-		
-		
 	}
 
 }

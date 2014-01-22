@@ -11,10 +11,13 @@ public class SThread extends Thread
 	private String inputLine, outputLine, destination, addr; // communication strings
 	private Socket outSocket; // socket for communicating with a destination
 	private int ind; // indext in the routing table
+	private boolean _hasMessage = false;
+	private String _message;
 
-	// Constructor
-	SThread(Object [][] Table, Socket toClient, int index) throws IOException
+	// Constructor SThread(Object [][] Table, Socket toClient, int index) throws IOException
+	SThread() throws IOException
 	{
+		/*
 			out = new PrintWriter(toClient.getOutputStream(), true);
 			in = new BufferedReader(new InputStreamReader(toClient.getInputStream()));
 			RTable = Table;
@@ -22,12 +25,27 @@ public class SThread extends Thread
 			RTable[index][0] = addr; // IP addresses 
 			RTable[index][1] = toClient; // sockets for communication
 			ind = index;
+		*/
 	}
 	
 	// Run method (will run for each machine that connects to the ServerRouter)
 	public void run()
 	{
-		try
+		for(int i = 0; i < 1; i++)
+		{
+			try {
+				Thread.sleep(10000);
+				_hasMessage = true;
+				_message = "Some Message";
+				System.out.println("| Message Found");
+				Thread.sleep(10000);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		
+		/*try
 		{
 		// Initial sends/receives
 		destination = in.readLine(); // initial read (the destination for writing)
@@ -67,5 +85,13 @@ public class SThread extends Thread
                System.err.println("Could not listen to socket.");
                System.exit(1);
          }
+         */
+	}
+	
+	public boolean reportIfMessage(){
+		return _hasMessage;
+	}
+	public String reportMessage(){
+		return _message;
 	}
 }
