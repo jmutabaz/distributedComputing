@@ -9,7 +9,7 @@ public class Message {
 	 she sat me down and asked me "Alex, do you know why I beat you with a wrench?" and 
 	 then I said....
 	 */
-	//This is a test from Paul.
+	//This is a test from Paul .
 	//Construct.
 	public Message(){
 		//Rhett Pushed A Big'en.
