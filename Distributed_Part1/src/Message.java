@@ -13,6 +13,7 @@ public class Message {
 	//Construct.
 	public Message(){
 		//Rhett Pushed A Big'en.
+		//Clint added this
 	}
 	
 	public void setReceiverIp(String receiver){
