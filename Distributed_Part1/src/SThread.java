@@ -17,7 +17,11 @@ public class SThread extends Thread
 	// Constructor SThread(Object [][] Table, Socket toClient, int index) throws IOException
 	SThread() throws IOException
 	{
-		/*
+		
+	}
+	
+	SThread(Object [][] Table, Socket toClient, int index) throws IOException
+	{
 			out = new PrintWriter(toClient.getOutputStream(), true);
 			in = new BufferedReader(new InputStreamReader(toClient.getInputStream()));
 			RTable = Table;
@@ -25,7 +29,6 @@ public class SThread extends Thread
 			RTable[index][0] = addr; // IP addresses 
 			RTable[index][1] = toClient; // sockets for communication
 			ind = index;
-		*/
 	}
 	
 	// Run method (will run for each machine that connects to the ServerRouter)
