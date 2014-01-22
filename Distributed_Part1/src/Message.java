@@ -6,7 +6,7 @@ public class Message {
 	/*Hi....Im Alex. My mom told me today after school we would go to the fair...But when
 	 she picked me up from school she hit me with a wrench....Twice...
 	 */
-	 
+	//This is a test from Paul.
 	//Construct.
 	public Message(){
 		//Rhett Pushed A Big'en.
