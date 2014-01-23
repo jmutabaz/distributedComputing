@@ -5,6 +5,7 @@ import java.net.UnknownHostException;
 /* Public Class To Be Passed between Sockets.
  * Contains Get and Set Methods for the Message Data.
  */
+
 public class Message {
 	// IP of Server to Send To.
 	private String _ReceiverIp;
