@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="600.0" prefWidth="800.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="application.StartMenuController">
+  <!-- TODO Add Nodes -->
+  <children>
+    <ImageView fitHeight="600.0" fitWidth="800.0000488281249" layoutX="0.0" layoutY="0.0" pickOnBounds="true" preserveRatio="true" />
+    <BorderPane layoutX="0.0" layoutY="0.0" prefHeight="600.0" prefWidth="800.0">
+      <bottom>
+        <Pane prefHeight="200.0" prefWidth="200.0" />
+      </bottom>
+      <center>
+        <Pane prefHeight="200.0" prefWidth="200.0">
+          <children>
+            <Button fx:id="connect" layoutX="219.0" layoutY="138.0" mnemonicParsing="false" onAction="#connectToServer" text="Connect" />
+            <TextField fx:id="iPAddress" layoutX="47.0" layoutY="89.0" prefWidth="246.0" />
+            <Label layoutX="47.0" layoutY="74.0" text="Routing Server IP" />
+            <Label layoutX="47.0" layoutY="122.0" text="Server Port Number" />
+            <TextField fx:id="portNumber" layoutX="47.0" layoutY="137.0" prefWidth="77.0" />
+            <Label layoutX="47.0" layoutY="24.0" text="Destination Server IP" />
+            <TextField layoutX="47.0" layoutY="39.0" prefWidth="246.0" />
+          </children>
+        </Pane>
+      </center>
+      <left>
+        <Pane prefHeight="200.0" prefWidth="200.0" />
+      </left>
+      <right>
+        <Pane prefHeight="200.0" prefWidth="200.0" />
+      </right>
+      <top>
+        <Pane prefHeight="200.0" prefWidth="200.0">
+          <children>
+            <Label layoutX="45.0" layoutY="30.0" text="Chat Client DIstributed Computing CS4253 Spring 2014" />
+            <Label layoutX="45.0" layoutY="45.0" text="Written by: Clint Walker, John Mutabazi, Paul Lupcke, Rhett Panter, Alex Phelps" />
+            <Label layoutX="243.0" layoutY="124.0" text="directions..." visible="true" />
+            <Label layoutX="243.0" layoutY="159.0" text="Error Messages to user" />
+          </children>
+        </Pane>
+      </top>
+    </BorderPane>
+  </children>
+</AnchorPane>
