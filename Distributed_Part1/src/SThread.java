@@ -49,33 +49,36 @@ public class SThread extends Thread
 				System.out.println("Thread interrupted");
 			}
 
+			boolean found = false;
 			// loops through the routing table to find the destination
-			for ( int i=0; i<10; i++) 
-			{
-				if (destination.equals((String) RTable[i][0])){
-					outSocket = (Socket) RTable[i][1]; // gets the socket for communication from the table
-					System.out.println("Found destination: " + destination);
-					outTo = new PrintWriter(outSocket.getOutputStream(), true); // assigns a writer
+			while(!found){
+				for (int i = 0; i < 10; i++) 
+				{
+					if (destination.equals((String) RTable[i][0])){
+						outSocket = (Socket) RTable[i][1]; // gets the socket for communication from the table
+						System.out.println("Found destination: " + destination);
+						outTo = new PrintWriter(outSocket.getOutputStream(), true); // assigns a writer
+						found = true;
+					}
 				}
 			}
 
 			// Communication loop	
 			while ((inputLine = in.readLine()) != null) {
 				System.out.println("Client/Server said: " + inputLine);
-				if (inputLine.equals("Bye.")) // exit statement
-					break;
 				outputLine = inputLine; // passes the input from the machine to the output string for the destination
-
 				if ( outSocket != null){				
 					outTo.println(outputLine); // writes to the destination
-				}			
+				}
+				if (inputLine.equals("Bye.") || inputLine.equals("BYE.")) // exit statement
+					break;
 			}// end while		 
 		}// end try
 		catch (IOException e) {
 			System.err.println("Could not listen to socket.\nReason: " + e.toString());
 			System.exit(1);
 		}
-		
+
 		/* - Code Needed For "StartUp.java" - Above is for
 		 * Normal Run.
 		for(int i = 0; i < 1; i++)
@@ -91,7 +94,7 @@ public class SThread extends Thread
 				e.printStackTrace();
 			}
 		}
-		*/
+		 */
 
 	}
 
