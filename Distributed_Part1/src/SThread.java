@@ -50,7 +50,7 @@ public class SThread extends Thread
 			}
 
 			// loops through the routing table to find the destination
-			for ( int i=0; i<10; i++) 
+			for (int i = 0; i < 10; i++) 
 			{
 				if (destination.equals((String) RTable[i][0])){
 					outSocket = (Socket) RTable[i][1]; // gets the socket for communication from the table

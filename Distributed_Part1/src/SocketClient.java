@@ -31,14 +31,7 @@ public class SocketClient {
 		// Variables for setting up connection and communicaton
 		Socket Socket = null; // socket to connect with ServerRouter
 		PrintWriter out = null; // for writing to ServerRouter
-		BufferedReader in = null; // for reading form ServerRouter
-		InetAddress addr;
-		try {
-			addr = InetAddress.getLocalHost();
-		} catch (UnknownHostException e) {
-			throw new SocketException("Couldn't Get Local IP.");
-		}
-		String host = addr.getHostAddress(); // Server machine's IP			
+		BufferedReader in = null; // for reading form ServerRouter		
 		// Tries to connect to the ServerRouter
 		try {
 			Socket = new Socket(routerName, SockNum);
@@ -56,10 +49,9 @@ public class SocketClient {
 			// Variables for message passing			
 			String fromServer; // messages sent to ServerRouter
 			String fromClient; // messages received from ServerRouter      
-			String address = DestinationIP; // destination IP (Client)
 
 			// Communication process (initial sends/receives)
-			out.println(address);// initial send (IP of the destination Client)
+			out.println(DestinationIP);// initial send (IP of the destination Client)
 			fromClient = in.readLine();// initial receive from router (verification of connection)
 			System.out.println("ServerRouter: " + fromClient);
 			

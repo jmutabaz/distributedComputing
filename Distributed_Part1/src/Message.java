@@ -16,13 +16,12 @@ public class Message {
 
 	// Construct with Empty Params.
 	// Sets Host Address.
-	public Message(){
+	public Message() throws Exception{
 		try {
 			InetAddress addr = InetAddress.getLocalHost();
 			_SenderIp = addr.getHostAddress();
 		} catch (UnknownHostException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			throw new Exception("Sender IP Not Established.");
 		}
 	}
 	

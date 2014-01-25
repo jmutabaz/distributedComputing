@@ -7,9 +7,6 @@ public class TCPServer {
 		Socket Socket = null; // socket to connect with ServerRouter
 		PrintWriter out = null; // for writing to ServerRouter
 		BufferedReader in = null; // for reading form ServerRouter
-		InetAddress addr = InetAddress.getLocalHost();
-		String host = addr.getHostAddress(); // Server machine's IP			
-		//String routerName = "j263-08.cse1.spsu.edu"; // ServerRouter host name
 		String routerName = "l3lawns.com"; // ServerRouter host name
 		int SockNum = 5555; // port number
 		String DestinationIP = "96.61.173.86";// destination IP (Client)
@@ -31,11 +28,10 @@ public class TCPServer {
 
 		// Variables for message passing			
 		String fromServer; // messages sent to ServerRouter
-		String fromClient; // messages received from ServerRouter      
-		String address = DestinationIP; // destination IP (Client)
+		String fromClient; // messages received from ServerRouter
 
 		// Communication process (initial sends/receives)
-		out.println(address);// initial send (IP of the destination Client)
+		out.println(DestinationIP);// initial send (IP of the destination Client)
 		fromClient = in.readLine();// initial receive from router (verification of connection)
 		System.out.println("ServerRouter: " + fromClient);
 
