@@ -49,13 +49,17 @@ public class SThread extends Thread
 				System.out.println("Thread interrupted");
 			}
 
+			boolean found = false;
 			// loops through the routing table to find the destination
-			for (int i = 0; i < 10; i++) 
-			{
-				if (destination.equals((String) RTable[i][0])){
-					outSocket = (Socket) RTable[i][1]; // gets the socket for communication from the table
-					System.out.println("Found destination: " + destination);
-					outTo = new PrintWriter(outSocket.getOutputStream(), true); // assigns a writer
+			while(!found){
+				for (int i = 0; i < 10; i++) 
+				{
+					if (destination.equals((String) RTable[i][0])){
+						outSocket = (Socket) RTable[i][1]; // gets the socket for communication from the table
+						System.out.println("Found destination: " + destination);
+						outTo = new PrintWriter(outSocket.getOutputStream(), true); // assigns a writer
+						found = true;
+					}
 				}
 			}
 
@@ -74,7 +78,7 @@ public class SThread extends Thread
 			System.err.println("Could not listen to socket.\nReason: " + e.toString());
 			System.exit(1);
 		}
-		
+
 		/* - Code Needed For "StartUp.java" - Above is for
 		 * Normal Run.
 		for(int i = 0; i < 1; i++)
@@ -90,7 +94,7 @@ public class SThread extends Thread
 				e.printStackTrace();
 			}
 		}
-		*/
+		 */
 
 	}
 
