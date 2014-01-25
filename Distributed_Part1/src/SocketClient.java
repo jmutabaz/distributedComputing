@@ -82,6 +82,15 @@ public class SocketClient {
 		return true;
 	}
 
+	/*
+	 * Boots up a Client to send messages to the 
+	 * routing server.
+	 * 
+	 * Params:
+	 * 	routerName=IP of RouterServer.
+	 * 	SockNum=Socket Number to use to Connect to RouterServer.
+	 * 	DestinationIP=IP of Client.
+	 */
 	public boolean RunClient(String routerName, int SockNum, String DestinationIP) throws SocketException{
 		// Variables for setting up connection and communication
 		Socket Socket = null; // socket to connect with ServerRouter
@@ -93,8 +102,7 @@ public class SocketClient {
 			addr = InetAddress.getLocalHost();
 			host = addr.getHostAddress(); // Client machine's IP
 		} catch (UnknownHostException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
+			throw new SocketException(e1.toString());
 		}
 		//String routerName = "192.168.1.6"; // ServerRouter host name
 		//int SockNum = 5555; // port number
