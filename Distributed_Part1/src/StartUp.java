@@ -55,6 +55,7 @@ public class StartUp {
 			System.out.print("| Broke");
 		}
 		
+		/*
 		SThread x = new SThread();
 		x.start();
 		while(!x.reportIfMessage())
@@ -65,6 +66,18 @@ public class StartUp {
 		//x.stop();
 		System.out.println("| Message: " + x.reportMessage());
 		x.join();
+		*/
+		
+		System.out.println("| Running Client Code.");
+		
+		SocketClient cli = new SocketClient();
+		try{
+			cli.RunClient("", 0, "");
+		}
+		catch(SocketException e){
+			System.out.println("| " + e.toString());
+		}
+	
 
 
 		//Print Out Finishing Message.
