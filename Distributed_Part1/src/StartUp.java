@@ -19,42 +19,44 @@ public class StartUp {
 		System.out.println("|      Charles (Rhett) Panter           |");
 		System.out.println("| --------------------------------------");
 		System.out.println("| Welcome to the Socket Program!        ");
-		System.out.println("|   What Would You Like To Do?          ");
-		System.out.println("|     1) Start Listening...             ");
-		System.out.println("|     2) Send Message...                ");
-		System.out.println("|     3) Exit...                        ");
-		System.out.print("| You Picked: ");
+		do{
+			System.out.println("|   What Would You Like To Do?          ");
+			System.out.println("|     1) Start Listening...             ");
+			System.out.println("|     2) Send Message...                ");
+			System.out.println("|     3) Exit...                        ");
+			System.out.print("| Please Enter Choice Here-> ");
 
-		//Read in the input into int choice in the Try/Catch.
-		try{
-			BufferedReader bufferRead = new BufferedReader(new InputStreamReader(System.in));
-			String s = bufferRead.readLine();
-			choice = Integer.parseInt(s);
-		}
-		catch(IOException e)
-		{
-			e.printStackTrace();
-		}
-		System.out.println("|");
-		//Show Starting Up Message.
-		if(choice == 1 || choice == 2)
-			System.out.println("| Starting Up...\n|");
-		//Break from here with the menu options.
-		switch(choice){
-		case 1:
-			//Start Listening.
-			break;
-		case 2:
-			//Send Message.
-			break;
-		case 3:
-			//Exit.
-			break;
-		default:
-			//All Others.
-			System.out.print("| Broke");
-		}
-		
+			//Read in the input into int choice in the Try/Catch.
+			try{
+				BufferedReader bufferRead = new BufferedReader(new InputStreamReader(System.in));
+				String s = bufferRead.readLine();
+				choice = Integer.parseInt(s);
+			}
+			catch(IOException e)
+			{
+				e.printStackTrace();
+			}
+			System.out.println("|");
+			//Show Starting Up Message.
+			if(choice == 1 || choice == 2)
+				System.out.println("| Starting Up...\n|");
+			//Break from here with the menu options.
+			switch(choice){
+			case 1:
+				runServer("");
+				break;
+			case 2:
+				sendFile("");
+				break;
+			case 3:
+				//Exit.
+				break;
+			default:
+				//All Others.
+				System.out.println("| Invalid Option.\n");
+			}
+		}while(choice != 3);
+
 		/*
 		SThread x = new SThread();
 		x.start();
@@ -66,19 +68,7 @@ public class StartUp {
 		//x.stop();
 		System.out.println("| Message: " + x.reportMessage());
 		x.join();
-		*/
-		
-		System.out.println("| Running Client Code.");
-		
-		SocketClient cli = new SocketClient();
-		try{
-			cli.RunClient("l3lawns.com", 5555, "10.0.0.14");
-		}
-		catch(SocketException e){
-			System.out.println("| " + e.toString());
-		}
-	
-
+		 */
 
 		//Print Out Finishing Message.
 		System.out.println("|\n.---------------------------------------.");
@@ -86,6 +76,26 @@ public class StartUp {
 		System.out.println("|                                       |");
 		System.out.println("|      Exiting Now...                   |");
 		System.out.println("'---------------------------------------'");
+	}
+
+	public static void sendFile(String x){
+		SocketClient cli = new SocketClient();
+		try{
+			cli.RunClient("l3lawns.com", 5555, "10.0.0.14");
+		}
+		catch(SocketException e){
+			System.out.println("| " + e.toString());
+		}
+	}
+	
+	public static void runServer(String x){
+		SocketClient cli = new SocketClient();
+		try{
+			cli.RunServer("l3lawns.com", 5555, "10.0.0.14");
+		}
+		catch(SocketException e){
+			System.out.println("| " + e.toString());
+		}
 	}
 
 }
