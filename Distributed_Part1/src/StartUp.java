@@ -72,7 +72,7 @@ public class StartUp {
 		
 		SocketClient cli = new SocketClient();
 		try{
-			cli.RunClient("", 0, "");
+			cli.RunClient("l3lawns.com", 5555, "10.0.0.14");
 		}
 		catch(SocketException e){
 			System.out.println("| " + e.toString());

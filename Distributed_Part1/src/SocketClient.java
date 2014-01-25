@@ -62,15 +62,15 @@ public class SocketClient {
 			out.println(address);// initial send (IP of the destination Client)
 			fromClient = in.readLine();// initial receive from router (verification of connection)
 			System.out.println("ServerRouter: " + fromClient);
-
+			
 			// Communication while loop
 			while ((fromClient = in.readLine()) != null) {
 				System.out.println("Client said: " + fromClient);
-				if (fromClient.equals("Bye.")) // exit statement
-					break;
 				fromServer = fromClient.toUpperCase(); // converting received message to upper case
 				System.out.println("Server said: " + fromServer);
 				out.println(fromServer); // sending the converted message back to the Client via ServerRouter
+				if (fromClient.equals("Bye.")) // exit statement
+					break;
 			}
 			out.close();
 			in.close();
@@ -133,15 +133,17 @@ public class SocketClient {
 			out.println(address);// initial send (IP of the destination Server)
 			fromServer = in.readLine();//initial receive from router (verification of connection)
 			System.out.println("ServerRouter: " + fromServer);
+			//Thread.sleep(1000);
 			out.println(host); // Client sends the IP of its machine as initial send
 			t0 = System.currentTimeMillis();
-
+			
+			//Thread.sleep(3000);
+			//System.out.println("Sending file stuffsssss");
+			
 			// Communication while loop
 			while ((fromServer = in.readLine()) != null) {
 				System.out.println("Server: " + fromServer);
 				t1 = System.currentTimeMillis();
-				if (fromServer.equals("Bye.")) // exit statement
-					break;
 				t = t1 - t0;
 				System.out.println("Cycle time: " + t);
 
@@ -151,6 +153,8 @@ public class SocketClient {
 					out.println(fromUser); // sending the strings to the Server via ServerRouter
 					t0 = System.currentTimeMillis();
 				}
+				if (fromServer.equals("Bye.") || fromServer.equals("BYE.")) // exit statement
+					break;
 			}
 
 			// closing connections

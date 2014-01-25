@@ -1,8 +1,1 @@
-/Message.class
-/SThread.class
-/StartUp.class
-/TCPServer.class
-/TCPServerRouter.class
-/SocketClient.class
-/SocketException.class
-/TCPClient.class
+/.gitignore
