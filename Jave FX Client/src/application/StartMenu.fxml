@@ -12,7 +12,11 @@
     <ImageView fitHeight="600.0" fitWidth="800.0000488281249" layoutX="0.0" layoutY="0.0" pickOnBounds="true" preserveRatio="true" />
     <BorderPane layoutX="0.0" layoutY="0.0" prefHeight="600.0" prefWidth="800.0">
       <bottom>
-        <Pane prefHeight="200.0" prefWidth="200.0" />
+        <Pane prefHeight="200.0" prefWidth="200.0">
+          <children>
+            <TextArea layoutX="14.0" layoutY="0.0" prefWidth="772.0" wrapText="true" />
+          </children>
+        </Pane>
       </bottom>
       <center>
         <Pane prefHeight="200.0" prefWidth="200.0">
