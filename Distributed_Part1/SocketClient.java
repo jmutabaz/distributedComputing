@@ -7,6 +7,7 @@ import java.io.Reader;
 import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.net.SocketException;
 import java.net.UnknownHostException;
 /*
  * This Class Is Meant to be a main Implementation for
