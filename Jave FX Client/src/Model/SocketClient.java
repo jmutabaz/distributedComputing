@@ -86,7 +86,7 @@ public class SocketClient {
 	 * 	SockNum=Socket Number to use to Connect to RouterServer.
 	 * 	DestinationIP=IP of Client.
 	 */
-	public boolean RunClient(String routerName, int SockNum, String DestinationIP) throws SocketException{
+	public boolean RunClient(String routerName, int SockNum, String DestinationIP, String fileName) throws SocketException{
 		// Variables for setting up connection and communication
 		Socket Socket = null; // socket to connect with ServerRouter
 		PrintWriter out = null; // for writing to ServerRouter
@@ -117,7 +117,7 @@ public class SocketClient {
 
 		try{
 			// Variables for message passing	
-			Reader reader = new FileReader("file.txt"); 
+			Reader reader = new FileReader(fileName); 
 			BufferedReader fromFile =  new BufferedReader(reader); // reader for the string file
 			String fromServer; // messages received from ServerRouter
 			String fromUser; // messages sent to ServerRouter

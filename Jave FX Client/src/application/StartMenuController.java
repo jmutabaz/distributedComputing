@@ -7,9 +7,13 @@ package application;
 
 import java.awt.Desktop;
 import java.io.File;
+import java.io.IOException;
+import java.net.SocketException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import Model.SocketClient;
+import Model.TranslationServer;
 import application.ControlledScreen;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -27,6 +31,7 @@ public class StartMenuController implements Initializable, ControlledScreen {
 	
 	@FXML 	TextField	serverIPAddressField;
 	@FXML	TextField	serverRouterIPAddressField;
+	@FXML	TextField	clientIPAddressField;
 	@FXML	TextField	portsNumberField;
 	@FXML	Button		connecButton;
 	@FXML	Button		startAsServerButton;
@@ -42,9 +47,12 @@ public class StartMenuController implements Initializable, ControlledScreen {
 	private boolean 	server = false; // defaults to client mode
 	private String 		serverRouterIPAddressString 	= null;
 	private String		serverIPAddressString			= null; 
+	private String		clientIPAddressString			= null;
 	private int			portNumber						= 0;
-	//private TranslationServer	server						= null;
-	//private SocketClient		client						= null;
+	private TranslationServer	ser						= null;
+	private SocketClient		cl						= null;
+	private String		fileNameString						= null;
+	private FileChooser fileChooser;
 	
 	
 	@Override
@@ -64,15 +72,15 @@ public class StartMenuController implements Initializable, ControlledScreen {
 	@FXML
 	public void startAsServer(ActionEvent event){
 		server = true;
-		//server server = new TranslationServer();
-		//client = null;
+		ser = new TranslationServer();
+		cl = null;
 	}
 	
 	@FXML
 	public void startAsClient(ActionEvent event){
 		server = false;
-		//client = new SocketClient();
-		//server = null;
+		cl = new SocketClient();
+		ser = null;
 	}
 	
 	@FXML
@@ -80,15 +88,47 @@ public class StartMenuController implements Initializable, ControlledScreen {
 		//get ip address, port number and send to client class to establish connection
 		serverRouterIPAddressString = serverRouterIPAddressField.getText();
 		serverIPAddressString = serverIPAddressField.getText();
+		clientIPAddressString = clientIPAddressField.getText();
 		portNumber =  Integer.parseInt(portsNumberField.getText());
 		
 		if (server){
 			// send ip addresses and port number to server class
+			try {
+				ser.RunTranslationServer(serverRouterIPAddressString, portNumber, clientIPAddressString);
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				System.out.print("failed to start server (catch statement in start menu controller connect method");
+			}
+		
 		} else {
 			// send ip addresses and port number to client class
+			if (loadFile(event)){;
+				try {
+					cl.RunClient(serverRouterIPAddressString, portNumber, serverIPAddressString, fileNameString);
+				} catch (SocketException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+					System.out.print("\nFailed to start client (catch statement in start menu controller connect method)");
+				}
+			}
+			
 		}
 		// if connection established then switch to Chat Window
 		
+	}
+	
+	public boolean loadFile(ActionEvent event){
+		File file = fileChooser.showOpenDialog(Main.PRIMARYSTAGE_STAGE);
+		if (file != null) {
+            //openFile(file);
+        	fileNameString = file.getAbsolutePath();
+        	System.out.println("filename = " + fileNameString);
+        	if (fileNameString != null){
+        		return true;
+        	}
+        }
+		return false;
 	}
 
 }
