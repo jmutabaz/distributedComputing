@@ -44,15 +44,15 @@ public class StartMenuController implements Initializable, ControlledScreen {
 	@FXML	Label		statusLabel;
 	
 	//non FXML variables
-	private boolean 	server = false; // defaults to client mode
-	private String 		serverRouterIPAddressString 	= null;
-	private String		serverIPAddressString			= null; 
-	private String		clientIPAddressString			= null;
-	private int			portNumber						= 0;
-	private TranslationServer	ser						= null;
-	private SocketClient		cl						= null;
-	private String		fileNameString						= null;
-	private FileChooser fileChooser;
+	private boolean 			server 							= false; // defaults to client mode
+	private String 				serverRouterIPAddressString 	= null;
+	private String				serverIPAddressString			= null; 
+	private String				clientIPAddressString			= null;
+	private int					portNumber						= 0;
+	private TranslationServer	ser								= null;
+	private SocketClient		cl								= new SocketClient();
+	private String				fileNameString					= null;
+	private FileChooser 		fileChooser;
 	
 	
 	@Override
@@ -74,6 +74,7 @@ public class StartMenuController implements Initializable, ControlledScreen {
 		server = true;
 		ser = new TranslationServer();
 		cl = null;
+		statusLabel.setText("Start as Server");
 	}
 	
 	@FXML
@@ -81,6 +82,7 @@ public class StartMenuController implements Initializable, ControlledScreen {
 		server = false;
 		cl = new SocketClient();
 		ser = null;
+		statusLabel.setText("Start as Client");
 	}
 	
 	@FXML
@@ -118,7 +120,9 @@ public class StartMenuController implements Initializable, ControlledScreen {
 		
 	}
 	
+	@FXML
 	public boolean loadFile(ActionEvent event){
+		fileChooser = new FileChooser();
 		File file = fileChooser.showOpenDialog(Main.PRIMARYSTAGE_STAGE);
 		if (file != null) {
             //openFile(file);

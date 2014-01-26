@@ -97,6 +97,7 @@ public class SocketClient {
 			addr = InetAddress.getLocalHost();
 			host = addr.getHostAddress(); // Client machine's IP
 		} catch (UnknownHostException e1) {
+			System.out.println(" unk exception ");
 			throw new SocketException(e1.toString());
 		}
 		//String routerName = "192.168.1.6"; // ServerRouter host name
