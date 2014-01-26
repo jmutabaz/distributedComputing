@@ -1,13 +1,5 @@
 /.classpath
 /.project
 /.settings
-/file.txt
-/src
-/SThread.class
-/TCPServerRouter.class
 /TranslationServer.class
-/TCPServer.class
-/TCPClient.class
-/StartUp.class
-/SocketClient.class
-/Message.class
+/file.txt
