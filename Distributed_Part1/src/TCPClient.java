@@ -1,4 +1,3 @@
-package Model;
 import java.io.*;
 import java.net.*;
 
@@ -11,10 +10,8 @@ public class TCPClient {
 		BufferedReader in = null; // for reading form ServerRouter
 		InetAddress addr = InetAddress.getLocalHost();
 		String host = addr.getHostAddress(); // Client machine's IP
-		String routerName = "192.168.1.6"; // ServerRouter host name
+		String routerName = "l3lawns.com"; // ServerRouter host name
 		int SockNum = 5555; // port number
-		String DestinationIP = "10.5.2.109"; // destination IP (Server)
-		String fileToRead = "file.txt";
 
 		// Tries to connect to the ServerRouter
 		try {
@@ -23,22 +20,20 @@ public class TCPClient {
 			in = new BufferedReader(new InputStreamReader(Socket.getInputStream()));
 		} 
 		catch (UnknownHostException e) {
-			System.err.println("Don't know about router: " + routerName +
-					"\nError: " + e.toString());
+			System.err.println("Don't know about router: " + routerName);
 			System.exit(1);
 		} 
 		catch (IOException e) {
-			System.err.println("Couldn't get I/O for the connection to: " + routerName +
-					"\nError: " + e.toString());
+			System.err.println("Couldn't get I/O for the connection to: " + routerName);
 			System.exit(1);
 		}
 
 		// Variables for message passing	
-		Reader reader = new FileReader(fileToRead); 
+		Reader reader = new FileReader("file.txt"); 
 		BufferedReader fromFile =  new BufferedReader(reader); // reader for the string file
 		String fromServer; // messages received from ServerRouter
 		String fromUser; // messages sent to ServerRouter
-		String address = DestinationIP; // destination IP (Server)
+		String address ="10.5.2.109"; // destination IP (Server)
 		long t0, t1, t;
 
 		// Communication process (initial sends/receives
@@ -66,7 +61,6 @@ public class TCPClient {
 		}
 
 		// closing connections
-		fromFile.close();
 		out.close();
 		in.close();
 		Socket.close();

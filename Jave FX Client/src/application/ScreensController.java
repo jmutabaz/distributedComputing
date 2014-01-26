@@ -146,6 +146,7 @@ public class ScreensController  extends StackPane {
             	
             	System.out.println("start menu");
             }
+            
             /*if (name == Main.EXIT_MENU){
             	System.out.println("EXIT menu from screens controller" + Main.root.toString());
             	

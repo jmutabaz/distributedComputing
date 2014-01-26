@@ -1,3 +1,7 @@
+/**
+ * @author Clint Walker
+ */
+
 package application;
 
 
@@ -21,12 +25,26 @@ import javafx.stage.FileChooser;
 public class StartMenuController implements Initializable, ControlledScreen {
 	ScreensController myController;
 	
-	@FXML 	TextField	iPAddress;
-	@FXML	TextField	portNumber;
-	@FXML	Button		connect;
-	@FXML 	Label		ErrorMessages;
-	@FXML	Label		Directions;
+	@FXML 	TextField	serverIPAddressField;
+	@FXML	TextField	serverRouterIPAddressField;
+	@FXML	TextField	portsNumberField;
+	@FXML	Button		connecButton;
+	@FXML	Button		startAsServerButton;
+	@FXML	Button		startAsClientButton;
+	@FXML 	Label		errorMessagesLabel;
+	@FXML	Label		directionsLabel;
+	@FXML	Label		client1Label;
+	@FXML	Label		client2Label;
+	@FXML	Label		client3Label;
+	@FXML	Label		statusLabel;
 	
+	//non FXML variables
+	private boolean 	server = false; // defaults to client mode
+	private String 		serverRouterIPAddressString 	= null;
+	private String		serverIPAddressString			= null; 
+	private int			portNumber						= 0;
+	//private TranslationServer	server						= null;
+	//private SocketClient		client						= null;
 	
 	
 	@Override
@@ -44,9 +62,31 @@ public class StartMenuController implements Initializable, ControlledScreen {
 	}
 	
 	@FXML
-	public void connectToServer(ActionEvent event){
+	public void startAsServer(ActionEvent event){
+		server = true;
+		//server server = new TranslationServer();
+		//client = null;
+	}
+	
+	@FXML
+	public void startAsClient(ActionEvent event){
+		server = false;
+		//client = new SocketClient();
+		//server = null;
+	}
+	
+	@FXML
+	public void connect(ActionEvent event){
 		//get ip address, port number and send to client class to establish connection
+		serverRouterIPAddressString = serverRouterIPAddressField.getText();
+		serverIPAddressString = serverIPAddressField.getText();
+		portNumber =  Integer.parseInt(portsNumberField.getText());
 		
+		if (server){
+			// send ip addresses and port number to server class
+		} else {
+			// send ip addresses and port number to client class
+		}
 		// if connection established then switch to Chat Window
 		
 	}

@@ -1,4 +1,7 @@
 package application;
+/**
+ * @author Clint Walker
+ */
 	
 import javafx.application.Application;
 import javafx.stage.Stage;
@@ -43,6 +46,8 @@ public class Main extends Application {
 		root.getChildren().addAll(mainContainer);
 		Scene scene = new Scene(root);
 		mainScene = scene;
+		Main.PRIMARYSTAGE_STAGE.setHeight(800);
+		Main.PRIMARYSTAGE_STAGE.setWidth(1000);
 		primaryStage.setScene(scene);
 		primaryStage.show();
 	}
