@@ -1,8 +1,8 @@
-/StartUp.class
-/TCPClient.class
-/TCPServer.class
-/TCPServerRouter.class
 /Message.class
 /SThread.class
 /SocketClient.class
 /SocketException.class
+/StartUp.class
+/TCPClient.class
+/TCPServer.class
+/TCPServerRouter.class
