@@ -13,25 +13,25 @@ public class TCPServerRouter {
 		ServerSocket serverSocket = null; // server socket for accepting connections
 		try {
 			serverSocket = new ServerSocket(SockNum);
-			System.out.println("ServerRouter is Listening on port: " + SockNum + ".");
+			System.out.println("| ServerRouter is Listening on port: " + SockNum + ".");
 		}
 		catch (IOException e) {
-			System.err.println("Could not listen on port: " + SockNum + ".\nReason: " + e.toString());
+			System.err.println("| Could not listen on port: " + SockNum + ".\nReason: " + e.toString());
 			System.exit(1);
 		}
 
 		// Creating threads with accepted connections
-		while (Running == true)
+		while (Running == true && ind < 10)
 		{
 			try {
 				clientSocket = serverSocket.accept();
 				SThread t = new SThread(RoutingTable, clientSocket, ind); // creates a thread with a random port
 				t.start(); // starts the thread
 				ind++; // increments the index
-				System.out.println("ServerRouter connected with Client/Server: " + clientSocket.getInetAddress().getHostAddress());
+				System.out.println("| ServerRouter Connection " + ind + " with Client/Server: " + clientSocket.getInetAddress().getHostAddress());
 			}
 			catch (IOException e) {
-				System.err.println("Client/Server failed to connect.");
+				System.err.println("| Client/Server failed to connect.");
 				System.exit(1);
 			}
 		}//end while

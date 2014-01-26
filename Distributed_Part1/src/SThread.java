@@ -11,14 +11,6 @@ public class SThread extends Thread
 	private String inputLine, outputLine, destination, addr; // communication strings
 	private Socket outSocket; // socket for communicating with a destination
 	private int ind; // index in the routing table
-	private boolean _hasMessage = false;
-	private String _message;
-
-	// Constructor SThread(Object [][] Table, Socket toClient, int index) throws IOException
-	SThread() throws IOException
-	{
-
-	}
 
 	SThread(Object [][] Table, Socket toClient, int index) throws IOException
 	{
@@ -38,34 +30,28 @@ public class SThread extends Thread
 		{
 			// Initial sends/receives
 			destination = in.readLine(); // initial read (the destination for writing)
-			System.out.println("Forwarding to " + destination);
+			System.out.println("| Forwarding to " + destination);
 			out.println("Connected to the router."); // confirmation of connection
-
-			// waits 10 seconds to let the routing table fill with all machines' information
-			try{
-				Thread.currentThread().sleep(10000); 
-			}
-			catch(InterruptedException ie){
-				System.out.println("Thread interrupted");
-			}
 
 			boolean found = false;
 			// loops through the routing table to find the destination
 			while(!found){
-				for (int i = 0; i < 10; i++) 
+				Thread.currentThread().sleep(5000); 
+				for (int i = 0; i < RTable.length; i++) 
 				{
 					if (destination.equals((String) RTable[i][0])){
 						outSocket = (Socket) RTable[i][1]; // gets the socket for communication from the table
-						System.out.println("Found destination: " + destination);
+						System.out.println("| Found destination: " + destination);
 						outTo = new PrintWriter(outSocket.getOutputStream(), true); // assigns a writer
 						found = true;
+						break;
 					}
 				}
 			}
 
 			// Communication loop	
 			while ((inputLine = in.readLine()) != null) {
-				System.out.println("Client/Server said: " + inputLine);
+				System.out.println("| Client/Server said: " + inputLine);
 				outputLine = inputLine; // passes the input from the machine to the output string for the destination
 				if ( outSocket != null){				
 					outTo.println(outputLine); // writes to the destination
@@ -75,33 +61,12 @@ public class SThread extends Thread
 			}// end while		 
 		}// end try
 		catch (IOException e) {
-			System.err.println("Could not listen to socket.\nReason: " + e.toString());
+			System.err.println("| Could not listen to socket.\nReason: " + e.toString());
 			System.exit(1);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
-
-		/* - Code Needed For "StartUp.java" - Above is for
-		 * Normal Run.
-		for(int i = 0; i < 1; i++)
-		{
-			try {
-				Thread.sleep(10000);
-				_hasMessage = true;
-				_message = "Some Message";
-				System.out.println("| Message Found");
-				Thread.sleep(10000);
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}
-		 */
-
-	}
-
-	public boolean reportIfMessage(){
-		return _hasMessage;
-	}
-	public String reportMessage(){
-		return _message;
+		
 	}
 }
