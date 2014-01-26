@@ -1,3 +1,7 @@
+/**
+ * @author Clint Walker
+ */
+
 package application;
 
 
