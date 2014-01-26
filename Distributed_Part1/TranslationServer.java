@@ -3,24 +3,24 @@ import java.net.*;
 
 
 public class TranslationServer {
-//change comment
+	//change comment
 	String routerName = null; // ServerRouter host name
 	int SockNum = 0; // port number
 	String DestinationIP = null;// destination IP (Client)
-	
+
 	public void RunTranslationServer (String router, int port, String des) throws IOException{
 		routerName = router; // ServerRouter host name
 		SockNum = port; // port number
 		DestinationIP = des;// destination IP (Client)
 		run();
 	}
-	
-	
+
+
 	public void run() throws IOException{
 		Socket Socket = null; // socket to connect with ServerRouter
 		PrintWriter out = null; // for writing to ServerRouter
 		BufferedReader in = null; // for reading form ServerRouter
-		
+
 
 		// Tries to connect to the ServerRouter
 		try {
@@ -62,6 +62,6 @@ public class TranslationServer {
 		in.close();
 		Socket.close();
 	}
-	
-	
+
+
 }
