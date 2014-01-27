@@ -6,62 +6,14 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="600.0" prefWidth="800.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="application.StartMenuController">
+<AnchorPane minHeight="300.0" minWidth="600.0" prefHeight="300.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="application.StartMenuController">
   <!-- TODO Add Nodes -->
   <children>
-    <ImageView fitHeight="600.0" fitWidth="800.0000488281249" layoutX="0.0" layoutY="0.0" pickOnBounds="true" preserveRatio="true" />
-    <BorderPane layoutX="0.0" layoutY="0.0" prefHeight="600.0" prefWidth="800.0">
-      <bottom>
-        <Pane prefHeight="200.0" prefWidth="200.0">
-          <children>
-            <TextArea layoutX="14.0" layoutY="0.0" prefWidth="772.0" wrapText="true" />
-          </children>
-        </Pane>
-      </bottom>
-      <center>
-        <Pane prefHeight="200.0" prefWidth="200.0">
-          <children>
-            <TextField fx:id="serverRouterIPAddressField" layoutX="47.0" layoutY="71.0" prefWidth="246.0" />
-            <TextField id="iPAddress" fx:id="serverIPAddressField" layoutX="47.0" layoutY="123.0" prefWidth="246.0" />
-            <TextField id="iPAddress" fx:id="clientIPAddressField" layoutX="47.0" layoutY="175.0" prefWidth="246.0" />
-            <TextField id="portNumber" fx:id="portsNumberField" layoutX="47.0" layoutY="212.0" prefWidth="77.0" />
-            <Button id="connect" fx:id="connecButton" layoutX="219.0" layoutY="213.0" mnemonicParsing="false" onAction="#connect" text="Connect" />
-            <Label layoutX="47.0" layoutY="108.0" text="Server IP Address" />
-            <Label layoutX="47.0" layoutY="197.0" text="Server Port Number" />
-            <Label layoutX="47.0" layoutY="55.0" text="Server Router IP address" />
-            <Label fx:id="errorMessagesLabel" layoutX="47.0" layoutY="26.0" text="Error Messages to user" />
-            <Label id="clientIPAddressField" layoutX="47.0" layoutY="159.0" text="Client IP Address" />
-          </children>
-        </Pane>
-      </center>
-      <left>
-        <Pane prefHeight="200.0" prefWidth="200.0">
-          <children>
-            <Button fx:id="startAsServerButton" layoutX="14.0" layoutY="23.0" mnemonicParsing="false" onAction="#startAsServer" text="Start as Server" />
-            <Button fx:id="startAsClientButton" layoutX="14.0" layoutY="52.0" mnemonicParsing="false" onAction="#startAsClient" text="Start as Client" />
-          </children>
-        </Pane>
-      </left>
-      <right>
-        <Pane prefHeight="200.0" prefWidth="200.0">
-          <children>
-            <Label layoutX="67.0" layoutY="14.0" text="Online users" />
-            <Label fx:id="client1Label" layoutX="67.0" layoutY="38.0" text="Client 1" />
-            <Label id="client3Label" fx:id="client2Label" layoutX="67.0" layoutY="64.0" text="Client 2" />
-            <Label fx:id="client3Label" layoutX="67.0" layoutY="91.0" text="Client 3" />
-          </children>
-        </Pane>
-      </right>
-      <top>
-        <Pane prefHeight="132.0" prefWidth="800.0">
-          <children>
-            <Label layoutX="45.0" layoutY="30.0" text="Chat Client DIstributed Computing CS4253 Spring 2014" />
-            <Label layoutX="45.0" layoutY="45.0" text="Written by: Clint Walker, John Mutabazi, Paul Lupcke, Rhett Panter, Alex Phelps" />
-            <Label layoutX="253.0" layoutY="78.0" prefHeight="21.9609375" text="directions..." visible="true" />
-            <Label fx:id="statusLabel" layoutX="600.0" layoutY="14.0" text="Status update Server or client" />
-          </children>
-        </Pane>
-      </top>
-    </BorderPane>
+    <Label layoutX="80.0" layoutY="55.0" text="Chat Client DIstributed Computing CS4253 Spring 2014" />
+    <Label layoutX="80.0" layoutY="79.0" text="Written by: Clint Walker, John Mutabazi, Paul Lupcke, Rhett Panter, Alex Phelps" />
+    <Button fx:id="startAsClientButton" layoutX="90.0" layoutY="115.0" mnemonicParsing="false" onAction="#startAsClient" prefHeight="58.0" prefWidth="130.0" text="Start as Client" />
+    <Button fx:id="startAsServerButton" layoutX="257.0" layoutY="115.0" mnemonicParsing="false" onAction="#startAsServer" prefHeight="58.0" prefWidth="129.99990000000253" text="Start as Server" />
+    <Button id="startAsClientButton" layoutX="434.0" layoutY="115.0" mnemonicParsing="false" onAction="#startAsClient" prefHeight="58.0" prefWidth="130.0" text="Start as Router" />
+    <Button layoutX="90.0" layoutY="212.0" mnemonicParsing="false" prefHeight="37.0" prefWidth="63.0" text="Exit" />
   </children>
 </AnchorPane>
