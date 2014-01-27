@@ -11,6 +11,7 @@ import javafx.stage.FileChooser;
 public class ClientController {
 
 	FXML
+	/*@FXML
 	public void connect(ActionEvent event){
 		if (setup){
 			//get ip address, port number and send to client class to establish connection
@@ -60,5 +61,6 @@ public class ClientController {
         }
 		return false;
 	}
+	}*/
 	
 }
