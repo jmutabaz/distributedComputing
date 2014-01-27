@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane minHeight="600.0" minWidth="800.0" prefHeight="600.0" prefWidth="800.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2">
+<AnchorPane minHeight="600.0" minWidth="800.0" prefHeight="600.0" prefWidth="800.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="application.RouterController">
   <!-- TODO Add Nodes -->
   <children>
     <BorderPane layoutX="0.0" layoutY="0.0" prefHeight="600.0" prefWidth="800.0">
@@ -21,7 +21,7 @@
       <center>
         <Pane prefHeight="248.0" prefWidth="502.0">
           <children>
-            <TextArea layoutX="0.0" layoutY="0.0" prefHeight="360.999977929685" prefWidth="562.999977929685" wrapText="true" />
+            <TextArea fx:id="messageArea" layoutX="0.0" layoutY="0.0" prefHeight="360.999977929685" prefWidth="562.999977929685" wrapText="true" />
           </children>
         </Pane>
       </center>
@@ -51,7 +51,7 @@
             <Label layoutX="506.0" layoutY="31.0" text="Router IP Address" />
             <Label layoutX="506.0" layoutY="72.0" text="Port Number" />
             <Label layoutX="116.0" layoutY="108.0" text="Message Traffic" />
-            <Button layoutX="608.0" layoutY="81.0" mnemonicParsing="false" text="Start Router" />
+            <Button fx:id="startStopRouter" layoutX="608.0" layoutY="81.0" mnemonicParsing="false" onAction="#startOrStopRouter" text="Start Router" />
           </children>
         </Pane>
       </top>

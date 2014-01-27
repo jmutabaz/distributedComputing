@@ -12,8 +12,8 @@ import javafx.scene.layout.BorderPane;
 
 public class Main extends Application {
 	
-	final 	static 	String 					CHATWINDOW 			= "ChatWindow";
-	final 	static 	String 					CHATWINDOW_FXML 	= "ChatWindow.fxml";
+	final 	static 	String 					ROUTERWINDOW 		= "serverRouterWindow";
+	final 	static 	String 					ROUTERWINDOW_FXML 	= "serverRouterWindow.fxml";
 	final 	static 	String 					START_MENU 			= "startMenu";
 	final 	static 	String 					START_MENU_FXML		= "startMenu.fxml";
 	//final 	static 	String 					EXIT_MENU 			= "exit";
@@ -29,16 +29,16 @@ public class Main extends Application {
 	@Override
 	public void start(Stage primaryStage) {
 		PRIMARYSTAGE_STAGE = primaryStage;
-		boolean gameLoad, startLoad, exitLoad;
+		boolean routerLoad, startLoad, exitLoad;
 		ScreensController mainContainer = new ScreensController();
 		System.out.println("toStringcall::: " + mainContainer.toString());
 		
-		gameLoad 	= mainContainer.loadScreen(Main.CHATWINDOW, Main.CHATWINDOW_FXML);
+		routerLoad 	= mainContainer.loadScreen(Main.ROUTERWINDOW, Main.ROUTERWINDOW_FXML);
 		startLoad	= mainContainer.loadScreen(Main.START_MENU, Main.START_MENU_FXML);
 //		exitLoad 	= mainContainer.loadScreen(Main.EXIT_MENU, Main.EXIT_MENU_FXML);
 		
 		System.out.println("toStringcall::: " + mainContainer.toString());
-		System.out.println("game loaded? " + gameLoad + " startLoaded? " + startLoad); // + " exitLoaded? " + exitLoad);
+		System.out.println("game loaded? " + routerLoad + " startLoaded? " + startLoad); // + " exitLoaded? " + exitLoad);
 		
 		mainContainer.setScreen(Main.START_MENU);
 
