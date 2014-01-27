@@ -135,7 +135,7 @@ public class Client extends Thread {
 	
 	public void report(String mesg){
 		_report = mesg;
-		while(mesg != null){
+		while(_report != null){
 			try {
 				Thread.sleep(100);
 			} catch (InterruptedException e1) {

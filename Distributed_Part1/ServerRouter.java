@@ -43,6 +43,9 @@ public class ServerRouter extends Thread {
 				}
 				return;
 			}
+			
+			int y = 2;
+			y = y+2;
 
 			// Creating threads with accepted connections
 			while (Running == true && ind < _numOfRowsInTable)
@@ -79,7 +82,7 @@ public class ServerRouter extends Thread {
 	
 	public void report(String mesg){
 		_report = mesg;
-		while(mesg != null){
+		while(_report != null){
 			try {
 				Thread.sleep(100);
 			} catch (InterruptedException e1) {
