@@ -83,7 +83,7 @@ public class StartMenuController implements Initializable, ControlledScreen {
 	@FXML 
 	public void startAsRouter(ActionEvent event)
 	{
-		
+		myController.setScreen(Main.ROUTERWINDOW);
 	}
 	
 	@FXML
