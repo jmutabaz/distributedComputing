@@ -1,8 +1,8 @@
 /.classpath
 /.project
 /.settings
-/TranslationServer.class
-/file.txt
 /Client.class
 /Server.class
 /ServerRouter.class
+/TranslationServer.class
+/file.txt
