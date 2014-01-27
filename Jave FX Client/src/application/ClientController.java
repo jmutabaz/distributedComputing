@@ -10,7 +10,6 @@ import javafx.stage.FileChooser;
 
 public class ClientController {
 
-	FXML
 	/*@FXML
 	public void connect(ActionEvent event){
 		if (setup){
@@ -60,7 +59,6 @@ public class ClientController {
         	}
         }
 		return false;
-	}
 	}*/
 	
 }
