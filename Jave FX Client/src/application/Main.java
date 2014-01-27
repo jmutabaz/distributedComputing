@@ -12,8 +12,12 @@ import javafx.scene.layout.BorderPane;
 
 public class Main extends Application {
 	
-	final 	static 	String 					ROUTERWINDOW 		= "serverRouterWindow";
-	final 	static 	String 					ROUTERWINDOW_FXML 	= "serverRouterWindow.fxml";
+	final 	static 	String 					ROUTERWINDOW 		= "routerWindow";
+	final 	static 	String 					ROUTERWINDOW_FXML 	= "routerWindow.fxml";
+	final 	static 	String 					SERVERWINDOW 		= "serverWindow";
+	final 	static 	String 					SERVERWINDOW_FXML 	= "serverWindow.fxml";
+	final 	static 	String 					CLIENTWINDOW 		= "clientWindow";
+	final 	static 	String 					CLIENTWINDOW_FXML 	= "clientWindow.fxml";
 	final 	static 	String 					START_MENU 			= "startMenu";
 	final 	static 	String 					START_MENU_FXML		= "startMenu.fxml";
 	//final 	static 	String 					EXIT_MENU 			= "exit";
@@ -29,13 +33,14 @@ public class Main extends Application {
 	@Override
 	public void start(Stage primaryStage) {
 		PRIMARYSTAGE_STAGE = primaryStage;
-		boolean routerLoad, startLoad, exitLoad;
+		boolean routerLoad, startLoad, clientLoad, serverLoad;
 		ScreensController mainContainer = new ScreensController();
 		System.out.println("toStringcall::: " + mainContainer.toString());
 		
 		routerLoad 	= mainContainer.loadScreen(Main.ROUTERWINDOW, Main.ROUTERWINDOW_FXML);
+		serverLoad = mainContainer.loadScreen(Main.SERVERWINDOW, SERVERWINDOW_FXML);
+		clientLoad = mainContainer.loadScreen(CLIENTWINDOW, CLIENTWINDOW_FXML);
 		startLoad	= mainContainer.loadScreen(Main.START_MENU, Main.START_MENU_FXML);
-//		exitLoad 	= mainContainer.loadScreen(Main.EXIT_MENU, Main.EXIT_MENU_FXML);
 		
 		System.out.println("toStringcall::: " + mainContainer.toString());
 		System.out.println("game loaded? " + routerLoad + " startLoaded? " + startLoad); // + " exitLoaded? " + exitLoad);
