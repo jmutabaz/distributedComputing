@@ -12,6 +12,11 @@ public class Server extends Thread {
 	private String _routerName;
 	private int _sockNum;
 	private String _destinationIP;
+	
+	public String _message;
+	public boolean _flag = false;
+	public boolean _kill = false;
+	public String _report = null;
 
 	public Server(String routerName, int sockNum, String destinationIP) throws SocketException{
 		_routerName = routerName;
@@ -30,13 +35,29 @@ public class Server extends Thread {
 			out = new PrintWriter(Socket.getOutputStream(), true);
 			in = new BufferedReader(new InputStreamReader(Socket.getInputStream()));
 		} 
-		catch (UnknownHostException e) {
-			//throw new SocketException("Don't know about router: " + _routerName);
-			System.exit(1);
+		catch (UnknownHostException e1) {
+			_message = "Don't know about router: " + _routerName + ".";
+			_flag = true;
+			while(!_kill){
+				try {
+					Thread.sleep(100);
+				} catch (InterruptedException ex) {
+					//e1.printStackTrace();
+				}
+			}
+			return;
 		} 
-		catch (IOException e) {
-			//throw new SocketException("Couldn't get I/O for the connection.");
-			System.exit(1);
+		catch (IOException e1) {
+			_message = "Couldn't get I/O for the connection.";
+			_flag = true;
+			while(!_kill){
+				try {
+					Thread.sleep(100);
+				} catch (InterruptedException ex) {
+					//e1.printStackTrace();
+				}
+			}
+			return;
 		}
 
 		try{
@@ -47,16 +68,18 @@ public class Server extends Thread {
 			// Communication process (initial sends/receives)
 			out.println(_destinationIP);// initial send (IP of the destination Client)
 			fromClient = in.readLine();// initial receive from router (verification of connection)
-			System.out.println("ServerRouter: " + fromClient);
+			report("ServerRouter: " + fromClient);
 
 			// Communication while loop
 			while ((fromClient = in.readLine()) != null) {
-				System.out.println("Client said: " + fromClient);
+				report("Client said: " + fromClient);
 				fromServer = fromClient.toUpperCase(); // converting received message to upper case
-				System.out.println("Server said: " + fromServer);
+				report("Server said: " + fromServer);
 				out.println(fromServer); // sending the converted message back to the Client via ServerRouter
-				if (fromClient.equals("Bye.")) // exit statement
+				if (fromClient.equals("Bye.")){ // exit statement
+					report("Connection Ended.");
 					break;
+				}
 			}
 			out.close();
 			in.close();
@@ -64,7 +87,18 @@ public class Server extends Thread {
 
 		}catch(Exception e){
 			//throw new SocketException("Error Sending Data.");
-			System.exit(1);
+			return;
+		}
+	}
+	
+	public void report(String mesg){
+		_report = mesg;
+		while(mesg != null){
+			try {
+				Thread.sleep(100);
+			} catch (InterruptedException e1) {
+				//e1.printStackTrace();
+			}
 		}
 	}
 }

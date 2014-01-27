@@ -24,7 +24,8 @@ public class StartUp {
 			System.out.println("|   What Would You Like To Do?          ");
 			System.out.println("|     1) Start Listening...             ");
 			System.out.println("|     2) Send Message...                ");
-			System.out.println("|     3) Exit...                        ");
+			System.out.println("|     3) Start Server Router...         ");
+			System.out.println("|     4) Exit...                        ");
 			System.out.print("| Please Enter Choice Here-> ");
 
 			//Read in the input into int choice in the Try/Catch.
@@ -39,25 +40,28 @@ public class StartUp {
 			}
 			System.out.println("|");
 			//Show Starting Up Message.
-			if(choice == 1 || choice == 2)
+			if(choice >= 1 && choice <= 3)
 				System.out.println("| Starting Up...\n|");
 			//Break from here with the menu options.
 			SocketClient cli = new SocketClient();
 			switch(choice){
 			case 1:
-				cli.RunClient();
+				System.out.println("| " + cli.RunServer() + "\n|");
 				break;
 			case 2:
-				cli.RunServer();
+				System.out.println("| " + cli.RunClient() + "\n|");
 				break;
 			case 3:
-				//Exit.
+				cli.RunServerRouter();
+				break;
+			case 4:
+				//Exit
 				break;
 			default:
 				//All Others.
 				System.out.println("| Invalid Option.\n");
 			}
-		}while(choice != 3);
+		}while(choice != 4);
 
 		/*
 		SThread x = new SThread();
