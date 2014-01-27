@@ -96,12 +96,8 @@ public class Client extends Thread {
 			out.println(_destinationIP);// initial send (IP of the destination Server)
 			fromServer = in.readLine();//initial receive from router (verification of connection)
 			report("ServerRouter: " + fromServer);
-			//Thread.sleep(1000);
 			out.println(host); // Client sends the IP of its machine as initial send
 			t0 = System.currentTimeMillis();
-
-			//Thread.sleep(3000);
-			//System.out.println("Sending file stuffsssss");
 
 			// Communication while loop
 			while ((fromServer = in.readLine()) != null) {
@@ -122,11 +118,11 @@ public class Client extends Thread {
 				}
 			}
 			// closing connections
-			_kill = true;
 			out.close();
 			in.close();
 			fromFile.close();
 			Socket.close();
+			_kill = true;
 		}catch(Exception e){
 			_message = "Sending Error: " + e.toString() + ".";
 			_flag = true;

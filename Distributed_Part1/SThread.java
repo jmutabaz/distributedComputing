@@ -10,17 +10,31 @@ public class SThread extends Thread
 	private BufferedReader in; // reader (for reading from the machine connected to)
 	private String inputLine, outputLine, destination, addr; // communication strings
 	private Socket outSocket; // socket for communicating with a destination
-	private int ind; // index in the routing table
+	public int ind; // index in the routing table
 
-	SThread(Object [][] Table, Socket toClient, int index) throws IOException
+	SThread(Object [][] Table) throws IOException
 	{
-		out = new PrintWriter(toClient.getOutputStream(), true);
-		in = new BufferedReader(new InputStreamReader(toClient.getInputStream()));
 		RTable = Table;
-		addr = toClient.getInetAddress().getHostAddress();
+	}
+	
+	public int insertSocket(Socket connection, int index) throws IOException{
+		out = new PrintWriter(connection.getOutputStream(), true);
+		in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+		addr = connection.getInetAddress().getHostAddress();
+		boolean found = false;
+		for(int i = 0; i < RTable.length; i++){
+			if(RTable[i][0] == addr){
+				if(!((Socket)RTable[i][1]).isConnected()){
+					return 0;
+				}else{
+					RTable[i][1] = connection;
+					return 0;
+				}
+			}
+		}
 		RTable[index][0] = addr; // IP addresses 
-		RTable[index][1] = toClient; // sockets for communication
-		ind = index;
+		RTable[index][1] = connection; // sockets for communication
+		return 1;
 	}
 
 	// Run method (will run for each machine that connects to the ServerRouter)
@@ -56,7 +70,7 @@ public class SThread extends Thread
 				if ( outSocket != null){				
 					outTo.println(outputLine); // writes to the destination
 				}
-				if (inputLine.equals("Bye.") || inputLine.equals("BYE.")) // exit statement
+				if (inputLine.equals("Bye.")) // exit statement
 					break;
 			}// end while		 
 		}// end try

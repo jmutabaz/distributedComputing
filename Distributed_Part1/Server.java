@@ -81,11 +81,10 @@ public class Server extends Thread {
 					break;
 				}
 			}
-			_kill = true;
 			out.close();
 			in.close();
 			Socket.close();
-
+			_kill = true;
 		}catch(Exception e){
 			//throw new SocketException("Error Sending Data.");
 			return;

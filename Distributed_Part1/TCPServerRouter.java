@@ -25,8 +25,8 @@ public class TCPServerRouter {
 		{
 			try {
 				clientSocket = serverSocket.accept();
-				SThread t = new SThread(RoutingTable, clientSocket, ind); // creates a thread with a random port
-				t.start(); // starts the thread
+				//SThread t = new SThread(RoutingTable, clientSocket, ind); // creates a thread with a random port
+				//t.start(); // starts the thread
 				ind++; // increments the index
 				System.out.println("| ServerRouter Connection " + ind + " with Client/Server: " + clientSocket.getInetAddress().getHostAddress());
 			}
