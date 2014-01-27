@@ -42,12 +42,13 @@ public class StartUp {
 			if(choice == 1 || choice == 2)
 				System.out.println("| Starting Up...\n|");
 			//Break from here with the menu options.
+			SocketClient cli = new SocketClient();
 			switch(choice){
 			case 1:
-				runServer("");
+				cli.RunClient();
 				break;
 			case 2:
-				sendFile("");
+				cli.RunServer();
 				break;
 			case 3:
 				//Exit.

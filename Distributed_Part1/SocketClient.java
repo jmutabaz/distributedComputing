@@ -1,4 +1,6 @@
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.SocketException;
@@ -17,15 +19,80 @@ public class SocketClient extends Thread {
 	 * routing server.
 	 * 
 	 * Params:
+	 * 	None, values are ask for from command line.
+	 */
+	public void RunServer() throws SocketException{
+		try{
+			System.out.println("| Enter RouterName: ");
+			BufferedReader bufferRead = new BufferedReader(new InputStreamReader(System.in));
+			String routerName = bufferRead.readLine();
+			System.out.println("| Enter Port Number: ");
+			int sockNum = Integer.parseInt(bufferRead.readLine());
+			System.out.println("| Enter Destination IP: ");
+			String destinationIP = bufferRead.readLine();
+			
+			Server ser = new Server(routerName, sockNum, destinationIP);
+			ser.run();
+			
+			System.out.println("| Running... ");
+			
+			ser.join();
+		}
+		catch(Exception e)
+		{
+			throw new SocketException("Couldn't Run Server.");
+		}
+	}
+	
+	/*
+	 * Boots up a Server Thread to receive messages from the 
+	 * routing server.
+	 * 
+	 * Params:
 	 * 	routerName=IP of RouterServer.
 	 * 	SockNum=Socket Number to use to Connect to RouterServer.
 	 * 	DestinationIP=IP of Client.
 	 */
 	public void RunServer(String routerName, int sockNum, String destinationIP) throws SocketException{
-		Server ser = new Server(routerName, sockNum, destinationIP);
-		ser.run();
+		try{
+			Server ser = new Server(routerName, sockNum, destinationIP);
+			ser.run();
+			ser.join();
+		}catch(Exception e){
+			throw new SocketException("Couldn't Run Server.");
+		}
 	}
 
+	/*
+	 * Boots up a Client Thread to send messages to the 
+	 * routing server.
+	 * 
+	 * Params:
+	 * 	None, ask for them from command Line.
+	 */
+	public void RunClient() throws SocketException{
+		try{
+			System.out.println("| Enter RouterName: ");
+			BufferedReader bufferRead = new BufferedReader(new InputStreamReader(System.in));
+			String routerName = bufferRead.readLine();
+			System.out.println("| Enter Port Number: ");
+			int sockNum = Integer.parseInt(bufferRead.readLine());
+			System.out.println("| Enter Destination IP: ");
+			String destinationIP = bufferRead.readLine();
+			
+			Client cli = new Client(routerName, sockNum, destinationIP);
+			cli.run();
+			
+			System.out.println("| Running... ");
+			
+			cli.join();
+		}
+		catch(Exception e)
+		{
+			throw new SocketException("Couldn't Run Client.");
+		}
+	}
+	
 	/*
 	 * Boots up a Client Thread to send messages to the 
 	 * routing server.
@@ -36,8 +103,13 @@ public class SocketClient extends Thread {
 	 * 	DestinationIP=IP of Client.
 	 */
 	public void RunClient(String routerName, int sockNum, String destinationIP) throws SocketException{
-		Client cli = new Client(routerName, sockNum, destinationIP);
-		cli.run();
+		try{
+			Client cli = new Client(routerName, sockNum, destinationIP);
+			cli.run();
+			cli.join();
+		}catch(Exception e){
+			throw new SocketException("Couldn't Run Client");
+		}
 	}
 
 	public boolean RunServerRouter(String port, int numOfRowsInTable) throws SocketException{
