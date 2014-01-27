@@ -1,8 +1,5 @@
 import java.io.BufferedReader;
-import java.io.IOException;
 import java.io.InputStreamReader;
-import java.net.ServerSocket;
-import java.net.Socket;
 import java.net.SocketException;
 /*
  * This Class Is Meant to be a main Implementation for
@@ -36,6 +33,10 @@ public class SocketClient extends Thread {
 
 			System.out.println("| Running... ");
 
+			//This is the reporting and terminating means of the thread.
+			//._report is a filed that the Thread post messages to and
+			//._message is an error where ._flag indicates if there is 
+			// an error/
 			while(!ser._kill){
 				if(ser._flag)
 				{
@@ -73,6 +74,11 @@ public class SocketClient extends Thread {
 		try{
 			Server ser = new Server(routerName, sockNum, destinationIP);
 			ser.start();
+			
+			//This is the reporting and terminating means of the thread.
+			//._report is a filed that the Thread post messages to and
+			//._message is an error where ._flag indicates if there is 
+			// an error/
 			while(!ser._kill){
 				if(ser._flag)
 				{
@@ -116,6 +122,10 @@ public class SocketClient extends Thread {
 
 			System.out.println("| Running... ");
 			
+			//This is the reporting and terminating means of the thread.
+			//._report is a filed that the Thread post messages to and
+			//._message is an error where ._flag indicates if there is 
+			// an error/
 			while(!cli._kill){
 				if(cli._flag)
 				{
@@ -153,6 +163,11 @@ public class SocketClient extends Thread {
 		try{
 			Client cli = new Client(routerName, sockNum, destinationIP);
 			cli.start();
+			
+			//This is the reporting and terminating means of the thread.
+			//._report is a filed that the Thread post messages to and
+			//._message is an error where ._flag indicates if there is 
+			// an error/
 			while(!cli._kill){
 				if(cli._flag)
 				{
@@ -180,20 +195,40 @@ public class SocketClient extends Thread {
 	 * Params:
 	 * 	None. Ask for Data From Command Line.
 	 */
-	public void RunServerRouter() throws SocketException{
+	public String RunServerRouter() throws SocketException{
 		try{
 			System.out.print("| Enter Port Number: ");
 			BufferedReader bufferRead = new BufferedReader(new InputStreamReader(System.in));
-			String port = bufferRead.readLine();
-			System.out.println("| Enter Number of Connections: ");
+			int port = Integer.parseInt(bufferRead.readLine());
+			System.out.print("| Enter Number of Connections: ");
 			int numOfRowsInTable = Integer.parseInt(bufferRead.readLine());
 
 			ServerRouter router = new ServerRouter(port, numOfRowsInTable);
 			router.start();
+			
+			//This is the reporting and terminating means of the thread.
+			//._report is a filed that the Thread post messages to and
+			//._message is an error where ._flag indicates if there is 
+			// an error/
+			while(!router._kill){
+				if(router._flag)
+				{
+					String x = router._message;
+					router._kill = true;
+					return x;
+				}
+				if(router._report != null)
+				{
+					System.out.println("| " + router._report);
+					router._report = null;
+				}
+				Thread.sleep(100);
+			}
 
 			router.join();
+			return "Done.";
 		}catch(Exception e){
-
+			return "Couldn't Run ServerRouter.";
 		}
 	}
 
@@ -205,14 +240,34 @@ public class SocketClient extends Thread {
 	 *  numOfRowsInTable: Number of active connections to Server.
 	 *  
 	 */
-	public void RunServerRouter(String port, int numOfRowsInTable) throws SocketException{
+	public String RunServerRouter(int port, int numOfRowsInTable) throws SocketException{
 		try{
+			//Starts a Thread Class ServerRouter.
 			ServerRouter router = new ServerRouter(port, numOfRowsInTable);
 			router.start();
-
+			
+			//This is the reporting and terminating means of the thread.
+			//._report is a filed that the Thread post messages to and
+			//._message is an error where ._flag indicates if there is 
+			// an error/
+			while(!router._kill){
+				if(router._flag)
+				{
+					String x = router._message;
+					router._kill = true;
+					return x;
+				}
+				if(router._report != null)
+				{
+					System.out.println("| " + router._report);
+					router._report = null;
+				}
+				Thread.sleep(100);
+			}
 			router.join();
+			return "Done.";
 		}catch(Exception ex){
-
+			return "Failed To Run ServerRouter.";
 		}
 	}
 }

@@ -130,14 +130,6 @@ public class Client extends Thread {
 			_message = "Sending Error: " + e.toString() + ".";
 			_flag = true;
 		}
-		
-		while(!_kill){
-			try {
-				Thread.sleep(100);
-			} catch (InterruptedException e1) {
-				//e1.printStackTrace();
-			}
-		}
 		return;
 	}
 	

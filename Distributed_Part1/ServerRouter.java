@@ -1,15 +1,19 @@
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.net.SocketException;
 
 
 public class ServerRouter extends Thread {
 	
-	String _port;
-	int _numOfRowsInTable;
+	private int _port;
+	private int _numOfRowsInTable;
 	
-	public ServerRouter(String port, int numOfRowsInTable){
+	public String _message;
+	public boolean _flag = false;
+	public boolean _kill = false;
+	public String _report = null;
+	
+	public ServerRouter(int port, int numOfRowsInTable){
 		_port = port;
 		_numOfRowsInTable = numOfRowsInTable;
 	}
@@ -18,18 +22,25 @@ public class ServerRouter extends Thread {
 		try{
 			Socket clientSocket = null; // socket for the thread
 			Object [][] RoutingTable = new Object [_numOfRowsInTable][2]; // routing table
-			int SockNum = 5555; // port number
 			Boolean Running = true;
 			int ind = 0; // index in the routing table	
 
 			//Accepting connections
 			ServerSocket serverSocket = null; // server socket for accepting connections
 			try {
-				serverSocket = new ServerSocket(SockNum);
-				System.out.println("| ServerRouter is Listening on port: " + SockNum + ".");
+				serverSocket = new ServerSocket(_port);
+				report("ServerRouter is Listening on port: " + _port + ".");
 			}
 			catch (IOException e) {
-				//System.err.println("| Could not listen on port: " + SockNum + ".\nReason: " + e.toString());
+				_message = "Could not listen on port: " + _port + ".";
+				_flag = true;
+				while(!_kill){
+					try {
+						Thread.sleep(100);
+					} catch (InterruptedException ex) {
+						//e1.printStackTrace();
+					}
+				}
 				return;
 			}
 
@@ -41,10 +52,10 @@ public class ServerRouter extends Thread {
 					SThread t = new SThread(RoutingTable, clientSocket, ind); // creates a thread with a random port
 					t.start(); // starts the thread
 					ind++; // increments the index
-					System.out.println("| ServerRouter Connection " + ind + " with Client/Server: " + clientSocket.getInetAddress().getHostAddress());
+					report("ServerRouter Connection " + ind + " with Client/Server: " + clientSocket.getInetAddress().getHostAddress());
 				}
 				catch (IOException e) {
-					System.err.println("| Client/Server failed to connect.");
+					report("Client/Server failed to connect.");
 					//return false;
 				}
 			}//end while
@@ -53,8 +64,27 @@ public class ServerRouter extends Thread {
 			clientSocket.close();
 			serverSocket.close();
 		}catch(Exception e){
-			//throw new SocketException(e.toString());
+			_message = "Failed To Run.";
+			_flag = true;
+			while(!_kill){
+				try {
+					Thread.sleep(100);
+				} catch (InterruptedException ex) {
+					//e1.printStackTrace();
+				}
+			}
 			return;
+		}
+	}
+	
+	public void report(String mesg){
+		_report = mesg;
+		while(mesg != null){
+			try {
+				Thread.sleep(100);
+			} catch (InterruptedException e1) {
+				//e1.printStackTrace();
+			}
 		}
 	}
 }

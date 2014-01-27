@@ -52,7 +52,7 @@ public class StartUp {
 				System.out.println("| " + cli.RunClient() + "\n|");
 				break;
 			case 3:
-				cli.RunServerRouter();
+				System.out.println("| " + cli.RunServerRouter() + "\n|");
 				break;
 			case 4:
 				//Exit
@@ -63,19 +63,6 @@ public class StartUp {
 			}
 		}while(choice != 4);
 
-		/*
-		SThread x = new SThread();
-		x.start();
-		while(!x.reportIfMessage())
-		{
-			Thread.sleep(1000);
-		}
-		System.out.println("| Has Message!!!!!");
-		//x.stop();
-		System.out.println("| Message: " + x.reportMessage());
-		x.join();
-		 */
-
 		//Print Out Finishing Message.
 		System.out.println("|\n.---------------------------------------.");
 		System.out.println("| Thanks for Using Our Program!         |");
@@ -83,25 +70,4 @@ public class StartUp {
 		System.out.println("|      Exiting Now...                   |");
 		System.out.println("'---------------------------------------'");
 	}
-
-	public static void sendFile(String x){
-		SocketClient cli = new SocketClient();
-		try{
-			cli.RunClient("l3lawns.com", 5555, "10.0.0.14");
-		}
-		catch(SocketException e){
-			System.out.println("| " + e.toString());
-		}
-	}
-	
-	public static void runServer(String x){
-		SocketClient cli = new SocketClient();
-		try{
-			cli.RunServer("l3lawns.com", 5555, "10.0.0.14");
-		}
-		catch(SocketException e){
-			System.out.println("| " + e.toString());
-		}
-	}
-
 }
