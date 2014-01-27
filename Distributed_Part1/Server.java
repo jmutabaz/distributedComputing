@@ -81,6 +81,7 @@ public class Server extends Thread {
 					break;
 				}
 			}
+			_kill = true;
 			out.close();
 			in.close();
 			Socket.close();

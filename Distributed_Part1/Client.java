@@ -122,6 +122,7 @@ public class Client extends Thread {
 				}
 			}
 			// closing connections
+			_kill = true;
 			out.close();
 			in.close();
 			fromFile.close();
