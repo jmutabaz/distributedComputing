@@ -28,19 +28,12 @@ import javafx.stage.FileChooser;
 
 public class StartMenuController implements Initializable, ControlledScreen {
 	ScreensController myController;
-	
-	@FXML 	TextField	serverIPAddressField;
-	@FXML	TextField	serverRouterIPAddressField;
-	@FXML	TextField	clientIPAddressField;
-	@FXML	TextField	portsNumberField;
-	@FXML	Button		connecButton;
+
 	@FXML	Button		startAsServerButton;
 	@FXML	Button		startAsClientButton;
-	@FXML 	Label		errorMessagesLabel;
-	@FXML	Label		directionsLabel;
-	@FXML	Label		client1Label;
-	@FXML	Label		client2Label;
-	@FXML	Label		client3Label;
+	@FXML   Button 		startAsRouterButton;
+	@FXML 	Button		exitButton;
+
 	@FXML	Label		statusLabel;
 	
 	//non FXML variables
@@ -87,7 +80,17 @@ public class StartMenuController implements Initializable, ControlledScreen {
 		ser = null;
 		statusLabel.setText("Start as Client");
 	}
+	@FXML 
+	public void startAsRouter(ActionEvent event)
+	{
+		
+	}
 	
+	@FXML
+	public void exit(ActionEvent event)
+	{
+		
+	}
 	
 
 }
