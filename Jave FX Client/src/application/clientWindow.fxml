@@ -1,8 +1,47 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane xmlns:fx="http://javafx.com/fxml">
-	<!-- TODO Add Nodes -->
+<AnchorPane maxWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2">
+  <!-- TODO Add Nodes -->
+  <children>
+    <BorderPane layoutX="0.0" layoutY="7.0" prefHeight="600.0" prefWidth="800.0">
+      <center>
+        <Pane maxWidth="534.0" prefHeight="470.0" prefWidth="497.0" BorderPane.alignment="CENTER_LEFT">
+          <children>
+            <TextArea layoutX="5.0" layoutY="-5.0" prefHeight="461.0" prefWidth="489.9999000000025" wrapText="true" />
+          </children>
+        </Pane>
+      </center>
+      <left>
+        <Pane prefHeight="403.0" prefWidth="98.0" />
+      </left>
+      <right>
+        <Pane prefHeight="200.0" prefWidth="200.0">
+          <children>
+            <Label layoutX="29.0" layoutY="25.0" text="Routers:" />
+            <Label layoutX="37.0" layoutY="41.0" text="# of Routers" />
+            <Label layoutX="29.0" layoutY="167.0" text="Clients:" />
+            <Label layoutX="37.0" layoutY="180.0" text="#of Clients" />
+          </children>
+        </Pane>
+      </right>
+      <top>
+        <Pane prefHeight="130.0" prefWidth="800.0">
+          <children>
+            <Label layoutX="83.0" layoutY="31.0" prefHeight="-1.0" prefWidth="-1.0" text="Server" />
+            <TextField layoutX="479.0" layoutY="31.0" prefWidth="200.0" />
+            <TextField layoutX="479.0" layoutY="79.0" prefWidth="80.0" />
+            <Label layoutX="479.0" layoutY="14.0" prefWidth="-1.0" text="Server IP Address" />
+            <Label layoutX="479.0" layoutY="63.0" text="Port Number" />
+            <Button layoutX="597.0" layoutY="79.0" mnemonicParsing="false" text="Start Server" />
+            <Label layoutX="103.0" layoutY="108.0" text="Message Traffic" />
+          </children>
+        </Pane>
+      </top>
+    </BorderPane>
+  </children>
 </AnchorPane>
-
