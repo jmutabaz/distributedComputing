@@ -65,20 +65,12 @@ public class StartMenuController implements Initializable, ControlledScreen {
 	
 	@FXML
 	public void startAsServer(ActionEvent event){
-		setup = true;
-		server = true;
-		ser = new TranslationServer();
-		cl = null;
-		statusLabel.setText("Start as Server");
+		myController.setScreen(Main.SERVERWINDOW);
 	}
 	
 	@FXML
 	public void startAsClient(ActionEvent event){
-		setup = true;
-		server = false;
-		cl = new SocketClient();
-		ser = null;
-		statusLabel.setText("Start as Client");
+		myController.setScreen(Main.CLIENTWINDOW);
 	}
 	@FXML 
 	public void startAsRouter(ActionEvent event)
