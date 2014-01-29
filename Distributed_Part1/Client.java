@@ -11,7 +11,7 @@ import java.net.UnknownHostException;
 
 
 public class Client extends Thread {
-
+//for update to try to fix
 	private String _routerName;
 	private int _sockNum;
 	private String _destinationIP;
