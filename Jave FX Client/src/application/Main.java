@@ -12,23 +12,23 @@ import javafx.scene.layout.BorderPane;
 
 public class Main extends Application {
 	
-	final 	static 	String 					ROUTERWINDOW 		= "routerWindow";
-	final 	static 	String 					ROUTERWINDOW_FXML 	= "routerWindow.fxml";
-	final 	static 	String 					SERVERWINDOW 		= "serverWindow";
-	final 	static 	String 					SERVERWINDOW_FXML 	= "serverWindow.fxml";
-	final 	static 	String 					CLIENTWINDOW 		= "clientWindow";
-	final 	static 	String 					CLIENTWINDOW_FXML 	= "clientWindow.fxml";
-	final 	static 	String 					START_MENU 			= "startMenu";
-	final 	static 	String 					START_MENU_FXML		= "startMenu.fxml";
+	final 	static 	String 						ROUTERWINDOW 		= "routerWindow";
+	final 	static 	String 						ROUTERWINDOW_FXML 	= "routerWindow.fxml";
+	final 	static 	String 						SERVERWINDOW 		= "serverWindow";
+	final 	static 	String 						SERVERWINDOW_FXML 	= "serverWindow.fxml";
+	final 	static 	String 						CLIENTWINDOW 		= "clientWindow";
+	final 	static 	String 						CLIENTWINDOW_FXML 	= "clientWindow.fxml";
+	final 	static 	String 						START_MENU 			= "startMenu";
+	final 	static 	String 						START_MENU_FXML		= "startMenu.fxml";
 	//final 	static 	String 					EXIT_MENU 			= "exit";
 	//final 	static 	String 					EXIT_MENU_FXML 		= "exitMenu.fxml";
-	        static	Stage					PRIMARYSTAGE_STAGE;
-	        static  Scene					mainScene;
-			static	Group					root;
-	public	static	StartMenuController		SMC;
-	public	static 	ChatWindowController	CWC;
+	        static	Stage						PRIMARYSTAGE_STAGE;
+	        static  Scene						mainScene;
+			static	Group						root;
+	public	static	StartMenuController			SMC;
+	public	static 	ClientController			CWC;
 	//public	static	ExitMenuController		EMC;
-	public  static	String					fileName;
+	public  static	String						fileName;
 	
 	@Override
 	public void start(Stage primaryStage) {
