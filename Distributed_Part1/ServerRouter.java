@@ -67,7 +67,7 @@ public class ServerRouter extends Thread {
 			//closing connections
 			clientSocket.close();
 			serverSocket.close();
-		}catch(Exception e){
+		} catch (Exception e){
 			_message = "Failed To Run.";
 			_flag = true;
 			while(!_kill){
