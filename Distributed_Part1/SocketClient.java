@@ -7,6 +7,9 @@ import java.net.SocketException;
  *  - Rhett - 1/24/2014
  */
 public class SocketClient extends Thread {
+	
+	public String _report = null;
+	
 	public SocketClient(){
 
 	}
@@ -70,7 +73,7 @@ public class SocketClient extends Thread {
 	 * 	SockNum=Socket Number to use to Connect to RouterServer.
 	 * 	DestinationIP=IP of Client.
 	 */
-	public String RunServer(String routerName, int sockNum, String destinationIP) throws SocketException{
+	public String RunServer(String routerName, int sockNum, String destinationIP, boolean GUI) throws SocketException{
 		try{
 			Server ser = new Server(routerName, sockNum, destinationIP);
 			ser.start();
@@ -88,13 +91,17 @@ public class SocketClient extends Thread {
 				}
 				if(ser._report != null)
 				{
-					System.out.println("| " + ser._report);
+					if(GUI){
+						report(ser._report);
+					} else {
+						System.out.println("| " + ser._report);
+					}
 					ser._report = null;
 				}
 				Thread.sleep(100);
 			}
 			ser.join();
-			return "Done.";
+			return null;
 		}catch(Exception e){
 			return "Couldn't Run Server.";
 		}
@@ -136,13 +143,12 @@ public class SocketClient extends Thread {
 				if(cli._report != null)
 				{
 					System.out.println("| " + cli._report);
-					cli._report = null;
 				}
 				Thread.sleep(100);
 			}
 
 			cli.join();
-			return "Done.";
+			return null;
 		}
 		catch(Exception e)
 		{
@@ -159,7 +165,7 @@ public class SocketClient extends Thread {
 	 * 	SockNum=Socket Number to use to Connect to RouterServer.
 	 * 	DestinationIP=IP of Client.
 	 */
-	public String RunClient(String routerName, int sockNum, String destinationIP) throws SocketException{
+	public String RunClient(String routerName, int sockNum, String destinationIP, boolean GUI) throws SocketException{
 		try{
 			Client cli = new Client(routerName, sockNum, destinationIP);
 			cli.start();
@@ -177,13 +183,17 @@ public class SocketClient extends Thread {
 				}
 				if(cli._report != null)
 				{
-					System.out.println("| " + cli._report);
+					if(GUI){
+						report(cli._report);
+					} else {
+						System.out.println("| " + cli._report);
+					}
 					cli._report = null;
 				}
 				Thread.sleep(100);
 			}
 			cli.join();
-			return "Done.";
+			return null;
 		}catch(Exception e){
 			return "Couldn't Run Client";
 		}
@@ -240,7 +250,7 @@ public class SocketClient extends Thread {
 	 *  numOfRowsInTable: Number of active connections to Server.
 	 *  
 	 */
-	public String RunServerRouter(int port, int numOfRowsInTable) throws SocketException{
+	public String RunServerRouter(int port, int numOfRowsInTable, boolean GUI) throws SocketException{
 		try{
 			//Starts a Thread Class ServerRouter.
 			ServerRouter router = new ServerRouter(port, numOfRowsInTable);
@@ -259,15 +269,28 @@ public class SocketClient extends Thread {
 				}
 				if(router._report != null)
 				{
-					System.out.println("| " + router._report);
+					if(GUI){
+						report(router._report);
+					}else{
+						System.out.println("| " + router._report);
+					}
 					router._report = null;
 				}
 				Thread.sleep(100);
 			}
 			router.join();
-			return "Done.";
+			return null;
 		}catch(Exception ex){
 			return "Failed To Run ServerRouter.";
+		}
+	}
+	
+	public void report(String mesg){
+		_report = mesg;
+		while(_report != null){
+			try {
+				Thread.sleep(100);
+			} catch (InterruptedException e1) { }
 		}
 	}
 }

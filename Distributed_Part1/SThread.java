@@ -1,7 +1,5 @@
 import java.io.*;
 import java.net.*;
-import java.lang.Exception;
-
 
 public class SThread extends Thread 
 {
@@ -81,6 +79,5 @@ public class SThread extends Thread
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
 	}
 }

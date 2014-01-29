@@ -43,9 +43,7 @@ public class Client extends Thread {
 			while(!_kill){
 				try {
 					Thread.sleep(100);
-				} catch (InterruptedException ex) {
-					//e1.printStackTrace();
-				}
+				} catch (InterruptedException ex) {	}
 			}
 			return;
 		}
@@ -64,9 +62,7 @@ public class Client extends Thread {
 			while(!_kill){
 				try {
 					Thread.sleep(100);
-				} catch (InterruptedException e1) {
-					//e1.printStackTrace();
-				}
+				} catch (InterruptedException e1) {	}
 			}
 			return;
 		} 
@@ -76,9 +72,7 @@ public class Client extends Thread {
 			while(!_kill){
 				try {
 					Thread.sleep(100);
-				} catch (InterruptedException e1) {
-					//e1.printStackTrace();
-				}
+				} catch (InterruptedException e1) {	}
 			}
 			return;
 		}
@@ -135,9 +129,7 @@ public class Client extends Thread {
 		while(_report != null){
 			try {
 				Thread.sleep(100);
-			} catch (InterruptedException e1) {
-				//e1.printStackTrace();
-			}
+			} catch (InterruptedException e1) { }
 		}
 	}
 }
