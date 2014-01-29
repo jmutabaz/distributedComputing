@@ -21,5 +21,18 @@ public class ServerController implements Initializable, ControlledScreen {
 		
 		messageArea.setText("Awesome ninja");
 	}
+
+	@Override
+	public void setScreenParent(ScreensController screenPage) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void initialize(URL location, ResourceBundle resources) {
+		// TODO Auto-generated method stub
+		
+	}
+
 	
 }
