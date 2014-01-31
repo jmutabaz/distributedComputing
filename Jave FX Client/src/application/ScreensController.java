@@ -142,16 +142,6 @@ public class ScreensController  extends StackPane {
                         new KeyFrame(new Duration(2500), new KeyValue(opacity, 1.0)));
                 fadeIn.play();
             }
-            if (name == Main.START_MENU){
-            	
-            	System.out.println("start menu");
-            }
-            
-            /*if (name == Main.EXIT_MENU){
-            	System.out.println("EXIT menu from screens controller" + Main.root.toString());
-            	
-            	
-            }*/
             
             return true;
         } else {

@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane minHeight="300.0" minWidth="600.0" prefHeight="300.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="application.StartMenuController">
+<AnchorPane fx:id="rootScreenAnchorPane" minHeight="300.0" minWidth="600.0" prefHeight="300.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="application.StartMenuController">
   <!-- TODO Add Nodes -->
   <children>
     <Label layoutX="80.0" layoutY="55.0" text="Chat Client DIstributed Computing CS4253 Spring 2014" />
