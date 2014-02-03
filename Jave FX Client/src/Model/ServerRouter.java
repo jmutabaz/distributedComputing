@@ -84,14 +84,13 @@ public class ServerRouter extends Thread {
 		}
 	}
 	
-	public void report(String mesg){
-		_report = mesg;
-		while(_report != null){
-			try {
-				Thread.sleep(100);
-			} catch (InterruptedException e1) {
-				//e1.printStackTrace();
-			}
-		}
+	private void report(String mesg){
+		_report += mesg + "\n";
+	}
+	
+	public String getReport(){
+		String rep = _report;
+		_report = "";
+		return rep;
 	}
 }

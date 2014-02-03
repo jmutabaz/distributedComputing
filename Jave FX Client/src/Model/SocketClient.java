@@ -16,6 +16,8 @@ public class SocketClient extends Thread {
 	public String _report = "";
 	public String _MyIP;
 	
+	private Thread _cc;
+	
 	public SocketClient(){
 		InetAddress addr;
 		try {
@@ -130,25 +132,7 @@ public class SocketClient extends Thread {
 			//._report is a filed that the Thread post messages to and
 			//._message is an error where ._flag indicates if there is 
 			// an error/
-			while(!router._kill){
-				if(router._flag)
-				{
-					String x = router._message;
-					router._kill = true;
-					return x;
-				}
-				if(router._report != null)
-				{
-					if(GUI){
-						report(router._report);
-					}else{
-						System.out.println("| " + router._report);
-					}
-					router._report = null;
-				}
-				Thread.sleep(100);
-			}
-			router.join();
+			_cc = router;
 			return null;
 		}catch(Exception ex){
 			return "Failed To Run ServerRouter.";
@@ -160,9 +144,7 @@ public class SocketClient extends Thread {
 	}
 	
 	public String getReport(){
-		String rep = _report;
-		_report = "";
-		return rep;
+		return ((ServerRouter) _cc).getReport();
 	}
 	
 }
