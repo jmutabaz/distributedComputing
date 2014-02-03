@@ -1,7 +1,9 @@
 package Model;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
+import java.net.InetAddress;
 import java.net.SocketException;
+import java.net.UnknownHostException;
 
 import Model.ServerRouter;
 /*
@@ -12,9 +14,17 @@ import Model.ServerRouter;
 public class SocketClient extends Thread {
 	
 	public String _report = "";
+	public String _MyIP;
 	
 	public SocketClient(){
-
+		InetAddress addr;
+		try {
+			addr = InetAddress.getLocalHost();
+			_MyIP = addr.getHostAddress(); // Client machine's IP
+		} catch (UnknownHostException e1) {
+			_MyIP = "Unknown";
+		}
+		
 	}
 
 	/*
