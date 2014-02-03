@@ -78,7 +78,7 @@ public class RouterController implements Initializable, ControlledScreen{
 			public void run() {
 				Platform.runLater(new Runnable() {
 					public void run() {		
-						
+						messageArea.setWrapText(true);
 					}
 				});
 			}
