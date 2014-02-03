@@ -58,7 +58,16 @@ public class RouterController implements Initializable, ControlledScreen{
 			System.out.print("Entry not an Integer");
 			messageArea.setText("The port Number you entered does not conform to a standard Integer");
 			event.consume();
-		} 
+		}
+		
+		try{
+			sC = new SocketClient();
+			sC.RunServerRouter(portNumber, connectionNumber, true);
+		}catch(Exception ex){
+			System.out.print("Couldn't Start Server Router.");
+			messageArea.setText("Couldn't Start a Server Router.");
+			event.consume();
+		}
 	}
 	
 	@FXML
@@ -78,7 +87,7 @@ public class RouterController implements Initializable, ControlledScreen{
 			public void run() {
 				Platform.runLater(new Runnable() {
 					public void run() {		
-						
+						sC.getReport();
 					}
 				});
 			}
