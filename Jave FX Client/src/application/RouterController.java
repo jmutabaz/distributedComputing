@@ -68,6 +68,8 @@ public class RouterController implements Initializable, ControlledScreen{
 			messageArea.setText("Couldn't Start a Server Router.");
 			event.consume();
 		}
+		
+		init();
 	}
 	
 	@FXML
@@ -82,16 +84,17 @@ public class RouterController implements Initializable, ControlledScreen{
 	
 	public void init(){
 		//initialization varibles 
-		
+		routerIPAddressField.setText(null);
 		timer.schedule(new TimerTask() {
 			public void run() {
 				Platform.runLater(new Runnable() {
 					public void run() {		
-<<<<<<< HEAD
 						messageArea.setWrapText(true);
-=======
-						sC.getReport();
->>>>>>> 9e668dbff20db6cf199b70bd26cde251082675dc
+						
+						messageArea.appendText(sC.getReport());
+						if (routerIPAddressField.getText() == null){
+							//routerIPAddressField.setText();
+						}
 					}
 				});
 			}
