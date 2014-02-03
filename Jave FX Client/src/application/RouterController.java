@@ -84,21 +84,27 @@ public class RouterController implements Initializable, ControlledScreen{
 	
 	public void init(){
 		//initialization varibles 
+		timer = new Timer();
 		routerIPAddressField.setText(null);
+		messageArea.setWrapText(true);
 		timer.schedule(new TimerTask() {
 			public void run() {
 				Platform.runLater(new Runnable() {
 					public void run() {		
-						messageArea.setWrapText(true);
+						
 						
 						messageArea.appendText(sC.getReport());
 						if (routerIPAddressField.getText() == null){
-							//routerIPAddressField.setText();
+							routerIPAddressField.setText(sC._MyIP);
 						}
 					}
 				});
 			}
 		}, 0, 1);
+	}
+	
+	public void updateGUI(String message) {
+		
 	}
 	
 	@Override
