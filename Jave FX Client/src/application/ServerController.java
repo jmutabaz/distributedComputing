@@ -2,7 +2,6 @@ package application;
 
 import java.net.URL;
 import java.util.ResourceBundle;
-import Model.TranslationServer;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -31,8 +30,6 @@ public class ServerController implements Initializable, ControlledScreen {
 	private 			String 					clientIPAddressString;
 	private 			int 					portNumber;
 	private 			boolean 				setup 						= false;
-
-	private 			TranslationServer 		sr 							= new TranslationServer();
 
 	@FXML
 	public void startOrStopServer(ActionEvent event) {

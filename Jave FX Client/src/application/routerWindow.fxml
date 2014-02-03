@@ -51,12 +51,14 @@
                 <Font name="Arial Black" size="40.0" />
               </font>
             </Label>
-            <TextField fx:id="routerIPAddressField" editable="false" layoutX="559.0" layoutY="43.0" prefWidth="200.0" />
-            <TextField fx:id="portNumberField" layoutX="559.0" layoutY="84.0" prefWidth="79.0" />
-            <Label layoutX="559.0" layoutY="28.0" text="Router IP Address" />
-            <Label layoutX="559.0" layoutY="69.0" text="Port Number" />
+            <TextField fx:id="routerIPAddressField" editable="false" layoutX="475.0" layoutY="40.0" prefWidth="200.0" />
+            <TextField fx:id="portNumberField" layoutX="685.0" layoutY="40.0" prefWidth="79.0" />
+            <Label layoutX="475.0" layoutY="25.0" text="Router IP Address" />
+            <Label layoutX="685.0" layoutY="25.0" text="Port Number" />
             <Label layoutX="116.0" layoutY="108.0" text="Message Traffic" />
             <Button fx:id="startStopRouter" layoutX="675.0" layoutY="84.0" mnemonicParsing="false" onAction="#startOrStopRouter" text="Start Router" />
+            <TextField id="portNumberField" layoutX="475.0" layoutY="80.0" prefWidth="79.0" />
+            <Label layoutX="475.0" layoutY="65.0" text="Number of Connections" />
           </children>
         </Pane>
       </top>

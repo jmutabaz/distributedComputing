@@ -1,6 +1,7 @@
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.SocketException;
+
 /*
  * This Class Is Meant to be a main Implementation for
  * each server and client computer instance.

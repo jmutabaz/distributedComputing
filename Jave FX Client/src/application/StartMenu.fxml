@@ -15,5 +15,6 @@
     <Button fx:id="startAsServerButton" layoutX="257.0" layoutY="115.0" mnemonicParsing="false" onAction="#startAsServer" prefHeight="58.0" prefWidth="129.99990000000253" text="Start as Server" />
     <Button id="startAsClientButton" fx:id="startAsRouterButton" layoutX="434.0" layoutY="115.0" mnemonicParsing="false" onAction="#startAsRouter" prefHeight="58.0" prefWidth="130.0" text="Start as Router" />
     <Button fx:id="exitButton" layoutX="90.0" layoutY="212.0" mnemonicParsing="false" onAction="#exit" prefHeight="37.0" prefWidth="63.0" text="Exit" />
+    <Button fx:id="advancedButton" layoutX="460.0" layoutY="212.0" mnemonicParsing="false" onAction="#advanced" prefHeight="37.0" prefWidth="104.0" text="Normal" />
   </children>
 </AnchorPane>

@@ -1,84 +1,74 @@
 package Model;
 import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
 import java.io.InputStreamReader;
-import java.io.PrintWriter;
-import java.io.Reader;
-import java.net.InetAddress;
-import java.net.ServerSocket;
-import java.net.Socket;
 import java.net.SocketException;
-import java.net.UnknownHostException;
+
+import Model.ServerRouter;
 /*
  * This Class Is Meant to be a main Implementation for
  * each server and client computer instance.
  *  - Rhett - 1/24/2014
  */
-public class SocketClient {
-
+public class SocketClient extends Thread {
+	
+	public String _report = null;
+	
 	public SocketClient(){
 
 	}
 
 	/*
-	 * Boots up a Server to receive messages from the 
+	 * Boots up a Server Thread to receive messages from the 
 	 * routing server.
 	 * 
 	 * Params:
-	 * 	routerName=IP of RouterServer.
-	 * 	SockNum=Socket Number to use to Connect to RouterServer.
-	 * 	DestinationIP=IP of Client.
+	 * 	None, values are ask for from command line.
 	 */
-	public boolean RunServer(String routerName, int SockNum, String DestinationIP) throws SocketException{
-		// Variables for setting up connection and communicaton
-		Socket Socket = null; // socket to connect with ServerRouter
-		PrintWriter out = null; // for writing to ServerRouter
-		BufferedReader in = null; // for reading form ServerRouter		
-		// Tries to connect to the ServerRouter
-		try {
-			Socket = new Socket(routerName, SockNum);
-			out = new PrintWriter(Socket.getOutputStream(), true);
-			in = new BufferedReader(new InputStreamReader(Socket.getInputStream()));
-		} 
-		catch (UnknownHostException e) {
-			throw new SocketException("Don't know about router: " + routerName);
-		} 
-		catch (IOException e) {
-			throw new SocketException("Couldn't get I/O for the connection.");
-		}
-
+	public String RunServer() throws SocketException{
 		try{
-			// Variables for message passing			
-			String fromServer; // messages sent to ServerRouter
-			String fromClient; // messages received from ServerRouter      
+			System.out.print("| Enter RouterName: ");
+			BufferedReader bufferRead = new BufferedReader(new InputStreamReader(System.in));
+			String routerName = bufferRead.readLine();
+			System.out.print("| Enter Port Number: ");
+			int sockNum = Integer.parseInt(bufferRead.readLine());
+			System.out.print("| Enter Destination IP: ");
+			String destinationIP = bufferRead.readLine();
 
-			// Communication process (initial sends/receives)
-			out.println(DestinationIP);// initial send (IP of the destination Client)
-			fromClient = in.readLine();// initial receive from router (verification of connection)
-			System.out.println("ServerRouter: " + fromClient);
+			Server ser = new Server(routerName, sockNum, destinationIP);
+			ser.start();
 
-			// Communication while loop
-			while ((fromClient = in.readLine()) != null) {
-				System.out.println("Client said: " + fromClient);
-				fromServer = fromClient.toUpperCase(); // converting received message to upper case
-				System.out.println("Server said: " + fromServer);
-				out.println(fromServer); // sending the converted message back to the Client via ServerRouter
-				if (fromClient.equals("Bye.")) // exit statement
-					break;
+			System.out.println("| Running... ");
+
+			//This is the reporting and terminating means of the thread.
+			//._report is a filed that the Thread post messages to and
+			//._message is an error where ._flag indicates if there is 
+			// an error/
+			while(!ser._kill){
+				if(ser._flag)
+				{
+					String x = ser._message;
+					ser._kill = true;
+					return x;
+				}
+				if(ser._report != null)
+				{
+					System.out.println("| " + ser._report);
+					ser._report = null;
+				}
+				Thread.sleep(100);
 			}
-			out.close();
-			in.close();
-			Socket.close();
 
-		}catch(Exception e){
-			throw new SocketException("Error Sending Data.");
+			ser.join();
+			return "Done.";
 		}
-		return true;
+		catch(Exception e)
+		{
+			return "Couldn't Run Server.";
+		}
 	}
 
 	/*
-	 * Boots up a Client to send messages to the 
+	 * Boots up a Server Thread to receive messages from the 
 	 * routing server.
 	 * 
 	 * Params:
@@ -86,124 +76,228 @@ public class SocketClient {
 	 * 	SockNum=Socket Number to use to Connect to RouterServer.
 	 * 	DestinationIP=IP of Client.
 	 */
-	public boolean RunClient(String routerName, int SockNum, String DestinationIP, String fileName) throws SocketException{
-		// Variables for setting up connection and communication
-		Socket Socket = null; // socket to connect with ServerRouter
-		PrintWriter out = null; // for writing to ServerRouter
-		BufferedReader in = null; // for reading form ServerRouter
-		InetAddress addr;
-		String host = "";
-		try {
-			addr = InetAddress.getLocalHost();
-			host = addr.getHostAddress(); // Client machine's IP
-		} catch (UnknownHostException e1) {
-			System.out.println(" unk exception ");
-			throw new SocketException(e1.toString());
-		}
-		//String routerName = "192.168.1.6"; // ServerRouter host name
-		//int SockNum = 5555; // port number
-
-		// Tries to connect to the ServerRouter
-		try {
-			Socket = new Socket(routerName, SockNum);
-			out = new PrintWriter(Socket.getOutputStream(), true);
-			in = new BufferedReader(new InputStreamReader(Socket.getInputStream()));
-		} 
-		catch (UnknownHostException e) {
-			throw new SocketException("Don't know about router: " + routerName + ".");
-		} 
-		catch (IOException e) {
-			throw new SocketException("Couldn't get I/O for the connection.");
-		}
-
+	public String RunServer(String routerName, int sockNum, String destinationIP, boolean GUI) throws SocketException{
 		try{
-			// Variables for message passing	
-			Reader reader = new FileReader(fileName); 
-			BufferedReader fromFile =  new BufferedReader(reader); // reader for the string file
-			String fromServer; // messages received from ServerRouter
-			String fromUser; // messages sent to ServerRouter
-			String address = DestinationIP; // destination IP (Server)
-			long t0, t1, t;
-
-			// Communication process (initial sends/receives
-			out.println(address);// initial send (IP of the destination Server)
-			fromServer = in.readLine();//initial receive from router (verification of connection)
-			System.out.println("ServerRouter: " + fromServer);
-			//Thread.sleep(1000);
-			out.println(host); // Client sends the IP of its machine as initial send
-			t0 = System.currentTimeMillis();
-
-			//Thread.sleep(3000);
-			//System.out.println("Sending file stuffsssss");
-
-			// Communication while loop
-			while ((fromServer = in.readLine()) != null) {
-				System.out.println("Server: " + fromServer);
-				t1 = System.currentTimeMillis();
-				t = t1 - t0;
-				System.out.println("Cycle time: " + t);
-
-				fromUser = fromFile.readLine(); // reading strings from a file
-				if (fromUser != null) {
-					System.out.println("Client: " + fromUser);
-					out.println(fromUser); // sending the strings to the Server via ServerRouter
-					t0 = System.currentTimeMillis();
+			Server ser = new Server(routerName, sockNum, destinationIP);
+			ser.start();
+			
+			//This is the reporting and terminating means of the thread.
+			//._report is a filed that the Thread post messages to and
+			//._message is an error where ._flag indicates if there is 
+			// an error/
+			while(!ser._kill){
+				if(ser._flag)
+				{
+					String x = ser._message;
+					ser._kill = true;
+					return x;
 				}
-				if (fromServer.equals("Bye.") || fromServer.equals("BYE.")) // exit statement
-					break;
+				if(ser._report != null)
+				{
+					if(GUI){
+						report(ser._report);
+					} else {
+						System.out.println("| " + ser._report);
+					}
+					ser._report = null;
+				}
+				Thread.sleep(100);
 			}
-
-			// closing connections
-			out.close();
-			in.close();
-			Socket.close();
+			ser.join();
+			return null;
 		}catch(Exception e){
-			throw new SocketException("Sending Error: " + e.toString() + ".");
+			return "Couldn't Run Server.";
 		}
-		return true;
 	}
 
-	public boolean RunServerRouter(String port, int numOfRowsInTable) throws SocketException{
+	/*
+	 * Boots up a Client Thread to send messages to the 
+	 * routing server.
+	 * 
+	 * Params:
+	 * 	None, ask for them from command Line.
+	 */
+	public String RunClient() throws SocketException{
 		try{
-			Socket clientSocket = null; // socket for the thread
-			Object [][] RoutingTable = new Object [numOfRowsInTable][2]; // routing table
-			int SockNum = 5555; // port number
-			Boolean Running = true;
-			int ind = 0; // index in the routing table	
+			System.out.print("| Enter RouterName: ");
+			BufferedReader bufferRead = new BufferedReader(new InputStreamReader(System.in));
+			String routerName = bufferRead.readLine();
+			System.out.print("| Enter Port Number: ");
+			int sockNum = Integer.parseInt(bufferRead.readLine());
+			System.out.print("| Enter Destination IP: ");
+			String destinationIP = bufferRead.readLine();
 
-			//Accepting connections
-			ServerSocket serverSocket = null; // server socket for accepting connections
-			try {
-				serverSocket = new ServerSocket(SockNum);
-				System.out.println("| ServerRouter is Listening on port: " + SockNum + ".");
-			}
-			catch (IOException e) {
-				System.err.println("| Could not listen on port: " + SockNum + ".\nReason: " + e.toString());
-				return false;
-			}
+			Client cli = new Client(routerName, sockNum, destinationIP);
+			cli.start();
 
-			// Creating threads with accepted connections
-			while (Running == true && ind < numOfRowsInTable)
-			{
-				try {
-					clientSocket = serverSocket.accept();
-					SThread t = new SThread(RoutingTable, clientSocket, ind); // creates a thread with a random port
-					t.start(); // starts the thread
-					ind++; // increments the index
-					System.out.println("| ServerRouter Connection " + ind + " with Client/Server: " + clientSocket.getInetAddress().getHostAddress());
+			System.out.println("| Running... ");
+			
+			//This is the reporting and terminating means of the thread.
+			//._report is a filed that the Thread post messages to and
+			//._message is an error where ._flag indicates if there is 
+			// an error/
+			while(!cli._kill){
+				if(cli._flag)
+				{
+					String x = cli._message;
+					cli._kill = true;
+					return x;
 				}
-				catch (IOException e) {
-					System.err.println("| Client/Server failed to connect.");
-					return false;
+				if(cli._report != null)
+				{
+					System.out.println("| " + cli._report);
 				}
-			}//end while
+				Thread.sleep(100);
+			}
 
-			//closing connections
-			clientSocket.close();
-			serverSocket.close();
-		}catch(Exception e){
-			throw new SocketException(e.toString());
+			cli.join();
+			return null;
 		}
-		return true;
+		catch(Exception e)
+		{
+			return "Couldn't Run Client.";
+		}
 	}
+
+	/*
+	 * Boots up a Client Thread to send messages to the 
+	 * routing server.
+	 * 
+	 * Params:
+	 * 	routerName=IP of RouterServer.
+	 * 	SockNum=Socket Number to use to Connect to RouterServer.
+	 * 	DestinationIP=IP of Client.
+	 */
+	public String RunClient(String routerName, int sockNum, String destinationIP, boolean GUI) throws SocketException{
+		try{
+			Client cli = new Client(routerName, sockNum, destinationIP);
+			cli.start();
+			
+			//This is the reporting and terminating means of the thread.
+			//._report is a filed that the Thread post messages to and
+			//._message is an error where ._flag indicates if there is 
+			// an error/
+			while(!cli._kill){
+				if(cli._flag)
+				{
+					String x = cli._message;
+					cli._kill = true;
+					return x;
+				}
+				if(cli._report != null)
+				{
+					if(GUI){
+						report(cli._report);
+					} else {
+						System.out.println("| " + cli._report);
+					}
+					cli._report = null;
+				}
+				Thread.sleep(100);
+			}
+			cli.join();
+			return null;
+		}catch(Exception e){
+			return "Couldn't Run Client";
+		}
+	}
+
+	/*
+	 * Boots up a ServerRouter Thread.
+	 * 
+	 * Params:
+	 * 	None. Ask for Data From Command Line.
+	 */
+	public String RunServerRouter() throws SocketException{
+		try{
+			System.out.print("| Enter Port Number: ");
+			BufferedReader bufferRead = new BufferedReader(new InputStreamReader(System.in));
+			int port = Integer.parseInt(bufferRead.readLine());
+			System.out.print("| Enter Number of Connections: ");
+			int numOfRowsInTable = Integer.parseInt(bufferRead.readLine());
+
+			ServerRouter router = new ServerRouter(port, numOfRowsInTable);
+			router.start();
+			
+			//This is the reporting and terminating means of the thread.
+			//._report is a filed that the Thread post messages to and
+			//._message is an error where ._flag indicates if there is 
+			// an error/
+			while(!router._kill){
+				if(router._flag)
+				{
+					String x = router._message;
+					router._kill = true;
+					return x;
+				}
+				if(router._report != null)
+				{
+					System.out.println("| " + router._report);
+					router._report = null;
+				}
+				Thread.sleep(100);
+			}
+
+			router.join();
+			return "Done.";
+		}catch(Exception e){
+			return "Couldn't Run ServerRouter.";
+		}
+	}
+
+	/*
+	 * Boots up a ServerRouter Thread.
+	 * 
+	 * Params:
+	 * 	port: Port Number to use.
+	 *  numOfRowsInTable: Number of active connections to Server.
+	 *  
+	 */
+	
+	
+	//
+	public String RunServerRouter(int port, int numOfRowsInTable, boolean GUI) throws SocketException{
+		try{
+			//Starts a Thread Class ServerRouter.
+			ServerRouter router = new ServerRouter(port, numOfRowsInTable);
+			router.start();
+			
+			//This is the reporting and terminating means of the thread.
+			//._report is a filed that the Thread post messages to and
+			//._message is an error where ._flag indicates if there is 
+			// an error/
+			while(!router._kill){
+				if(router._flag)
+				{
+					String x = router._message;
+					router._kill = true;
+					return x;
+				}
+				if(router._report != null)
+				{
+					if(GUI){
+						report(router._report);
+					}else{
+						System.out.println("| " + router._report);
+					}
+					router._report = null;
+				}
+				Thread.sleep(100);
+			}
+			router.join();
+			return null;
+		}catch(Exception ex){
+			return "Failed To Run ServerRouter.";
+		}
+	}
+	
+	public void report(String mesg){
+		_report += mesg + "";
+		
+	}
+	
 }
+
+
+
+

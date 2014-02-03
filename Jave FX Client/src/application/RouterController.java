@@ -1,8 +1,15 @@
 package application;
 
+import java.net.Socket;
+import java.net.SocketException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.Timer;
+import java.util.TimerTask;
 
+import Model.ServerRouter;
+import Model.SocketClient;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -23,14 +30,35 @@ public class RouterController implements Initializable, ControlledScreen{
 	@FXML		TextArea			numClientsArea;
 	@FXML		TextField			routerIPAddressField;
 	@FXML		TextField			portNumberField;
+	@FXML		TextField				connectionNumField;
 	@FXML		Label				numMessagesPassedlLabel;
+	
+	private		Timer				timer;
+	private 	int					portNumber,
+									connectionNumber;
+	private		SocketClient		sC;
 	
 	
 	@FXML
 	public void startOrStopRouter(ActionEvent event){
 		//start stop code for router goes here
 		messageArea.setText("Router Started");
+		try {
+			connectionNumber = Integer.parseInt(connectionNumField.getText());
+		} catch (Exception e) {
+			// TODO: handle exception
+			event.consume();
+		}
 		
+		
+		try {
+			portNumber =  Integer.parseInt(portNumberField.getText());
+			
+		} catch (NumberFormatException e) {
+			System.out.print("Entry not an Integer");
+			messageArea.setText("The port Number you entered does not conform to a standard Integer");
+			event.consume();
+		} 
 	}
 	
 	@FXML
@@ -40,6 +68,21 @@ public class RouterController implements Initializable, ControlledScreen{
 		Main.PRIMARYSTAGE_STAGE.setHeight(300);
 		myController.setScreen(Main.STARTMENU);
 		
+	}
+	
+	
+	public void init(){
+		//initialization varibles 
+		
+		timer.schedule(new TimerTask() {
+			public void run() {
+				Platform.runLater(new Runnable() {
+					public void run() {		
+						
+					}
+				});
+			}
+		}, 0, 1);
 	}
 	
 	@Override

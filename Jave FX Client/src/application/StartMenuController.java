@@ -8,11 +8,6 @@ package application;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-import com.sun.glass.ui.Platform;
-import com.sun.java.swing.plaf.windows.resources.windows;
-
-import Model.SocketClient;
-import Model.TranslationServer;
 import application.ControlledScreen;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -30,17 +25,12 @@ public class StartMenuController implements Initializable, ControlledScreen {
 	@FXML	Button		startAsClientButton;
 	@FXML   Button 		startAsRouterButton;
 	@FXML 	Button		exitButton;
+	@FXML	Button		advancedButton;
 	@FXML	Label		statusLabel;
 	
 	//non FXML variables
 	private boolean 			server 							= false; // defaults to client mode
-	private boolean				setup							= false;
-	private String 				serverRouterIPAddressString 	= null;
-	private String				serverIPAddressString			= null; 
-	private String				clientIPAddressString			= null;
 	private int					portNumber						= 0;
-	private TranslationServer	ser								= null;
-	private SocketClient		cl								= new SocketClient();
 	private String				fileNameString					= null;
 	private FileChooser 		fileChooser;
 	
@@ -86,6 +76,17 @@ public class StartMenuController implements Initializable, ControlledScreen {
 	@FXML
 	public void exit(ActionEvent event){
 		Main.PRIMARYSTAGE_STAGE.close();
+	}
+	
+	@FXML
+	public void advanced(ActionEvent event){
+		if (Main.advanced){
+			advancedButton.setText("Normal");
+			Main.advanced = false;
+		} else {
+			advancedButton.setText("Advanced");
+			Main.advanced = true;
+		}
 	}
 	
 

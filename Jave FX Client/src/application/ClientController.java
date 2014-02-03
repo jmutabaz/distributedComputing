@@ -95,7 +95,7 @@ public class ClientController implements Initializable, ControlledScreen {
 			fileNameString = file.getAbsolutePath();
         	System.out.println("filename = " + fileNameString);
         	if (Main.fileName != null){
-        		
+        		sendMessageButton.setVisible(true);
         		messageArea.setText("File : " + fileNameString + " Loaded");
         	}
         }
@@ -103,6 +103,7 @@ public class ClientController implements Initializable, ControlledScreen {
 	
 	public void sendMessage(ActionEvent event) {
 		// send the message
+		sendMessageButton.setVisible(false);
 	}
 
 	@FXML
@@ -122,5 +123,6 @@ public class ClientController implements Initializable, ControlledScreen {
 	public void initialize(URL location, ResourceBundle resources) {
 		rootScreenAnchorPane.setStyle("-fx-background-color: lightblue");
 		Main.CC = this;
+		sendMessageButton.setVisible(false);
 	}
 }

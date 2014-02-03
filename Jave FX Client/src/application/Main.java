@@ -33,6 +33,7 @@ public class Main extends Application {
 	public static RouterController RC;
 	// public static ExitMenuController EMC;
 	public static String fileName;
+	public static boolean advanced = false;
 
 	@Override
 	public void start(Stage primaryStage) {
