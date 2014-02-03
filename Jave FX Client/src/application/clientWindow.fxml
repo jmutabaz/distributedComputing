@@ -32,7 +32,7 @@
       <left>
         <Pane prefHeight="360.0" prefWidth="100.0">
           <children>
-            <Button fx:id="loadFilebButton" layoutX="22.0" layoutY="15.0" mnemonicParsing="false" onAction="#loadFile" text="Load File" />
+            <Button fx:id="loadFilebButton" layoutX="11.0" layoutY="15.0" mnemonicParsing="false" onAction="#loadFile" text="Load File" />
           </children>
         </Pane>
       </left>
