@@ -144,6 +144,7 @@ public class SocketClient extends Thread {
 				if(cli._report != null)
 				{
 					System.out.println("| " + cli._report);
+					cli._report = null;
 				}
 				Thread.sleep(100);
 			}
