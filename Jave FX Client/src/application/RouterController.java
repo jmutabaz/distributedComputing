@@ -138,7 +138,7 @@ public class RouterController implements Initializable, ControlledScreen{
 						
 						if (count == 1000){
 							messageString = sC.getReport();
-							System.out.print("\n messageString from socketCLient report :" + messageString);
+							//System.out.print("\n messageString from socketCLient report :" + messageString);
 							if (messageString != null){
 								System.out.print("\n messageString from socketCLient report :" + messageString);
 								messageString = "\n" + messageString;
