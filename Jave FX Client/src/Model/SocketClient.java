@@ -5,6 +5,7 @@ import java.net.InetAddress;
 import java.net.SocketException;
 import java.net.UnknownHostException;
 
+import application.Main;
 import Model.ServerRouter;
 /*
  * This Class Is Meant to be a main Implementation for
@@ -105,6 +106,9 @@ public class SocketClient extends Thread {
 						System.out.println("| " + cli._report);
 					}
 					cli._report = null;
+				} else {
+					cli._report = "No connection in router ";
+					Main.RC.updateGUI(_report);
 				}
 				Thread.sleep(100);
 			}
@@ -115,6 +119,8 @@ public class SocketClient extends Thread {
 		}
 	}
 
+	
+	
 	/*
 	 * Boots up a ServerRouter Thread.
 	 * 
@@ -133,7 +139,7 @@ public class SocketClient extends Thread {
 			//._message is an error where ._flag indicates if there is 
 			// an error/
 			_cc = router;
-			return null;
+			return "";
 		}catch(Exception ex){
 			return "Failed To Run ServerRouter.";
 		}

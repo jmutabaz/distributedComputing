@@ -2,10 +2,16 @@ package application;
 
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.Timer;
+import java.util.TimerTask;
+
+import Model.SocketClient;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
@@ -17,6 +23,7 @@ public class ServerController implements Initializable, ControlledScreen {
 	@FXML				AnchorPane 				rootScreenAnchorPane;
 	@FXML				Button 					startStopServerButton;
 	@FXML				Button 					exitButton;
+	@FXML				Label					myIPAddressLabel;
 	@FXML				TextArea 				messageArea;
 	@FXML				TextArea 				routerLogArea;
 	@FXML				TextArea 				clientLogArea;
@@ -28,8 +35,13 @@ public class ServerController implements Initializable, ControlledScreen {
 	private 			String 					routerIPAddressString;
 	private 			String 					serverIPAddressString;
 	private 			String 					clientIPAddressString;
-	private 			int 					portNumber;
+	private 			String 					messageString;
+	private				String					outsideSetMessageString;
 	private 			boolean 				setup 						= false;
+	private				Timer					timer;
+	private 			int						portNumber, count = 0, time = 0;
+	private				SocketClient			sC;
+		
 
 	@FXML
 	public void startOrStopServer(ActionEvent event) {
@@ -45,9 +57,11 @@ public class ServerController implements Initializable, ControlledScreen {
 				portNumber = Integer.parseInt(portNumField.getText());
 				portNumField.setEditable(false);
 				startStopServerButton.setText("Reset Server");
-				messageArea.appendText("Router IP = " + routerIPAddressString
+				messageString = "Router IP = " + routerIPAddressString
 						+ "\nClient IP address = " + clientIPAddressString
-						+ "\nPort Number = " + portNumber);
+						+ "\nPort Number = " + portNumber;
+				messageString += messageArea.getId();
+				messageArea.setText(messageString);
 				setup = true;
 			} catch (NumberFormatException e) {
 				messageArea.setText("Port Number must be a number between x - y");
@@ -75,6 +89,7 @@ public class ServerController implements Initializable, ControlledScreen {
 			startStopServerButton.setText("Start Server");
 			setup = false;
 		}
+		init();
 	}
 
 	@FXML
@@ -83,8 +98,48 @@ public class ServerController implements Initializable, ControlledScreen {
 		Main.PRIMARYSTAGE_STAGE.setWidth(600);
 		Main.PRIMARYSTAGE_STAGE.setHeight(300);
 		myController.setScreen(Main.STARTMENU);
+		timer.cancel();
+		timer = null;
 	}
-
+	
+	public void init(){
+		//initialization varibles 
+		timer = new Timer();
+		routerIPAddressField.setText(null);
+		messageArea.setWrapText(true);
+		timer.schedule(new TimerTask() {
+			public void run() {
+				Platform.runLater(new Runnable() {
+					public void run() {		
+						
+						
+						messageString = sC.getReport();
+						messageString += messageArea.getText();
+						messageArea.setText(messageString);
+						if (myIPAddressLabel.getText().equals("My IP Address:")){
+							routerIPAddressField.setText("My IP Address:" + sC._MyIP);
+						}
+						
+						if (count == 1000){
+							messageString = "\nTime in Seconds:  " + time;
+							messageString += messageArea.getText();
+							messageArea.setText(messageString);
+							count = 0;
+							time++;
+						}
+						count++;
+					}
+				});
+			}
+		}, 0, 1);
+	}
+	
+	public void updateGUI(String message) {
+		outsideSetMessageString = message;
+		outsideSetMessageString += messageArea.getText();
+		messageArea.setText(outsideSetMessageString);
+	}
+	
 	@Override
 	public void setScreenParent(ScreensController screenPage) {
 		System.out.println("setScreenParent server screen");

@@ -7,6 +7,9 @@ import java.util.ResourceBundle;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import org.omg.PortableInterceptor.SYSTEM_EXCEPTION;
+
+import sun.launcher.resources.launcher;
 import Model.ServerRouter;
 import Model.SocketClient;
 import javafx.application.Platform;
@@ -34,15 +37,16 @@ public class RouterController implements Initializable, ControlledScreen{
 	@FXML		Label				numMessagesPassedlLabel;
 	
 	private		Timer				timer;
-	private 	int					portNumber,
+	private 	int					portNumber, count = 0, time = 0,
 									connectionNumber;
+	private		String				messageString, outsideSetMessageString;
 	private		SocketClient		sC;
 	
 	
 	@FXML
 	public void startOrStopRouter(ActionEvent event){
 		//start stop code for router goes here
-		messageArea.setText("Router Started");
+		messageArea.setText("");
 		try {
 			connectionNumber = Integer.parseInt(connectionNumField.getText());
 		} catch (Exception e) {
@@ -69,6 +73,13 @@ public class RouterController implements Initializable, ControlledScreen{
 			event.consume();
 		}
 		
+		messageString = "\nRouter IP = " + sC._MyIP
+				+ "\nPort Number = " + portNumber
+				+ "\nConnections allowed = " + connectionNumber;
+		messageString += "\n" + messageArea.getId();
+		messageArea.setText(messageString);
+		
+		
 		init();
 	}
 	
@@ -78,6 +89,10 @@ public class RouterController implements Initializable, ControlledScreen{
 		Main.PRIMARYSTAGE_STAGE.setWidth(600);
 		Main.PRIMARYSTAGE_STAGE.setHeight(300);
 		myController.setScreen(Main.STARTMENU);
+		timer.cancel();
+		timer = null;
+		count = 0;
+		time = 0;
 		
 	}
 	
@@ -85,6 +100,8 @@ public class RouterController implements Initializable, ControlledScreen{
 	public void init(){
 		//initialization varibles 
 		timer = new Timer();
+		count = 0;
+		time = 0;
 		routerIPAddressField.setText(null);
 		messageArea.setWrapText(true);
 		timer.schedule(new TimerTask() {
@@ -92,19 +109,39 @@ public class RouterController implements Initializable, ControlledScreen{
 				Platform.runLater(new Runnable() {
 					public void run() {		
 						
-						
-						messageArea.appendText(sC.getReport());
+						//messageString = sC.getReport();
+						//System.out.print("\n messageString from socketCLient report :" + messageString);
+						/*if (!messageArea.equals("")){
+							System.out.print("\n messageString from socketCLient report :" + messageString);
+							messageString = "\n" + messageString;
+							messageString += "\n" + messageArea.getText();
+							messageArea.setText(messageString);
+						}*/
 						if (routerIPAddressField.getText() == null){
 							routerIPAddressField.setText(sC._MyIP);
 						}
+						
+						if (count == 1000){
+							messageString = "\nTime in Seconds:  " + time;
+							messageString += "\n" + messageArea.getText();
+							messageArea.setText(messageString);
+							count = 0;
+							time++;
+						}
+						count++;
 					}
 				});
 			}
 		}, 0, 1);
 	}
 	
+	
 	public void updateGUI(String message) {
-		
+		if (message != null){
+			outsideSetMessageString = "\nOUTSIDE MESSAGE\n" + message;
+			outsideSetMessageString += "\n" + messageArea.getText();
+			messageArea.setText(outsideSetMessageString);
+		}
 	}
 	
 	@Override

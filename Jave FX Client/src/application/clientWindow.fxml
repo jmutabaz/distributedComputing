@@ -65,6 +65,7 @@
             <Label layoutX="686.0" layoutY="17.0" text="Port Number" />
             <Label layoutX="103.0" layoutY="103.0" text="Message Traffic" />
             <Label layoutX="479.0" layoutY="62.0" prefWidth="-1.0" text="Router IP Address" />
+            <Label layoutX="400.0" layoutY="103.0" text="My IP Address:" />
           </children>
         </Pane>
       </top>
