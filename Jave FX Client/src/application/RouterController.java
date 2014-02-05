@@ -19,7 +19,6 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
-import javafx.scene.control.FocusModel;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
@@ -158,7 +157,7 @@ public class RouterController implements Initializable, ControlledScreen{
 	}
 	
 	public void reset() {
-		messageArea.setText("Client settings cleared");
+		messageArea.setText("Router settings cleared");
 		routerIPAddressField.setText("");
 		portNumField.setEditable(true);
 		portNumField.setText("");
