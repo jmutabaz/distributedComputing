@@ -1,6 +1,7 @@
 package application;
 
 import java.io.File;
+import java.net.SocketException;
 import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.Timer;
@@ -58,45 +59,33 @@ public class ClientController implements Initializable, ControlledScreen {
 		if (!setup) {
 			
 			try {
-				messageArea.setText("Server Started");
-				clientIPAddressString = serverIPAddressField.getText();
+				
+				serverIPAddressString = serverIPAddressField.getText();
 				serverIPAddressField.setEditable(false);
 				routerIPAddressString = routerIPAddressField.getText();
 				routerIPAddressField.setEditable(false);
 				portNumber = Integer.parseInt(portNumField.getText());
 				portNumField.setEditable(false);
 				startStopClientButton.setText("Reset Client");
-				messageString = "Router IP = " + routerIPAddressString
-						+ "\nClient IP address = " + clientIPAddressString
+				
+				messageString = "\nClient Started\nRouter IP = " + routerIPAddressString
+						+ "\nServer IP address = " + serverIPAddressString
 						+ "\nPort Number = " + portNumber;
 				messageString += messageArea.getId();
 				messageArea.setText(messageString);
+				sC.RunServer(routerIPAddressString, portNumber, serverIPAddressString, true);
+				init();
 				setup = true;
 			} catch (NumberFormatException e) {
 				messageArea.setText("Port Number must be a number between x - y");
-				serverIPAddressField.setEditable(true);
-				serverIPAddressField.setText("");
-				portNumField.setEditable(true);
-				portNumField.setText("");
-				routerIPAddressField.setEditable(true);
-				routerIPAddressField.setText("");
-				serverIPAddressString = null;
-				routerIPAddressString = null;
-				startStopClientButton.setText("Start Client");
-				setup = false;
+				reset();
+			} catch (SocketException e) {
+				messageArea.setText("Client Failed to Connect");
+				reset();
 			}
 			
 		} else {
-			serverIPAddressField.setEditable(true);
-			serverIPAddressField.setText("");
-			portNumField.setEditable(true);
-			portNumField.setText("");
-			routerIPAddressField.setEditable(true);
-			routerIPAddressField.setText("");
-			clientIPAddressString = null;
-			routerIPAddressString = null;
-			startStopClientButton.setText("Start Client");
-			setup = false;
+			reset();
 		}
 	}
 	
@@ -108,17 +97,14 @@ public class ClientController implements Initializable, ControlledScreen {
 		timer.schedule(new TimerTask() {
 			public void run() {
 				Platform.runLater(new Runnable() {
-					public void run() {		
-						
-						
-						messageString = sC.getReport();
-						messageString += messageArea.getText();
-						messageArea.setText(messageString);
-						if (myIPAddressLabel.getText().equals("My IP Address:")){
-							routerIPAddressField.setText("My IP Address:" + sC._MyIP);
-						}
-						
+					public void run() {	
 						if (count == 1000){
+							messageString = sC.getReport();
+							messageString += messageArea.getText();
+							messageArea.setText(messageString);
+							if (myIPAddressLabel.getText().equals("My IP Address:")){
+								routerIPAddressField.setText("My IP Address:" + sC._MyIP);
+							}
 							messageString = "\nTime in Seconds:  " + time;
 							messageString += messageArea.getText();
 							messageArea.setText(messageString);
@@ -140,10 +126,28 @@ public class ClientController implements Initializable, ControlledScreen {
         	System.out.println("filename = " + fileNameString);
         	if (Main.fileName != null){
         		sendMessageButton.setVisible(true);
-        		messageArea.setText("File : " + fileNameString + " Loaded");
+        		messageArea.setText("File : " + fileNameString + " Loaded" + messageArea.getText());
         	}
         }
 	}
+	
+	
+	public void reset() {
+		messageArea.setText("Client settings cleared");
+		serverIPAddressField.setEditable(true);
+		serverIPAddressField.setText("");
+		portNumField.setEditable(true);
+		portNumField.setText("");
+		routerIPAddressField.setEditable(true);
+		routerIPAddressField.setText("");
+		serverIPAddressString = null;
+		routerIPAddressString = null;
+		startStopClientButton.setText("Start Client");
+		setup = false;
+	}
+	
+	
+	
 	
 	public void sendMessage(ActionEvent event) {
 		// send the message

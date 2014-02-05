@@ -1,5 +1,6 @@
 package application;
 
+import java.net.SocketException;
 import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.Timer;
@@ -62,34 +63,21 @@ public class ServerController implements Initializable, ControlledScreen {
 						+ "\nPort Number = " + portNumber;
 				messageString += messageArea.getId();
 				messageArea.setText(messageString);
+				sC.RunServer(routerIPAddressString, portNumber, clientIPAddressString, true);
+				init();
 				setup = true;
 			} catch (NumberFormatException e) {
 				messageArea.setText("Port Number must be a number between x - y");
-				clientIPAddressField.setEditable(true);
-				clientIPAddressField.setText("");
-				portNumField.setEditable(true);
-				portNumField.setText("");
-				routerIPAddressField.setEditable(true);
-				routerIPAddressField.setText("");
-				clientIPAddressString = null;
-				routerIPAddressString = null;
-				startStopServerButton.setText("Start Server");
-				setup = false;
+				reset();
+			} catch (SocketException e) {
+				
+				reset();
 			}
 			
 		} else {
-			clientIPAddressField.setEditable(true);
-			clientIPAddressField.setText("");
-			portNumField.setEditable(true);
-			portNumField.setText("");
-			routerIPAddressField.setEditable(true);
-			routerIPAddressField.setText("");
-			clientIPAddressString = null;
-			routerIPAddressString = null;
-			startStopServerButton.setText("Start Server");
-			setup = false;
+			reset();
 		}
-		init();
+		
 	}
 
 	@FXML
@@ -100,6 +88,20 @@ public class ServerController implements Initializable, ControlledScreen {
 		myController.setScreen(Main.STARTMENU);
 		timer.cancel();
 		timer = null;
+	}
+	
+	public void reset() {
+		messageArea.setText("Server settings cleared");
+		clientIPAddressField.setEditable(true);
+		clientIPAddressField.setText("");
+		portNumField.setEditable(true);
+		portNumField.setText("");
+		routerIPAddressField.setEditable(true);
+		routerIPAddressField.setText("");
+		serverIPAddressString = null;
+		routerIPAddressString = null;
+		startStopServerButton.setText("Start Server");
+		setup = false;
 	}
 	
 	public void init(){

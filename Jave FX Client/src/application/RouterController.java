@@ -17,6 +17,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.FocusModel;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
@@ -33,8 +34,9 @@ public class RouterController implements Initializable, ControlledScreen{
 	@FXML		TextArea			numClientsArea;
 	@FXML		TextField			routerIPAddressField;
 	@FXML		TextField			portNumberField;
-	@FXML		TextField				connectionNumField;
+	@FXML		TextField			connectionNumField;
 	@FXML		Label				numMessagesPassedlLabel;
+	@FXML		Label				timeLabel;
 	
 	private		Timer				timer;
 	private 	int					portNumber, count = 0, time = 0,
@@ -122,9 +124,15 @@ public class RouterController implements Initializable, ControlledScreen{
 						}
 						
 						if (count == 1000){
-							messageString = "\nTime in Seconds:  " + time;
-							messageString += "\n" + messageArea.getText();
-							messageArea.setText(messageString);
+							messageString = sC.getReport();
+							System.out.print("\n messageString from socketCLient report :" + messageString);
+							if (!messageArea.equals("")){
+								System.out.print("\n messageString from socketCLient report :" + messageString);
+								messageString = "\n" + messageString;
+								messageString += "\n" + messageArea.getText();
+								messageArea.setText(messageString);
+							}
+							timeLabel.setText("Run Time: " + time);
 							count = 0;
 							time++;
 						}
@@ -157,7 +165,6 @@ public class RouterController implements Initializable, ControlledScreen{
 		// TODO Auto-generated method stub
 		rootScreenAnchorPane.setStyle("-fx-background-color: lightblue");
 		Main.RC = this;
-		
 	}
 
 }

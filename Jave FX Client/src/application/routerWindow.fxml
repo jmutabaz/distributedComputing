@@ -46,7 +46,7 @@
       <top>
         <Pane prefHeight="130.0" prefWidth="800.0">
           <children>
-            <TextField fx:id="routerIPAddressField" editable="false" layoutX="475.0" layoutY="40.0" prefWidth="200.0" />
+            <TextField fx:id="routerIPAddressField" editable="false" focusTraversable="false" layoutX="475.0" layoutY="40.0" prefWidth="200.0" />
             <TextField fx:id="portNumberField" layoutX="685.0" layoutY="40.0" prefWidth="79.0" />
             <TextField id="portNumberField" layoutX="475.0" layoutY="80.0" prefWidth="79.0" />
             <Button fx:id="startStopRouter" layoutX="675.0" layoutY="84.0" mnemonicParsing="false" onAction="#startOrStopRouter" text="Start Router" />
@@ -59,6 +59,7 @@
             <Label layoutX="685.0" layoutY="25.0" text="Port Number" />
             <Label layoutX="116.0" layoutY="108.0" text="Message Traffic" />
             <Label layoutX="475.0" layoutY="65.0" text="Number of Connections" />
+            <Label fx:id="timeLabel" layoutX="475.0" layoutY="108.0" text="Run Time:" />
           </children>
         </Pane>
       </top>
