@@ -46,9 +46,9 @@
       <top>
         <Pane prefHeight="130.0" prefWidth="800.0">
           <children>
+            <TextField id="portNumberField" fx:id="connectionNumField" layoutX="475.0" layoutY="80.0" prefWidth="79.0" />
             <TextField fx:id="routerIPAddressField" editable="false" focusTraversable="false" layoutX="475.0" layoutY="40.0" prefWidth="200.0" />
-            <TextField fx:id="portNumberField" layoutX="685.0" layoutY="40.0" prefWidth="79.0" />
-            <TextField id="portNumberField" layoutX="475.0" layoutY="80.0" prefWidth="79.0" />
+            <TextField id="portNumberField" fx:id="portNumField" layoutX="685.0" layoutY="40.0" prefWidth="79.0" />
             <Button fx:id="startStopRouter" layoutX="675.0" layoutY="84.0" mnemonicParsing="false" onAction="#startOrStopRouter" text="Start Router" />
             <Label layoutX="83.0" layoutY="31.0" text="Router">
               <font>

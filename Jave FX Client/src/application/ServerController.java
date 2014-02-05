@@ -47,6 +47,7 @@ public class ServerController implements Initializable, ControlledScreen {
 	@FXML
 	public void startOrStopServer(ActionEvent event) {
 		// init Server Class
+		
 		if (!setup) {
 			
 			try {

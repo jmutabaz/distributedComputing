@@ -9,6 +9,8 @@ import java.util.TimerTask;
 
 import org.omg.PortableInterceptor.SYSTEM_EXCEPTION;
 
+import com.sun.org.glassfish.external.statistics.annotations.Reset;
+
 import sun.launcher.resources.launcher;
 import Model.ServerRouter;
 import Model.SocketClient;
@@ -33,56 +35,65 @@ public class RouterController implements Initializable, ControlledScreen{
 	@FXML		TextArea			numServersArea;
 	@FXML		TextArea			numClientsArea;
 	@FXML		TextField			routerIPAddressField;
-	@FXML		TextField			portNumberField;
+	@FXML		TextField			portNumField;
 	@FXML		TextField			connectionNumField;
 	@FXML		Label				numMessagesPassedlLabel;
 	@FXML		Label				timeLabel;
 	
 	private		Timer				timer;
 	private 	int					portNumber, count = 0, time = 0,
-									connectionNumber;
+									connectionNumber = 0;
 	private		String				messageString, outsideSetMessageString;
 	private		SocketClient		sC;
+	private		boolean				setup;
 	
 	
 	@FXML
 	public void startOrStopRouter(ActionEvent event){
-		//start stop code for router goes here
-		messageArea.setText("");
-		try {
-			connectionNumber = Integer.parseInt(connectionNumField.getText());
-		} catch (Exception e) {
-			// TODO: handle exception
-			event.consume();
-		}
 		
-		
-		try {
-			portNumber =  Integer.parseInt(portNumberField.getText());
+		if (!setup){
+			//start stop code for router goes here
+			messageArea.setText("");
+			try {
+				connectionNumber = Integer.parseInt(connectionNumField.getText());
+			} catch (Exception e) {
+				System.out.println("parse of connection number not working");
+				//event.consume();
+			}
 			
-		} catch (NumberFormatException e) {
-			System.out.print("Entry not an Integer");
-			messageArea.setText("The port Number you entered does not conform to a standard Integer");
-			event.consume();
+			try {
+				portNumber =  Integer.parseInt(portNumField.getText());
+				
+			} catch (NumberFormatException e) {
+				System.out.print("Entry not an Integer");
+				messageArea.setText("The port Number you entered does not conform to a standard Integer");
+				reset();
+				//event.consume();
+			}
+			
+			try{
+				sC = new SocketClient();
+				sC.RunServerRouter(portNumber, connectionNumber, true);
+			}catch(Exception ex){
+				System.out.print("Couldn't Start Server Router.");
+				messageArea.setText("Couldn't Start a Server Router.");
+				reset();
+				//event.consume();
+			}
+			
+			messageString = "\nRouter IP = " + sC._MyIP
+					+ "\nPort Number = " + portNumber
+					+ "\nConnections allowed = " + connectionNumber;
+			messageString += "\n" + messageArea.getId();
+			messageArea.setText(messageString);
+			
+			startStopRouter.setText("Stop Router");
+			portNumField.setText("");
+			setup = true;
+			init();
+		} else {
+			reset();
 		}
-		
-		try{
-			sC = new SocketClient();
-			sC.RunServerRouter(portNumber, connectionNumber, true);
-		}catch(Exception ex){
-			System.out.print("Couldn't Start Server Router.");
-			messageArea.setText("Couldn't Start a Server Router.");
-			event.consume();
-		}
-		
-		messageString = "\nRouter IP = " + sC._MyIP
-				+ "\nPort Number = " + portNumber
-				+ "\nConnections allowed = " + connectionNumber;
-		messageString += "\n" + messageArea.getId();
-		messageArea.setText(messageString);
-		
-		
-		init();
 	}
 	
 	@FXML
@@ -91,7 +102,9 @@ public class RouterController implements Initializable, ControlledScreen{
 		Main.PRIMARYSTAGE_STAGE.setWidth(600);
 		Main.PRIMARYSTAGE_STAGE.setHeight(300);
 		myController.setScreen(Main.STARTMENU);
-		timer.cancel();
+		if (timer != null){
+			timer.cancel();
+		}
 		timer = null;
 		count = 0;
 		time = 0;
@@ -104,6 +117,7 @@ public class RouterController implements Initializable, ControlledScreen{
 		timer = new Timer();
 		count = 0;
 		time = 0;
+		setup = false;
 		routerIPAddressField.setText(null);
 		messageArea.setWrapText(true);
 		timer.schedule(new TimerTask() {
@@ -126,7 +140,7 @@ public class RouterController implements Initializable, ControlledScreen{
 						if (count == 1000){
 							messageString = sC.getReport();
 							System.out.print("\n messageString from socketCLient report :" + messageString);
-							if (!messageArea.equals("")){
+							if (messageString != null){
 								System.out.print("\n messageString from socketCLient report :" + messageString);
 								messageString = "\n" + messageString;
 								messageString += "\n" + messageArea.getText();
@@ -143,6 +157,20 @@ public class RouterController implements Initializable, ControlledScreen{
 		}, 0, 1);
 	}
 	
+	public void reset() {
+		messageArea.setText("Client settings cleared");
+		routerIPAddressField.setText("");
+		portNumField.setEditable(true);
+		portNumField.setText("");
+		routerIPAddressField.setEditable(true);
+		routerIPAddressField.setText("");
+		startStopRouter.setText("Start Router");
+		if (timer != null){
+			timer.cancel();
+			timer = null;
+		}
+		setup = false;
+	}
 	
 	public void updateGUI(String message) {
 		if (message != null){
@@ -165,6 +193,7 @@ public class RouterController implements Initializable, ControlledScreen{
 		// TODO Auto-generated method stub
 		rootScreenAnchorPane.setStyle("-fx-background-color: lightblue");
 		Main.RC = this;
+		
 	}
 
 }
