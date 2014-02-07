@@ -57,6 +57,7 @@ public class RouterController implements Initializable, ControlledScreen{
 				connectionNumber = Integer.parseInt(connectionNumField.getText());
 			} catch (Exception e) {
 				System.out.println("parse of connection number not working");
+				reset();
 				//event.consume();
 			}
 			
@@ -70,28 +71,15 @@ public class RouterController implements Initializable, ControlledScreen{
 				//event.consume();
 			}
 			
-			try{
-				System.out.print("create Router");
-				sC = new SocketClient();
-				sC.RunServerRouter(portNumber, connectionNumber, true);
-			}catch(Exception ex){
-				System.out.print("Couldn't Start Server Router.");
-				messageArea.setText("Couldn't Start a Server Router.");
-				reset();
-				//event.consume();
-			}
-			System.out.print("Router created");
 			
-			messageString = "\nRouter IP = " + sC._MyIP
-					+ "\nPort Number = " + portNumber
-					+ "\nConnections allowed = " + connectionNumber;
-			messageString += "\n" + messageArea.getId();
-			messageArea.setText(messageString);
+			
+			
 			
 			startStopRouter.setText("Stop Router");
-			portNumField.setText("");
+			portNumField.setEditable(false);
+			connectionNumField.setEditable(false);
 			setup = true;
-			System.out.print("Start Router");
+			System.out.print("\nStart Router");
 			init();
 		} else {
 			reset();
@@ -106,8 +94,9 @@ public class RouterController implements Initializable, ControlledScreen{
 		myController.setScreen(Main.STARTMENU);
 		if (timer != null){
 			timer.cancel();
+			timer = null;
 		}
-		timer = null;
+		
 		count = 0;
 		time = 0;
 	}
@@ -118,9 +107,26 @@ public class RouterController implements Initializable, ControlledScreen{
 		timer = new Timer();
 		count = 0;
 		time = 0;
-		setup = false;
 		routerIPAddressField.setText(null);
 		messageArea.setWrapText(true);
+		
+		try{
+			System.out.print("\nCreate Router");
+			sC = new SocketClient();
+			sC.RunServerRouter(portNumber, connectionNumber, true);
+		}catch(Exception ex){
+			System.out.print("\nCouldn't Start Server Router.");
+			messageArea.setText("\nCouldn't Start a Server Router.");
+			reset();
+			//event.consume();
+		}
+		
+		messageString = "\nRouter IP = " + sC._MyIP
+				+ "\nPort Number = " + portNumber
+				+ "\nConnections allowed = " + connectionNumber;
+		messageString += "\n" + messageArea.getId();
+		messageArea.setText(messageString);
+		System.out.print("\nRouter created");
 		timer.schedule(new TimerTask() {
 			public void run() {
 				Platform.runLater(new Runnable() {
@@ -151,17 +157,25 @@ public class RouterController implements Initializable, ControlledScreen{
 	}
 	
 	public void reset() {
-		messageArea.setText("Router settings cleared");
+		messageArea.setText("\nRouter settings cleared");
 		routerIPAddressField.setText("");
 		portNumField.setEditable(true);
 		portNumField.setText("");
+		connectionNumField.setText("");
+		connectionNumField.setEditable(true);
 		routerIPAddressField.setEditable(true);
 		routerIPAddressField.setText("");
 		startStopRouter.setText("Start Router");
+		if (sC != null){
+			sC.getRouter().setSThead(null);
+			sC.killRouter();
+			sC = null;
+		}
 		if (timer != null){
 			timer.cancel();
 			timer = null;
 		}
+		
 		setup = false;
 	}
 	

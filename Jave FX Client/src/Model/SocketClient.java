@@ -6,6 +6,7 @@ import java.net.SocketException;
 import java.net.UnknownHostException;
 
 import application.Main;
+import application.RouterController;
 import Model.ServerRouter;
 /*
  * This Class Is Meant to be a main Implementation for
@@ -18,14 +19,31 @@ public class SocketClient extends Thread {
 	public String _MyIP;
 	
 	private Thread _cc;
+	private ServerRouter router;
 	
+	public String get_MyIP() {
+		return _MyIP;
+	}
+
+	public void set_MyIP(String _MyIP) {
+		this._MyIP = _MyIP;
+	}
+
+	public ServerRouter getRouter() {
+		return router;
+	}
+
+	public void setRouter(ServerRouter router) {
+		this.router = router;
+	}
+
 	public SocketClient(){
 		InetAddress addr;
 		try {
 			addr = InetAddress.getLocalHost();
 			_MyIP = addr.getHostAddress(); // Client machine's IP
 		} catch (UnknownHostException e1) {
-			_MyIP = "Unknown";
+			_MyIP = "";
 		}
 		
 	}
@@ -132,7 +150,7 @@ public class SocketClient extends Thread {
 	public String RunServerRouter(int port, int numOfRowsInTable, boolean GUI) throws SocketException{
 		try{
 			//Starts a Thread Class ServerRouter.
-			ServerRouter router = new ServerRouter(port, numOfRowsInTable);
+			router = new ServerRouter(port, numOfRowsInTable);
 			router.start();
 			//This is the reporting and terminating means of the thread.
 			//._report is a filed that the Thread post messages to and
@@ -143,6 +161,10 @@ public class SocketClient extends Thread {
 		}catch(Exception ex){
 			return "Failed To Run ServerRouter.";
 		}
+	}
+	
+	public void killRouter(){
+		router.set_kill(true);
 	}
 	
 	private void report(String mesg){

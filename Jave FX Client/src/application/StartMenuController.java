@@ -54,22 +54,22 @@ public class StartMenuController implements Initializable, ControlledScreen {
 	
 	@FXML
 	public void startAsServer(ActionEvent event){
-		Main.PRIMARYSTAGE_STAGE.setWidth(810);
-		Main.PRIMARYSTAGE_STAGE.setHeight(610);
+		Main.PRIMARYSTAGE_STAGE.setWidth(800);
+		Main.PRIMARYSTAGE_STAGE.setHeight(600);
 		myController.setScreen(Main.SERVERWINDOW);
 	}
 	
 	@FXML
 	public void startAsClient(ActionEvent event){
-		Main.PRIMARYSTAGE_STAGE.setWidth(810);
-		Main.PRIMARYSTAGE_STAGE.setHeight(610);
+		Main.PRIMARYSTAGE_STAGE.setWidth(800);
+		Main.PRIMARYSTAGE_STAGE.setHeight(600);
 		myController.setScreen(Main.CLIENTWINDOW);
 	}
 	@FXML 
 	public void startAsRouter(ActionEvent event)
 	{
-		Main.PRIMARYSTAGE_STAGE.setWidth(810);
-		Main.PRIMARYSTAGE_STAGE.setHeight(610);
+		Main.PRIMARYSTAGE_STAGE.setWidth(800);
+		Main.PRIMARYSTAGE_STAGE.setHeight(600);
 		myController.setScreen(Main.ROUTERWINDOW);
 	}
 	

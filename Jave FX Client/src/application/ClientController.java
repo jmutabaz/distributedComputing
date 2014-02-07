@@ -99,19 +99,10 @@ public class ClientController implements Initializable, ControlledScreen {
 			public void run() {
 				Platform.runLater(new Runnable() {
 					public void run() {	
-						if (count == 1000){
-							messageString = sC.getReport();
-							messageString += messageArea.getText();
-							messageArea.setText(messageString);
-							if (myIPAddressLabel.getText().equals("My IP Address:")){
-								routerIPAddressField.setText("My IP Address:" + sC._MyIP);
-							}
-							messageString = "\nTime in Seconds:  " + time;
-							messageString += messageArea.getText();
-							messageArea.setText(messageString);
-							count = 0;
-							time++;
-						}
+						
+							
+							
+						
 						count++;
 					}
 				});

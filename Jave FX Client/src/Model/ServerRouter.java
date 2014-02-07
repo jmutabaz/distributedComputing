@@ -10,12 +10,60 @@ public class ServerRouter extends Thread {
 	
 	private int _port;
 	private int _numOfRowsInTable;
+	private SThread t;
 	
-	public String _message;
-	public boolean _flag = false;
-	public boolean _kill = false;
-	public String _report = "";
+	private String _message;
+	private boolean _flag = false;
+	private boolean _kill = false;
+	private String _report = "";
 	
+	
+	public int get_port() {
+		return _port;
+	}
+
+	public void set_port(int _port) {
+		this._port = _port;
+	}
+
+	public int get_numOfRowsInTable() {
+		return _numOfRowsInTable;
+	}
+
+	public void set_numOfRowsInTable(int _numOfRowsInTable) {
+		this._numOfRowsInTable = _numOfRowsInTable;
+	}
+
+	public SThread getSThread() {
+		return t;
+	}
+
+	public void setSThead(SThread t) {
+		this.t = t;
+	}
+
+	public String get_message() {
+		return _message;
+	}
+
+	public boolean is_flag() {
+		return _flag;
+	}
+
+	public boolean is_kill() {
+		return _kill;
+	}
+
+	public void set_kill(boolean _kill) {
+		this._kill = _kill;
+	}
+
+	public String get_report() {
+		return _report;
+	}
+
+	
+
 	public ServerRouter(int port, int numOfRowsInTable){
 		_port = port;
 		_numOfRowsInTable = numOfRowsInTable;
@@ -55,7 +103,7 @@ public class ServerRouter extends Thread {
 			{
 				try {
 					clientSocket = serverSocket.accept();
-					SThread t = new SThread(RoutingTable); // creates a thread with a random port
+					t = new SThread(RoutingTable); // creates a thread with a random port
 					//ind += t.insertSocket(clientSocket, ind);
 					t.start(); // starts the thread
 					ind++; // increments the index
