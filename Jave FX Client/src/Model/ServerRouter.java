@@ -14,7 +14,7 @@ public class ServerRouter extends Thread {
 	public String _message;
 	public boolean _flag = false;
 	public boolean _kill = false;
-	public String _report = null;
+	public String _report = "";
 	
 	public ServerRouter(int port, int numOfRowsInTable){
 		_port = port;
@@ -56,9 +56,9 @@ public class ServerRouter extends Thread {
 				try {
 					clientSocket = serverSocket.accept();
 					SThread t = new SThread(RoutingTable); // creates a thread with a random port
-					ind += t.insertSocket(clientSocket, ind);
+					//ind += t.insertSocket(clientSocket, ind);
 					t.start(); // starts the thread
-					//ind++; // increments the index
+					ind++; // increments the index
 					report("ServerRouter Connection " + t.ind + " with Client/Server: " + clientSocket.getInetAddress().getHostAddress());
 				}
 				catch (IOException e) {

@@ -71,6 +71,7 @@ public class RouterController implements Initializable, ControlledScreen{
 			}
 			
 			try{
+				System.out.print("create Router");
 				sC = new SocketClient();
 				sC.RunServerRouter(portNumber, connectionNumber, true);
 			}catch(Exception ex){
@@ -79,6 +80,7 @@ public class RouterController implements Initializable, ControlledScreen{
 				reset();
 				//event.consume();
 			}
+			System.out.print("Router created");
 			
 			messageString = "\nRouter IP = " + sC._MyIP
 					+ "\nPort Number = " + portNumber
@@ -89,6 +91,7 @@ public class RouterController implements Initializable, ControlledScreen{
 			startStopRouter.setText("Stop Router");
 			portNumField.setText("");
 			setup = true;
+			System.out.print("Start Router");
 			init();
 		} else {
 			reset();
@@ -107,7 +110,6 @@ public class RouterController implements Initializable, ControlledScreen{
 		timer = null;
 		count = 0;
 		time = 0;
-		
 	}
 	
 	
@@ -123,15 +125,6 @@ public class RouterController implements Initializable, ControlledScreen{
 			public void run() {
 				Platform.runLater(new Runnable() {
 					public void run() {		
-						
-						//messageString = sC.getReport();
-						//System.out.print("\n messageString from socketCLient report :" + messageString);
-						/*if (!messageArea.equals("")){
-							System.out.print("\n messageString from socketCLient report :" + messageString);
-							messageString = "\n" + messageString;
-							messageString += "\n" + messageArea.getText();
-							messageArea.setText(messageString);
-						}*/
 						if (routerIPAddressField.getText() == null){
 							routerIPAddressField.setText(sC._MyIP);
 						}
@@ -139,7 +132,8 @@ public class RouterController implements Initializable, ControlledScreen{
 						if (count == 1000){
 							messageString = sC.getReport();
 							//System.out.print("\n messageString from socketCLient report :" + messageString);
-							if (messageString != null){
+							if (messageString != ""){
+								
 								System.out.print("\n messageString from socketCLient report :" + messageString);
 								messageString = "\n" + messageString;
 								messageString += "\n" + messageArea.getText();
