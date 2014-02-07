@@ -2,6 +2,8 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.SocketException;
 
+import model.ServerRouter;
+
 /*
  * This Class Is Meant to be a main Implementation for
  * each server and client computer instance.

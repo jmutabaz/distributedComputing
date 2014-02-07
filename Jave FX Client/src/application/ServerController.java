@@ -47,7 +47,7 @@ public class ServerController implements Initializable, ControlledScreen {
 	@FXML
 	public void startOrStopServer(ActionEvent event) {
 		// init Server Class
-		
+		sC = new SocketClient();
 		if (!setup) {
 			
 			try {
@@ -115,15 +115,17 @@ public class ServerController implements Initializable, ControlledScreen {
 				Platform.runLater(new Runnable() {
 					public void run() {		
 						
-						
-						messageString = sC.getReport();
-						messageString += messageArea.getText();
-						messageArea.setText(messageString);
-						if (myIPAddressLabel.getText().equals("My IP Address:")){
-							routerIPAddressField.setText("My IP Address:" + sC._MyIP);
-						}
-						
 						if (count == 1000){
+							if (sC.getReport().equals("")){
+								System.out.print("\nReport from Server is null");
+							} else {
+								messageString = sC.getReport();
+								messageString += messageArea.getText();
+								messageArea.setText(messageString);
+							}
+							if (myIPAddressLabel.getText().equals("My IP Address:")){
+								routerIPAddressField.setText("My IP Address:" + sC._MyIP);
+							}
 							messageString = "\nTime in Seconds:  " + time;
 							messageString += messageArea.getText();
 							messageArea.setText(messageString);

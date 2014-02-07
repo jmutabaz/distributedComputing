@@ -56,6 +56,7 @@ public class ClientController implements Initializable, ControlledScreen {
 	@FXML
 	public void startOrStopClient(ActionEvent event) {
 		// init Server Class
+		sC = new SocketClient();
 		if (!setup) {
 			
 			try {
