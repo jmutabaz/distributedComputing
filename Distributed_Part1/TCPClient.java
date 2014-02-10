@@ -63,6 +63,7 @@ public class TCPClient {
 		// closing connections
 		out.close();
 		in.close();
+		fromFile.close();
 		Socket.close();
 	}
 }

@@ -1,18 +1,9 @@
 package application;
 
-import java.net.Socket;
-import java.net.SocketException;
 import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.Timer;
 import java.util.TimerTask;
-
-import org.omg.PortableInterceptor.SYSTEM_EXCEPTION;
-
-import com.sun.org.glassfish.external.statistics.annotations.Reset;
-
-import sun.launcher.resources.launcher;
-import Model.ServerRouter;
 import Model.SocketClient;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;

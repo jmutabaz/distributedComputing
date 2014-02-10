@@ -1,12 +1,9 @@
 package Model;
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
+
 import java.net.InetAddress;
 import java.net.SocketException;
 import java.net.UnknownHostException;
-
 import application.Main;
-import application.RouterController;
 import Model.ServerRouter;
 /*
  * This Class Is Meant to be a main Implementation for

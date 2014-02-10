@@ -34,13 +34,12 @@ public class ServerController implements Initializable, ControlledScreen {
 
 	// non FXML attributes
 	private 			String 					routerIPAddressString;
-	private 			String 					serverIPAddressString;
 	private 			String 					clientIPAddressString;
 	private 			String 					messageString;
 	private				String					outsideSetMessageString;
 	private 			boolean 				setup 						= false;
 	private				Timer					timer;
-	private 			int						portNumber, count = 0, time = 0;
+	private 			int						portNumber, count = 0;
 	private				SocketClient			sC;
 		
 
@@ -99,7 +98,6 @@ public class ServerController implements Initializable, ControlledScreen {
 		portNumField.setText("");
 		routerIPAddressField.setEditable(true);
 		routerIPAddressField.setText("");
-		serverIPAddressString = null;
 		routerIPAddressString = null;
 		startStopServerButton.setText("Start Server");
 		setup = false;
