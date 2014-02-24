@@ -116,7 +116,7 @@ public class ClientController implements Initializable, ControlledScreen {
             //openFile(file);
 			fileNameString = file.getAbsolutePath();
         	System.out.println("filename = " + fileNameString);
-        	if (Main.fileName != null){
+        	if (fileNameString != null){
         		sendMessageButton.setVisible(true);
         		messageArea.setText("File : " + fileNameString + " Loaded" + messageArea.getText());
         	}
