@@ -16,8 +16,8 @@
             <Button fx:id="exitButton" layoutX="694.0" layoutY="40.0" mnemonicParsing="false" onAction="#exitServerButtonPressed" prefHeight="28.9609375" prefWidth="57.0" text="Exit" />
             <Label layoutX="317.0" layoutY="11.0" text="Number of  Clients:" />
             <Label layoutX="557.0" layoutY="11.0" text="Number of Server-Routers:" />
-            <Label fx:id="numberOfClientsLabel" layoutX="427.0" layoutY="11.0" text="00000" />
-            <Label fx:id="numberOfServersLabel" layoutX="706.0" layoutY="11.0" text="00000" />
+            <Label fx:id="numberOfClientsLabel" layoutX="446.0" layoutY="11.0" text="00000" />
+            <Label fx:id="numberOfServersLabel" layoutX="733.0" layoutY="11.0" text="00000" />
           </children>
         </Pane>
       </bottom>
