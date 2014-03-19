@@ -139,9 +139,9 @@ public class ClientScreenController implements Initializable, ControlledScreen {
 		//		recievingClientsPortNumberLabel
 		Message msg = new Message();
 		msg.setData(fileNameString);
-		msg.setDestination("l3lawns.com");
+		msg.setDestination("192.168.1.4");
 		msg.setType(true);
-		msg.setMyIP("192.168.0.1");
+		msg.setMyIP("192.168.0.3");
 		msg.setServerName("Paul");
 		clientConn.RunClient(msg.getDestination(), 5555, msg);
 	}
@@ -249,29 +249,26 @@ public class ClientScreenController implements Initializable, ControlledScreen {
 	}
 
 	String getSocketData() {
-		String data = "", temp;
-		if((temp = clientConn.report()) != null)
-		{
-			data += temp;
-			temp = null;
-		}
-		if((temp = serverConn.report()) != null)
-		{
-			data += temp;
-		}
-		
-		if(data == "")
+		if(clientConn != null){
+			String data = "", temp;
+			if((temp = clientConn.report()) != null)
+			{
+				data += temp;
+				temp = null;
+			}
+			if((temp = serverConn.report()) != null)
+			{
+				data += temp;
+			}
+
+			if(data == "")
+				return null;
+			else
+				return data;
+		}else{
 			return null;
-		else
-			return data;
+		}
 	}
-
-
-
-
-
-
-
 
 	//==============================================================================
 	@Override
