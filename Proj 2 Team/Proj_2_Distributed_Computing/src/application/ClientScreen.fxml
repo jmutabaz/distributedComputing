@@ -26,10 +26,10 @@
         </Pane>
       </center>
       <left>
-        <Pane fx:id="messageSendingPane" prefHeight="400.0" prefWidth="180.0" visible="false">
+        <Pane fx:id="messageSendingPane" prefHeight="400.0" prefWidth="180.0" visible="true">
           <children>
             <TextField fx:id="nameOfRecievingClientField" layoutX="20.0" layoutY="30.0" prefWidth="141.0" />
-            <Button fx:id="loadFileButton" layoutX="19.0" layoutY="158.0" mnemonicParsing="false" onAction="#loadFileButtonPressed" text="Load File" />
+            <Button fx:id="loadFileButton" layoutX="19.0" layoutY="168.0" mnemonicParsing="false" onAction="#loadFileButtonPressed" text="Load File" />
             <Button fx:id="sendMessageButton" layoutX="53.0" layoutY="316.0" mnemonicParsing="false" onAction="#sendMessageButtonPressed" prefHeight="58.9609375" prefWidth="113.0" text="Send Message" visible="false" />
             <Label layoutX="15.0" layoutY="15.0" text="Name of Recieving Client" />
             <Label layoutX="15.0" layoutY="60.0" text="Recieving Client's IP Address" />
@@ -37,7 +37,7 @@
             <Label fx:id="recievingClientsPortNumberLabel" layoutX="20.0" layoutY="105.0" text="00000" />
             <Label fx:id="recievingClientsIPAddressLabel" layoutX="20.0" layoutY="75.0" text="000.000.000.000" />
             <Label layoutX="15.0" layoutY="120.0" text="Loaded File Name" />
-            <Label fx:id="loadedFileNameLabel" layoutX="20.0" layoutY="135.0" text="No File Loaded" />
+            <Label fx:id="loadedFileNameLabel" layoutX="20.0" layoutY="135.0" text="No File Loaded" wrapText="true" />
           </children>
         </Pane>
       </left>
@@ -50,7 +50,7 @@
             <TextField fx:id="clientsNameField" layoutX="155.0" layoutY="30.0" prefWidth="141.0" />
             <TextField fx:id="clientsPortNumberField" layoutX="155.0" layoutY="65.0" prefWidth="60.0" />
             <TextField fx:id="serverRouterIPAddressField" layoutX="325.0" layoutY="29.0" prefWidth="133.0" />
-            <Button fx:id="startClientButton" layoutX="470.0" layoutY="18.0" mnemonicParsing="false" onAction="#startClientButtonPressed" prefHeight="39.90234375" prefWidth="103.0" text="Start Client" />
+            <Button fx:id="startClientButton" layoutX="500.0" layoutY="18.0" mnemonicParsing="false" onAction="#startClientButtonPressed" prefHeight="39.90234375" prefWidth="103.0" text="Start Client" />
             <Label layoutX="25.0" layoutY="11.0" text="Client">
               <font>
                 <Font name="System Bold" size="30.0" />
