@@ -136,37 +136,31 @@ public class ClientScreenController implements Initializable, ControlledScreen {
 	}
 	
 	void clientSetup(){
-		boolean setup = false;
-		if (!setup) {
-			try {
-				clientNameString = clientsNameField.getText();
-				clientsNameField.setEditable(false);
-				clientsNameField.setFocusTraversable(false);
-				serverRouterIPAddressString = serverRouterIPAddressField.getText();
-				serverRouterIPAddressField.setEditable(false);
-				serverRouterIPAddressField.setFocusTraversable(false);
-				clientPortNumber = Integer.parseInt(clientsPortNumberField.getText());
-				clientsPortNumberField.setEditable(false);
-				clientsPortNumberField.setFocusTraversable(false);
-				startClientButton.setText("Reset Client");
-				messageLogHolderString = messageLogArea.getText();
-				messageLogArea.setText("Client's Name: " + clientNameString 
-						+ "\nServer-Router IP: " + serverRouterIPAddressString
-						+ "\nClient IP address: " + clientIPAddressString
-						+ "\nPort Number: " + clientPortNumber 
-						+ "\n" + messageLogHolderString);
-				init();
-				setup = true;
-				nameOfRecievingClientField.requestFocus();
-			} catch (NumberFormatException e) {
-				messageLogHolderString = messageLogArea.getText();
-				messageLogArea.setText("Port Number must be a number between x - y\n" + messageLogHolderString);
-				reset();
-			} 
-		} else {
+		try {
+			clientNameString = clientsNameField.getText();
+			clientsNameField.setEditable(false);
+			clientsNameField.setFocusTraversable(false);
+			serverRouterIPAddressString = serverRouterIPAddressField.getText();
+			serverRouterIPAddressField.setEditable(false);
+			serverRouterIPAddressField.setFocusTraversable(false);
+			clientPortNumber = Integer.parseInt(clientsPortNumberField.getText());
+			clientsPortNumberField.setEditable(false);
+			clientsPortNumberField.setFocusTraversable(false);
+			startClientButton.setText("Reset Client");
+			messageLogHolderString = messageLogArea.getText();
+			messageLogArea.setText("Client's Name: " + clientNameString 
+					+ "\nServer-Router IP: " + serverRouterIPAddressString
+					+ "\nClient IP address: " + clientIPAddressString
+					+ "\nPort Number: " + clientPortNumber 
+					+ "\n" + messageLogHolderString);
+			init();
+			nameOfRecievingClientField.requestFocus();
+			//Start a Client...
+		} catch (NumberFormatException e) {
+			messageLogHolderString = messageLogArea.getText();
+			messageLogArea.setText("Port Number must be a number between x - y\n" + messageLogHolderString);
 			reset();
 		}
-		setup = true;
 	}
 	
 	
@@ -192,6 +186,7 @@ public class ClientScreenController implements Initializable, ControlledScreen {
 		loadedFileNameLabel.setText("No File Loaded"); 
 		messageSendingPane.setVisible(false);
 		fileNameString = "";
+		timer.cancel();
 	}
 	
 	void init(){
@@ -210,26 +205,39 @@ public class ClientScreenController implements Initializable, ControlledScreen {
 	
 	
 	void startUpdateLoop(){
+		//Getting the Text.
 		messageLogHolderString = messageLogArea.getText();
+		//Add new at top of box.
 		messageLogArea.setText("Start Update Loop\n" + messageLogHolderString);
 	
 		timer.schedule(new TimerTask() {
 			public void run() {
 				Platform.runLater(new Runnable() {
 					public void run() {
-						//Do Stuff here
 						counter++;
 						if (counter == 1000){ // one second clock
 							counter = 0;
 							clock++;
 							runTimeLabel.setText("" + clock);
-							//messageLogHolderString = messageLogArea.getText();
-							//messageLogArea.setText("Clock tick: " + clock + "\n" + messageLogHolderString);
+							String data;
+							if((data = getSocketData()) != null){
+								messageLogHolderString = messageLogArea.getText();
+								messageLogArea.setText(data + "\n" + messageLogHolderString);
+							}
 						}
 					}
 				});
 			}
 		}, 0, 1);
+	}
+	
+	String getSocketData() {
+		int x = 3;
+		if(x % 2 == 0){
+			return "Even";
+		}else{
+			return null;
+		}
 	}
 	
 	

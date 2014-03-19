@@ -6,7 +6,7 @@ import java.net.Socket;
 import java.net.UnknownHostException;
 
 
-public class Client extends Thread {
+public class Server extends Thread {
 	private String _routerIP;
 	private int _portNum;
 	private Socket _socket;
@@ -14,7 +14,7 @@ public class Client extends Thread {
 	private ObjectInputStream _in;
 	public boolean _kill = false;
 	
-	public Client(String routerIP, int port){
+	public Server(String routerIP, int port){
 		_routerIP = routerIP;
 		_portNum = port;
 	}
@@ -22,15 +22,15 @@ public class Client extends Thread {
 	public void run(){
 		try{
 			connect();
-			Message x = new Message();
-			x.readFileIntoData("pic.jpg");
-			x.setDestination("10.0.0.5");
-			x.setType(2);
-			_out.writeObject(x);
-			Message n = new Message();
-			n = (Message)_in.readObject();
-			@SuppressWarnings("unused")
-			int q = 10;
+			while(!_kill){
+				Message msg = (Message)_in.readObject();
+				if(msg.getDataLength() > 0){
+					msg.writeFileFromData("newPic.jpg");
+				}
+				Message complete = new Message();
+				complete.done = true;
+				_out.writeObject(complete);
+			}
 		}catch(Exception ex){
 			log(ex.toString());
 		}
@@ -40,6 +40,9 @@ public class Client extends Thread {
 		_socket = new Socket(_routerIP, _portNum);
 		_out = new ObjectOutputStream(_socket.getOutputStream());
 		_in = new ObjectInputStream(_socket.getInputStream());
+		Message c = new Message();
+		c.setType(1);
+		_out.writeObject(c);
 		return true;
 	}
 	
