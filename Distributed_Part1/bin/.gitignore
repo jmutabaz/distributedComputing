@@ -1,1 +1,14 @@
-/bin
+/.classpath
+/.project
+/.settings
+/Client.class
+/SThread.class
+/Server.class
+/SocketClient.class
+/StartUp.class
+/TCPClient.class
+/TCPServer.class
+/TCPServerRouter.class
+/TranslationServer.class
+/file.txt
+/model
