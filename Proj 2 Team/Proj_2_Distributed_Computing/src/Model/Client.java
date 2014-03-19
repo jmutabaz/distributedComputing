@@ -33,8 +33,8 @@ public class Client extends Thread {
 			_out.writeObject(_msg);
 			Message n = new Message();
 			n = (Message)_in.readObject();
-			@SuppressWarnings("unused")
-			int q = 10;
+			//BANANA - Reporting again...
+			log((String)n.getData(true));
 		}catch(Exception ex){
 			log(ex.toString());
 		}

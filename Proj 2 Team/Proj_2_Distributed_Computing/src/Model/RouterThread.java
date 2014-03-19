@@ -4,7 +4,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.util.ArrayList;
-
+//BANANA
 public class RouterThread extends Thread {
 	private ArrayList<Connection> _RTable;
 	//private PrintWriter _out, _outTo; 
@@ -36,11 +36,11 @@ public class RouterThread extends Thread {
 
 			_message = (Message)inFrom1.readObject();
 
-			if(_message.getType() == 1)
+			/*if(_message.getType() == 1)
 				serverRun(outTo1, inFrom1);
 			else if(_message.getType() == 2)
 				clientRun(outTo1, inFrom1);
-			else
+			else*/
 				return;
 		}catch(Exception ex){
 			ex.toString();

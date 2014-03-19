@@ -16,10 +16,9 @@ import java.util.zip.Inflater;
 public class Message implements Serializable {
 	private String _destinationIP; //Destination IP Address.
 	private String _myIP; // My IP Address
-	private String _method; // What needs to be done to data.
-	private int _type; // File or String.
+	private boolean _type; // File or String. // true = String, false = File.
 	private byte[] _data; // Byte[] of data Object
-	private String _dataType; // Extension of File
+	private String _fileName; // Name of File.
 	private String _serverName; //Name of Server to send to.
 	public boolean done = false;
 
@@ -27,11 +26,10 @@ public class Message implements Serializable {
 
 	}
 
-	public Message(int type, String destination, String myIP, String method, Object data, String dataType, String serverName){
+	public Message(boolean type, String destination, String myIP, Object data, String fileName, String serverName){
 		setType(type);
 		setDestination(destination);
-		setMethod(method);
-		setDataType(dataType);
+		setFileName(fileName);
 		setData(data);
 		setMyIP(myIP);
 		setServerName(serverName);
@@ -142,27 +140,19 @@ public class Message implements Serializable {
 		return _serverName;
 	}
 
-	public void setDataType(String dataType){
-		_dataType = dataType;
+	public void setFileName(String fileName){
+		_fileName = fileName;
 	}
 
-	public String getDataType(){
-		return _dataType;
+	public String getFileName(){
+		return _fileName;
 	}
 
-	public void setMethod(String method){
-		_method = method;
-	}
-
-	public String getMethod(){
-		return _method;
-	}
-
-	public void setType(int type){
+	public void setType(boolean type){
 		_type = type;
 	}
 
-	public int getType(){
+	public boolean getType(){
 		return _type;
 	}
 

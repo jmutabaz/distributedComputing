@@ -7,6 +7,7 @@ import java.util.ResourceBundle;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import Model.Message;
 import Model.SocketClient;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
@@ -89,7 +90,6 @@ public class ClientScreenController implements Initializable, ControlledScreen {
 			messageLogHolderString = messageLogArea.getText();	
 			messageLogArea.setText("Start Client\n" + messageLogHolderString);
 			startUpdateLoop();
-			//Start SocketClient to send Message.
 			clientSetup = false;
 		} else {
 			messageLogHolderString = messageLogArea.getText();	
@@ -137,6 +137,13 @@ public class ClientScreenController implements Initializable, ControlledScreen {
 		// 	show load file button
 		// 	clear nameOfRecievingClientField, and recievingClientIPAddressLabel and 
 		//		recievingClientsPortNumberLabel
+		Message msg = new Message();
+		msg.setData(fileNameString);
+		msg.setDestination("l3lawns.com");
+		msg.setType(true);
+		msg.setMyIP("192.168.0.1");
+		msg.setServerName("Paul");
+		clientConn.RunClient(msg.getDestination(), 5555, msg);
 	}
 
 	void clientSetup(){
