@@ -26,7 +26,6 @@
         </Pane>
       </center>
       <left>
-        <Pane fx:id="messageSendingPane" prefHeight="400.0" prefWidth="180.0" visible="true">
         <Pane fx:id="messageSendingPane" prefHeight="400.0" prefWidth="180.0" visible="false">
           <children>
             <TextField fx:id="nameOfRecievingClientField" layoutX="20.0" layoutY="30.0" prefWidth="141.0" />
