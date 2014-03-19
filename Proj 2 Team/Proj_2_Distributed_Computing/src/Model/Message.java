@@ -14,57 +14,55 @@ import java.util.zip.Deflater;
 import java.util.zip.Inflater;
 
 public class Message implements Serializable {
-	private String _destinationIP; //Destination IP Address
+	private String _destinationIP; //Destination IP Address.
 	private String _myIP; // My IP Address
 	private String _method; // What needs to be done to data.
-	private int _type; // Client or Server
+	private int _type; // File or String.
 	private byte[] _data; // Byte[] of data Object
-	private Object _dataType; // Type of object. ex: Byte.TYPE or String.TYPE
+	private String _dataType; // Extension of File
+	private String _serverName; //Name of Server to send to.
 	public boolean done = false;
-	
+
 	public Message(){
-		
+
 	}
-	
-	public Message(int type, String destination, String myIP, String method, Object data, Object dataType){
+
+	public Message(int type, String destination, String myIP, String method, Object data, String dataType, String serverName){
 		setType(type);
 		setDestination(destination);
 		setMethod(method);
 		setDataType(dataType);
 		setData(data);
 		setMyIP(myIP);
-		if(dataType == null)
-			_dataType = data.getClass();
-		else
-			_dataType = dataType;
+		setServerName(serverName);
 	}
-	
+
 	public boolean readFileIntoData(String filePath){
 		try {
 			Path path = Paths.get(filePath);
 			setData(Files.readAllBytes(path));
-            return true;
-        }
-        catch(Exception ex) {
-        	System.out.print(ex.toString());
+			return true;
+		}
+		catch(Exception ex) {
+			System.out.print(ex.toString());
 			return false;				
-        }
+		}
 	}
-	
+
 	public boolean writeFileFromData(String filePath){
 		try {
-            FileOutputStream outputStream =
-                new FileOutputStream(filePath);
-            outputStream.write((byte[])getData(false));
-            outputStream.close();	
-            return true;
-        }
-        catch(Exception ex) {
-        	System.out.print(ex.toString());
-            return false;
-        }
+			FileOutputStream outputStream =
+					new FileOutputStream(filePath);
+			outputStream.write((byte[])getData(false));
+			outputStream.close();	
+			return true;
+		}
+		catch(Exception ex) {
+			System.out.print(ex.toString());
+			return false;
+		}
 	}
-	
+
 	private byte[] compress(byte[] data) throws IOException {
 		Deflater deflater = new Deflater();
 		deflater.setLevel(Deflater.BEST_COMPRESSION);
@@ -80,7 +78,7 @@ public class Message implements Serializable {
 		outputStream.close();
 		return outputStream.toByteArray(); 
 	}  
-	
+
 	private static byte[] decompress(byte[] data) throws IOException, DataFormatException { 
 		Inflater inflater = new Inflater();  
 		inflater.setInput(data); 
@@ -93,13 +91,13 @@ public class Message implements Serializable {
 		outputStream.close();   
 		return outputStream.toByteArray();
 	}  
-	
+
 	public int getDataLength(){
 		return _data.length;
 	}
-	
+
 	//--------------------------------GET AND SET--------------------------------//
-	
+
 	public boolean setData(Object data){
 		try{
 			if(data.getClass().equals(byte[].class)){
@@ -116,7 +114,7 @@ public class Message implements Serializable {
 			return false;
 		}
 	}
-	
+
 	public Object getData(boolean asObject){
 		try{
 			if(asObject)
@@ -127,43 +125,51 @@ public class Message implements Serializable {
 			return false;
 		}
 	}
-	
+
 	public void setMyIP(String myIP){
 		_myIP = myIP;
 	}
-	
+
 	public String getMyIP(){
 		return _myIP;
 	}
-	
-	public void setDataType(Object dataType){
+
+	public void setServerName(String name){
+		_serverName = name;
+	}
+
+	public String getServerName(){
+		return _serverName;
+	}
+
+	public void setDataType(String dataType){
 		_dataType = dataType;
 	}
-	
-	public Object getDataType(){
+
+	public String getDataType(){
 		return _dataType;
 	}
-	
+
 	public void setMethod(String method){
 		_method = method;
 	}
-	
+
 	public String getMethod(){
 		return _method;
 	}
-	
+
 	public void setType(int type){
 		_type = type;
 	}
-	
+
 	public int getType(){
 		return _type;
 	}
-	
+
 	public void setDestination(String destination){
 		_destinationIP = destination;
 	}
-	
+
 	public String getDestination(){
 		return _destinationIP;
 	}

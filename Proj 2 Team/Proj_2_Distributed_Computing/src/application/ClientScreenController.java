@@ -7,6 +7,7 @@ import java.util.ResourceBundle;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import Model.SocketClient;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -23,45 +24,47 @@ public class ClientScreenController implements Initializable, ControlledScreen {
 	ScreensController myController;
 
 	@FXML 	AnchorPane	rootScreen;
-	
+
 	@FXML	Pane		messageSendingPane;
-	
+
 	@FXML	Label		clientsIPAddressLabel;
 	@FXML	Label		runTimeLabel;
 	@FXML	Label		messagesRecievedLabel;
 	@FXML	Label		recievingClientsIPAddressLabel;
 	@FXML	Label		recievingClientsPortNumberLabel;
 	@FXML	Label		loadedFileNameLabel;
-	
+
 	@FXML 	Button		startClientButton;
 	@FXML	Button		loadFileButton;
 	@FXML	Button		sendMessageButton;
 	@FXML	Button		exitButton;
-	
+
 	@FXML	TextField	clientsNameField;
 	@FXML	TextField	clientsPortNumberField;
 	@FXML	TextField	serverRouterIPAddressField;
 	@FXML	TextField	nameOfRecievingClientField;
-	
+
 	@FXML	TextArea	messageLogArea;
-	
+
 	//variables
 	private			Timer 				timer;
 	private			boolean				clientSetup						= true;
 	private 		int 				clock 							= 0,
-										counter							= 0,
-										clientPortNumber				= 0;
+			counter							= 0,
+			clientPortNumber				= 0;
 	private			String				messageLogHolderString			= "",
-										serverRouterIPAddressString		= "",
-										clientNameString				= "",
-										handlerClientNameString			= "",
-										clientIPAddressString			= "",
-										handlerClientIPAddressString	= "",
-										handlerClientPortNumberString	= "",
-										fileNameString					= "";
+			serverRouterIPAddressString		= "",
+			clientNameString				= "",
+			handlerClientNameString			= "",
+			clientIPAddressString			= "",
+			handlerClientIPAddressString	= "",
+			handlerClientPortNumberString	= "",
+			fileNameString					= "";
 	private 		FileChooser			fileChooser 					= new FileChooser();
-	
-	
+	private			SocketClient		clientConn						;
+	private			SocketClient		serverConn						;
+
+
 	@FXML
 	void exitClientButtonPressed(ActionEvent event){
 		// delete all children then exit to start screen
@@ -71,7 +74,7 @@ public class ClientScreenController implements Initializable, ControlledScreen {
 		}
 		myController.setScreen(Main.START_SCREEN);
 	}
-	
+
 	@FXML
 	void startClientButtonPressed(ActionEvent event){
 		if (clientSetup){
@@ -86,18 +89,19 @@ public class ClientScreenController implements Initializable, ControlledScreen {
 			messageLogHolderString = messageLogArea.getText();	
 			messageLogArea.setText("Start Client\n" + messageLogHolderString);
 			startUpdateLoop();
+			//Start SocketClient to send Message.
 			clientSetup = false;
 		} else {
 			messageLogHolderString = messageLogArea.getText();	
 			messageLogArea.setText("Restart Client\n" + messageLogHolderString);
-			
+
 			reset();
 			clientSetup = true;
 			clientsNameField.requestFocus();
-			
+
 		}
 	}
-	
+
 	@FXML
 	void loadFileButtonPressed(ActionEvent event){
 		//start file load process
@@ -105,20 +109,20 @@ public class ClientScreenController implements Initializable, ControlledScreen {
 		//show send message button
 		File file = fileChooser.showOpenDialog(Main.PRIMARYSTAGE_STAGE);
 		if (file != null) {
-            //openFile(file);
+			//openFile(file);
 			fileNameString = file.getAbsolutePath();
 			loadedFileNameLabel.setText(fileNameString);
-        	System.out.println("filename = " + fileNameString);
-        	if (fileNameString != null){
-        		sendMessageButton.setVisible(true);
-        		messageLogHolderString = messageLogArea.getText();
-        		messageLogArea.setText("File : " + fileNameString 
-        				+ " Loaded" + messageLogHolderString);
-        	}
-        	sendMessageButton.setVisible(true);
-        }
+			System.out.println("filename = " + fileNameString);
+			if (fileNameString != null){
+				sendMessageButton.setVisible(true);
+				messageLogHolderString = messageLogArea.getText();
+				messageLogArea.setText("File : " + fileNameString 
+						+ " Loaded" + messageLogHolderString);
+			}
+			sendMessageButton.setVisible(true);
+		}
 	}
-	
+
 	@FXML
 	void sendMessageButtonPressed(ActionEvent event){
 		//	create socket, connect to server-router to request "Lookup" of handler client
@@ -134,7 +138,7 @@ public class ClientScreenController implements Initializable, ControlledScreen {
 		// 	clear nameOfRecievingClientField, and recievingClientIPAddressLabel and 
 		//		recievingClientsPortNumberLabel
 	}
-	
+
 	void clientSetup(){
 		try {
 			clientNameString = clientsNameField.getText();
@@ -155,16 +159,22 @@ public class ClientScreenController implements Initializable, ControlledScreen {
 					+ "\n" + messageLogHolderString);
 			init();
 			nameOfRecievingClientField.requestFocus();
-			//Start a Client...
+			//Start a Server... BANANA
+			serverConn = new SocketClient();
+			if(!serverConn.RunServer("l3lawns.com", 5555))
+			{
+				reset();
+			}
+
 		} catch (NumberFormatException e) {
 			messageLogHolderString = messageLogArea.getText();
 			messageLogArea.setText("Port Number must be a number between x - y\n" + messageLogHolderString);
 			reset();
 		}
 	}
-	
-	
-	
+
+
+
 	void reset() {
 		if (timer != null) {
 			timer.cancel();
@@ -188,7 +198,7 @@ public class ClientScreenController implements Initializable, ControlledScreen {
 		fileNameString = "";
 		timer.cancel();
 	}
-	
+
 	void init(){
 		if (timer != null) {
 			timer.cancel();
@@ -202,14 +212,14 @@ public class ClientScreenController implements Initializable, ControlledScreen {
 		messageSendingPane.setVisible(true);
 		sendMessageButton.setVisible(false);
 	}
-	
-	
+
+
 	void startUpdateLoop(){
 		//Getting the Text.
 		messageLogHolderString = messageLogArea.getText();
 		//Add new at top of box.
 		messageLogArea.setText("Start Update Loop\n" + messageLogHolderString);
-	
+
 		timer.schedule(new TimerTask() {
 			public void run() {
 				Platform.runLater(new Runnable() {
@@ -230,23 +240,32 @@ public class ClientScreenController implements Initializable, ControlledScreen {
 			}
 		}, 0, 1);
 	}
-	
+
 	String getSocketData() {
-		int x = 3;
-		if(x % 2 == 0){
-			return "Even";
-		}else{
-			return null;
+		String data = "", temp;
+		if((temp = clientConn.report()) != null)
+		{
+			data += temp;
+			temp = null;
 		}
+		if((temp = serverConn.report()) != null)
+		{
+			data += temp;
+		}
+		
+		if(data == "")
+			return null;
+		else
+			return data;
 	}
-	
-	
-	
-	
-	
-	
-	
-	
+
+
+
+
+
+
+
+
 	//==============================================================================
 	@Override
 	public void setScreenParent(ScreensController screenPage) {
@@ -258,7 +277,7 @@ public class ClientScreenController implements Initializable, ControlledScreen {
 	public void initialize(URL location, ResourceBundle resources) {
 		// TODO Auto-generated method stub
 		rootScreen.setStyle("-fx-background-color: lightblue");
-		
+
 		Main.CSC = this;
 	}
 

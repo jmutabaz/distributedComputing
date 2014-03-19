@@ -5,44 +5,43 @@ import java.net.SocketException;
 
 
 public class SocketClient {
+	
+	private Server ser;
+	private Client cli;
+	
 	public SocketClient(){
 		
 	}
 	
-	public String RunServer() {
+	public boolean RunServer(String ip, int port) {
 		try{
-			Server ser = new Server("10.0.0.16", 5555);
+			ser = new Server(ip, port);
 			ser.start();
 
-			System.out.println("| Running... ");
+			System.out.println("<!--Running-->");
 
-			//This is the reporting and terminating means of the thread.
-			//._report is a filed that the Thread post messages to and
-			//._message is an error where ._flag indicates if there is 
-			// an error/
-
-			ser.join();
-			return "Done.";
+			return true;
 		}
 		catch(Exception e)
 		{
-			return "Couldn't Run Server.";
+			System.out.println("<!--" + e.toString() + "-->");
+			return false;
 		}
 	}
 	
-	public String RunClient() {
+	public boolean RunClient(String ip, int port, Message msg) {
 		try{
-			Client cli = new Client("l3lawns.com", 5555);
+			cli = new Client(ip, port, msg);
 			cli.start();
 			
-			//This is the reporting and terminating means of the thread.
-			//._report is a filed that the Thread post messages to and
-			//._message is an error where ._flag indicates if there is 
-			// an error/
-			cli.join();
-			return "Done.";
-		}catch(Exception e){
-			return "Couldn't Run Client";
+			System.out.println("<!--Running-->");
+
+			return true;
+		}
+		catch(Exception e)
+		{
+			System.out.println("<!--" + e.toString() + "-->");
+			return false;
 		}
 	}
 	
@@ -61,6 +60,10 @@ public class SocketClient {
 		}catch(Exception ex){
 			return "Failed To Run ServerRouter.";
 		}
+	}
+	
+	public String report(){
+		return "";
 	}
 	
 	

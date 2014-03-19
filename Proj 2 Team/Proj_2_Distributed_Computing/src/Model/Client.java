@@ -13,20 +13,24 @@ public class Client extends Thread {
 	private ObjectOutputStream _out;
 	private ObjectInputStream _in;
 	public boolean _kill = false;
-	
-	public Client(String routerIP, int port){
+	private Message _msg;
+
+	public Client(String routerIP, int port, Message msg){
 		_routerIP = routerIP;
 		_portNum = port;
+		_msg = msg;
 	}
-	
+
 	public void run(){
+
+		//Get Server IP.
+		_msg.setDestination(getServerIP(_msg.getServerName()));
+
+		//Send Message.
 		try{
-			connect();
-			Message x = new Message();
-			x.readFileIntoData("pic.jpg");
-			x.setDestination("10.0.0.5");
-			x.setType(2);
-			_out.writeObject(x);
+			if(!connect())
+				return;
+			_out.writeObject(_msg);
 			Message n = new Message();
 			n = (Message)_in.readObject();
 			@SuppressWarnings("unused")
@@ -35,15 +39,25 @@ public class Client extends Thread {
 			log(ex.toString());
 		}
 	}
-	
+
 	public boolean connect() throws UnknownHostException, IOException{
-		_socket = new Socket(_routerIP, _portNum);
-		_out = new ObjectOutputStream(_socket.getOutputStream());
-		_in = new ObjectInputStream(_socket.getInputStream());
+		try{
+			_socket = new Socket(_msg.getDestination(), _portNum);
+			_out = new ObjectOutputStream(_socket.getOutputStream());
+			_in = new ObjectInputStream(_socket.getInputStream());
+		}catch(Exception x){
+			log(x.toString());
+			return false;
+		}
 		return true;
 	}
-	
+
+	public String getServerIP(String serverName){
+		//BANANA - Get server info from server router... joy.
+		return "192.168.0.1";
+	}
+
 	public static void log(String x){
-		System.out.println(x);
+		System.out.println("<!--" + x + "-->");
 	}
 }
