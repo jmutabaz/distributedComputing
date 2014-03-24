@@ -54,7 +54,7 @@ public class Client extends Thread {
 
 	public String getServerIP(String serverName){
 		//BANANA - Get server info from server router... joy.
-		return "192.168.0.4";
+		return "192.168.1.4";
 	}
 
 	public static void log(String x){

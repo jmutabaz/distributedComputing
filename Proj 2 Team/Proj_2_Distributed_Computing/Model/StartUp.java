@@ -25,7 +25,7 @@ public class StartUp {
 		p("| --------------------------------------");
 		p("| Welcome to the Awesome Socket Program! ");
 		SocketClient ser = new SocketClient();
-		ser.RunServer("SERVER-ROUTER IP", 5555);
+		//ser.RunServer("SERVER-ROUTER IP", 5555);
 		do{
 			p("| What Would You Like To Do? ");
 			p("| 1) Send Message... ");
@@ -52,8 +52,10 @@ public class StartUp {
 			SocketClient cli = new SocketClient();
 			msg.setData("Hi Paul!");
 			msg.setMyIP("192.168.1.5");
-			msg.setType(true);//String Message
+			msg.setType(false);//String Message
 			msg.setServerName("Paul-MBP");
+			msg.setFileName("NewPic.jpg");
+			msg.readFileIntoData("pic.jpg");
 			
 			switch(choice){
 			case 1:
