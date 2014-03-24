@@ -89,6 +89,7 @@ public class Server extends Thread {
 	
 	public boolean register(){
 		//BANANA
+		//connect
 		return true;
 	}
 	
