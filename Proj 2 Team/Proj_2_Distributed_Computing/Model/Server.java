@@ -14,6 +14,7 @@ public class Server extends Thread {
 	private ObjectOutputStream _out;
 	private ObjectInputStream _in;
 	public boolean _kill = false;
+	private String _report = null;
 	
 	public Server(String routerIP, int port){
 		_routerIP = routerIP;
@@ -21,7 +22,13 @@ public class Server extends Thread {
 	}
 	
 	public void run(){
+		/*
+		 * By: Rhett and Paul
+		 * 		
+		 */
+		addToReport("Server: Starting Up.");
 		//BANANA - Reporting after done.
+		addToReport("Server: Registering with Router.");
 		if(register()){
 			try{
 				waitForPrey();
@@ -53,6 +60,7 @@ public class Server extends Thread {
 				log(ex.toString());
 			}
 		}
+		waitForPickUp();
 	}
 	
 	public void waitForPrey(){
@@ -90,10 +98,40 @@ public class Server extends Thread {
 	public boolean register(){
 		//BANANA
 		//connect
+		addToReport("Server: Registered.");
 		return true;
 	}
 	
-	public static void log(String x){
-		System.out.println("<!--" + x + "-->");
+	private void addToReport(String report){
+		log(report);
+		_report = "Client: " + report + "\n" + _report;
+	}
+
+	public String getReport(){
+		/*
+		 * By: Rhett
+		 * 		Returns current report to the SocketClient.
+		 */
+		String temp = _report;
+		_report = null;
+		return temp;
+	}
+
+	private void waitForPickUp(){
+		/*
+		 * By: Rhett
+		 * 		Waits for Report to be Retrieved.
+		 */
+		try{
+			while(_report != null){
+				Thread.sleep(1000);
+			}
+		}catch(Exception ex){
+
+		}
+	}
+
+	private static void log(String x){
+		System.out.println("<!--Client: " + x + "-->");
 	}
 }

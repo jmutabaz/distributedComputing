@@ -13,7 +13,7 @@ public class Client extends Thread {
 	private ObjectOutputStream _out;
 	private ObjectInputStream _in;
 	private Message _msg;
-	private String _report;
+	private String _report = null;
 
 	public Client(String routerIP, int port, Message msg){
 		/*

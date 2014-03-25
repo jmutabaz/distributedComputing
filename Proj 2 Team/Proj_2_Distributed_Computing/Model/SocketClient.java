@@ -62,7 +62,11 @@ public class SocketClient {
 	}
 	
 	public String report(){
-		return "";
+		if(cli != null)
+			return cli.getReport();
+		if(ser != null)
+			return ser.getReport();
+		return null;
 	}
 	
 	
