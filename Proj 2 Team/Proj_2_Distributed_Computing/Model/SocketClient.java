@@ -3,7 +3,6 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.SocketException;
 
-
 public class SocketClient {
 	
 	private Server ser;
