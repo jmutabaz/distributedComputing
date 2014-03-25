@@ -3,9 +3,15 @@ import java.util.Scanner;
 public class VerifyIPAddress {
 	public static void main(String [] args)
 	{
+		String IP = "";
+		validateIP(IP);
+	}
+	
+	public static void validateIP(String IP)
+	{
 		Scanner scan = new Scanner (System.in);
 		System.out.println("Enter IP address");
-		String IP =scan.nextLine();
+		IP =scan.nextLine();
 		String[] n = IP.split("\\.");
 		
 		/*
@@ -67,6 +73,7 @@ public class VerifyIPAddress {
 		{
 			System.out.println(n[0] + "." + n[1] + "." + n[2] + "." + n[3]);
 		}
+	
 	}
 	
 }
