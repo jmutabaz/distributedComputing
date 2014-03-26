@@ -133,6 +133,33 @@ public class Server extends Thread {
 			return false;
 		}
 	}
+	
+	private boolean deRegister(){
+		/*
+		 * By: Rhett, Paul, kinda John.
+		 */
+		try{
+			RouterMessage msg = new RouterMessage();
+			msg.setType('s');
+			msg.setIPToRemove(_myIP);
+			msg.setName("BANANA - from GUI");
+			if(!connect()){
+				return false;
+			}
+			_out.writeObject(msg);
+			RouterMessage newMsg = (RouterMessage)_in.readObject();
+			if(newMsg.getType() == 't')
+			{
+				addToReport("DeRegistered.");
+				return true;
+			}else{
+				addToReport("Couldn't DeRegister.");
+				return false;
+			}
+		}catch(Exception ex){
+			return false;
+		}
+	}
 
 	private void addToReport(String report){
 		log(report);

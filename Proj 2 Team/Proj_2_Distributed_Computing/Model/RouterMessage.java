@@ -11,12 +11,24 @@ public class RouterMessage implements Serializable {
 	private List<String> _routerList;
 	private String _IPLookup;
 	private String _name;
+	private char _errorMsg;//n - NameExists, a - AddressExists, g - general.
 	
 	public RouterMessage(){
 		
 	}
 	
 	//--------------------------------GET AND SET--------------------------------//
+	
+	public void setError(char type){
+		/*
+		 * By: Rhett??
+		 */
+		_errorMsg = (type == 'n' ? 'n':(type == 'g' ? 'g':null));
+	}
+	
+	public char getError(){
+		return _errorMsg;
+	}
 	
 	public void setType(char type){
 		/*

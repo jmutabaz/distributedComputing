@@ -37,7 +37,10 @@ public class RouterThread extends Thread {
 			_incoming = (RouterMessage)_in.readObject();
 			
 			if(_incoming.getType() == 's'){
-				_myServers.add(new ServerID(_incoming.getIPToAdd(),_incoming.getName()));
+				if(_incoming.getIPToAdd() != null)
+					_myServers.add(new ServerID(_incoming.getIPToAdd(),_incoming.getName()));
+				else if(_incoming.getIPToRemove() != null)
+					_myServers.remove(searchServers(_incoming.getIPToRemove()));
 			}else if(_incoming.getType() == 'r'){
 				_routerList.add(_incoming.getIPToAdd());
 			}else if(_incoming.getType() == 'n'){
@@ -65,7 +68,38 @@ public class RouterThread extends Thread {
 		}
 	}
 	
+	public void addToRouterList(String ip){
+		/*
+		 * By: Rhett, Paul
+		 */
+		for(String i : _routerList){
+			if(i.equals(ip)){
+				return;
+			}
+		}
+		_routerList.add(ip);
+	}
+	
+	public char addToClientList(ServerID id){
+		/*
+		 * By: Rhett, Paul
+		 */
+		//BANANA
+		for(ServerID i : _myServers){
+			if(i.getServerIP().equals(id.getServerIP()) && !i.getServerName().equals(id.getServerName())){
+				return 'a';
+			}else if(i.getServerName().equals(id.getServerName())){
+				return 'n';
+			}
+		}
+		//_routerList.add(ip);
+		return 'x';
+	}
+	
 	public String findIPFromName(){
+		/*
+		 * By: Rhett, Paul
+		 */
 		for(ServerID k : _myServers)
 		{
 			if(k.getServerName().equals(_incoming.getName())){
@@ -76,6 +110,9 @@ public class RouterThread extends Thread {
 	}
 	
 	public String updateOthers(){
+		/*
+		 * By: Rhett, Paul
+		 */
 		try{
 			for(String i : _routerList){
 				if(!connect(i)){
@@ -90,11 +127,33 @@ public class RouterThread extends Thread {
 		return null;
 	}
 	
+	public int searchServers(String ip){
+		/*
+		 * By: Rhett, Paul
+		 * 		Searches server list, returns index.
+		 */
+		if(ip.trim() == "" || ip == null)
+			return -1;
+		int count = 0;
+		for(ServerID i : _myServers){
+			if(i.getServerIP().equals(ip.trim()))
+				return count;
+			count++;
+		}
+		return -1;
+	}
+	
 	public String searchOthers(){
+		/*
+		 * By: Rhett, Paul
+		 * 		Searches other routers for person.
+		 */
 		try{
 			for(String i : _routerList){
 				if(!connect(i)){
-					removeRouter(i);
+					if(removeRouter(i))
+						if(connect(i))
+							removeRouter(i);
 				}else{
 					_tempOut.writeObject(_incoming);
 					RouterMessage msg = (RouterMessage)_tempIn.readObject();
@@ -108,13 +167,14 @@ public class RouterThread extends Thread {
 		return null;
 	}
 
-	public void removeRouter(String routerIP){
+	public boolean removeRouter(String routerIP){
 		//BANANA - Second Chance?
 		
 		//BANANA - Send Removal Messages
 			//BANANA - Remove NonResponsive
 		
 		//BANANA - If None Respond... assume Russia Attacked...
+		return true;
 	}
 	
 	private boolean connect(String ip){
@@ -122,7 +182,6 @@ public class RouterThread extends Thread {
 		 * By: Rhett
 		 * 		Connects to Router.
 		 */
-		//Connect To Router
 		try{
 			if(_tempSoc.isConnected())
 			{
