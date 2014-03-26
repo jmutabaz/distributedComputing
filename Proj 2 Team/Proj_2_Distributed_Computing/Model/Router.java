@@ -1,5 +1,7 @@
 package Model;
 import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
@@ -14,13 +16,16 @@ public class Router extends Thread {
 	private List<String> _routerList;
 	private String _report;
 	private int _port;
+	public boolean _running;
 	
-	public Router(int port){
+	public Router(String otherRouterIP, int port){
 		_port = port;
+		//Gets info from other routers.
+		_running = getMeSetUp(otherRouterIP);
 	}
 	
 	public void run(){
-		boolean running = true;
+		_running = true;
 		try{
 			Socket newSocket = null;
 			ServerSocket serverSocket = null;
@@ -31,7 +36,7 @@ public class Router extends Thread {
 				return;
 			}
 			
-			while (running == true)
+			while (_running == true)
 			{
 				try {
 					newSocket = serverSocket.accept();
@@ -50,6 +55,36 @@ public class Router extends Thread {
 			
 		}
 		
+	}
+	
+	private boolean getMeSetUp(String routerIP){
+		if(routerIP == null || routerIP.equals(""))//First Router?
+			return true;
+		Socket socket;
+		ObjectOutputStream out;
+		ObjectInputStream in;
+		try{
+			socket = new Socket(routerIP, 5555);
+			out = new ObjectOutputStream(socket.getOutputStream());
+			in = new ObjectInputStream(socket.getInputStream());
+			RouterMessage msg = new RouterMessage();
+			msg.setType('n');
+			msg.setIPToAdd("MyOwnIPFromGUI BANANA");
+			out.writeObject(msg);
+			RouterMessage newMsg = (RouterMessage)in.readObject();
+			//tinks paul my nead dep cpy
+			_routerList = newMsg.getRouterList();
+			in.close();
+			out.close();
+			socket.close();
+		}catch(Exception ex){
+			return false;
+		}
+		return true;
+	}
+	
+	public void deRegister(){
+		//BANANA
 	}
 	
 	private void addToReport(String report){

@@ -6,6 +6,7 @@ import java.net.Socket;
 import java.util.ArrayList;
 import java.util.List;
 //BANANA - Check For Timeouts!!!!!!!
+//Don't notify ourselves...
 /*
  * I've got a lovely bunch of coconuts!
  * By: (Rhett && Paul && 1/8*John ? true:false)
@@ -26,7 +27,7 @@ public class RouterThread extends Thread {
 			_myServers = servers;
 			_routerList = routers;
 		}catch(Exception ex){
-			//BANANA - Streams didn't open.
+			
 		}
 	}
 
@@ -38,17 +39,9 @@ public class RouterThread extends Thread {
 			
 			if(_incoming.getType() == 's'){
 				if(_incoming.getIPToAdd() != null)
-					_myServers.add(new ServerID(_incoming.getIPToAdd(),_incoming.getName()));
+					out.setError(addToServerList(new ServerID(_incoming.getIPToAdd(),_incoming.getName())));
 				else if(_incoming.getIPToRemove() != null)
 					_myServers.remove(searchServers(_incoming.getIPToRemove()));
-			}else if(_incoming.getType() == 'r'){
-				_routerList.add(_incoming.getIPToAdd());
-			}else if(_incoming.getType() == 'n'){
-				_routerList.add(_incoming.getIPToAdd());
-				//BANANA ? - tinks paul refernce pas
-				out.setRouterList(_routerList);
-				_incoming.setType('r');
-				updateOthers();
 			}else if(_incoming.getType() == 'c'){
 				String IP = findIPFromName();
 				if(IP == null){
@@ -56,6 +49,17 @@ public class RouterThread extends Thread {
 					IP = searchOthers();
 				}
 				out.setIPLookup(IP);
+			}else if(_incoming.getType() == 'r'){
+				if(_incoming.getIPToAdd() != null)
+					addToRouterList(_incoming.getIPToAdd());
+				else if(_incoming.getIPToRemove() != null)
+					removeRouter(_incoming.getIPToRemove());
+			}else if(_incoming.getType() == 'n'){
+				addToRouterList(_incoming.getIPToAdd());
+				//BANANA ? - tinks paul refernce pas
+				out.setRouterList(_routerList);
+				_incoming.setType('r');
+				updateOthers();
 			}else if(_incoming.getType() == 'l'){
 				String IP = findIPFromName();
 				out.setIPLookup(IP);
@@ -80,20 +84,20 @@ public class RouterThread extends Thread {
 		_routerList.add(ip);
 	}
 	
-	public char addToClientList(ServerID id){
+	public char addToServerList(ServerID id){
 		/*
 		 * By: Rhett, Paul
 		 */
-		//BANANA
 		for(ServerID i : _myServers){
-			if(i.getServerIP().equals(id.getServerIP()) && !i.getServerName().equals(id.getServerName())){
+			if(i.getServerIP().equals(id.getServerIP()) && i.getServerName().equals(id.getServerName()))
+				return 't';
+			if(i.getServerIP().equals(id.getServerIP()) && !i.getServerName().equals(id.getServerName()))
 				return 'a';
-			}else if(i.getServerName().equals(id.getServerName())){
+			if(!i.getServerIP().equals(id.getServerIP()) && i.getServerName().equals(id.getServerName()))
 				return 'n';
-			}
 		}
-		//_routerList.add(ip);
-		return 'x';
+		_myServers.add(id);
+		return 't';
 	}
 	
 	public String findIPFromName(){
@@ -116,7 +120,9 @@ public class RouterThread extends Thread {
 		try{
 			for(String i : _routerList){
 				if(!connect(i)){
-					removeRouter(i);
+					Thread.sleep(1000);
+					if(connect(i))
+						removeRouter(i);
 				}else{
 					_tempOut.writeObject(_incoming);
 				}
@@ -151,9 +157,9 @@ public class RouterThread extends Thread {
 		try{
 			for(String i : _routerList){
 				if(!connect(i)){
-					if(removeRouter(i))
-						if(connect(i))
-							removeRouter(i);
+					Thread.sleep(1000);
+					if(connect(i))
+						removeRouter(i);
 				}else{
 					_tempOut.writeObject(_incoming);
 					RouterMessage msg = (RouterMessage)_tempIn.readObject();
@@ -168,13 +174,15 @@ public class RouterThread extends Thread {
 	}
 
 	public boolean removeRouter(String routerIP){
-		//BANANA - Second Chance?
-		
-		//BANANA - Send Removal Messages
-			//BANANA - Remove NonResponsive
-		
-		//BANANA - If None Respond... assume Russia Attacked...
-		return true;
+		for(int i = 0; i < _routerList.size(); i++)
+		{
+			if(_routerList.get(i).equals(routerIP))
+			{
+				_routerList.remove(i);
+				return true;
+			}
+		}
+		return false;
 	}
 	
 	private boolean connect(String ip){

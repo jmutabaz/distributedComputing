@@ -11,7 +11,7 @@ public class RouterMessage implements Serializable {
 	private List<String> _routerList;
 	private String _IPLookup;
 	private String _name;
-	private char _errorMsg;//n - NameExists, a - AddressExists, g - general.
+	private char _errorMsg;//n - NameExists, a - AddressHasDiffName, g - general.
 	
 	public RouterMessage(){
 		
