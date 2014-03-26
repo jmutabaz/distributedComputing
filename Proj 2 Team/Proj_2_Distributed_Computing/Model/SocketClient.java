@@ -58,7 +58,7 @@ public class SocketClient {
 	public String RunServerRouter() {
 		try{
 			//Starts a Thread Class ServerRouter.
-			Router router = new Router(5555);
+			Router router = new Router("RouterIP if Exists",5555);
 			router.start();
 			
 			//This is the reporting and terminating means of the thread.
