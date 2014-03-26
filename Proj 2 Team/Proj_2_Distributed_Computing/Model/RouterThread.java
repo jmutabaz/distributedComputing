@@ -6,6 +6,10 @@ import java.net.Socket;
 import java.util.ArrayList;
 import java.util.List;
 //BANANA - Check For Timeouts!!!!!!!
+/*
+ * I've got a lovely bunch of coconuts!
+ * By: (Rhett && Paul && 1/8*John ? true:false)
+ */
 public class RouterThread extends Thread {
 	private Socket _socket, _tempSoc;
 	private ObjectOutputStream _out, _tempOut;
@@ -22,14 +26,16 @@ public class RouterThread extends Thread {
 			_myServers = servers;
 			_routerList = routers;
 		}catch(Exception ex){
-			
+			//BANANA - Streams didn't open.
 		}
 	}
 
 	public void run(){
 		try{
 			RouterMessage out = new RouterMessage();
+			
 			_incoming = (RouterMessage)_in.readObject();
+			
 			if(_incoming.getType() == 's'){
 				_myServers.add(new ServerID(_incoming.getIPToAdd(),_incoming.getName()));
 			}else if(_incoming.getType() == 'r'){
@@ -118,6 +124,12 @@ public class RouterThread extends Thread {
 		 */
 		//Connect To Router
 		try{
+			if(_tempSoc.isConnected())
+			{
+				_tempOut.close();
+				_tempIn.close();
+				_tempSoc.close();
+			}
 			_tempSoc = new Socket(ip, 5555);
 			_tempOut = new ObjectOutputStream(_socket.getOutputStream());
 			_tempIn = new ObjectInputStream(_socket.getInputStream());
