@@ -3,23 +3,23 @@ import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
+import java.util.List;
 
 /*
  * Router Class that Boots up to accept all
  * incoming connections and route them where needed.
  */
 public class Router extends Thread {
+	private List<ServerID> _myServers;
+	private List<String> _routerList;
+	private String _report;
 	private int _port;
-	private int _numOfRowsInTable;
-	private ArrayList<Connection> RTable;
 	
-	public Router(int port, int numOfRowsInTable){
+	public Router(int port){
 		_port = port;
-		_numOfRowsInTable = numOfRowsInTable;
 	}
 	
 	public void run(){
-		RTable = new ArrayList<Connection>();
 		boolean running = true;
 		try{
 			Socket newSocket = null;
@@ -35,8 +35,7 @@ public class Router extends Thread {
 			{
 				try {
 					newSocket = serverSocket.accept();
-					RouterThread t = new RouterThread(newSocket, RTable, findIndex(
-							newSocket.getInetAddress().getHostAddress()));
+					RouterThread t = new RouterThread(newSocket, _myServers, _routerList);
 					t.start();
 				}
 				catch (IOException e) {
@@ -53,18 +52,36 @@ public class Router extends Thread {
 		
 	}
 	
-	public void removeClosedConnections(){
-		for(Connection c : RTable){
-			if(!c.isConnected())
-				RTable.remove(c);
+	private void addToReport(String report){
+		log(report);
+		_report = "Router: " + report + "\n" + _report;
+	}
+
+	public String getReport(){
+		/*
+		 * By: Rhett
+		 * 		Returns current report to the SocketClient.
+		 */
+		String temp = _report;
+		_report = null;
+		return temp;
+	}
+
+	private void waitForPickUp(){
+		/*
+		 * By: Rhett
+		 * 		Waits for Report to be Retrieved.
+		 */
+		try{
+			while(_report != null){
+				Thread.sleep(1000);
+			}
+		}catch(Exception ex){
+
 		}
 	}
-	
-	public int findIndex(String addr){
-		for(int i = 0; i < RTable.size(); i++){
-			if(RTable.get(i).getAddr().equals(addr) && RTable.get(i).isConnected())
-				return i;
-		}
-		return -1;
+
+	private static void log(String x){
+		System.out.println("<!--Router: " + x + "-->");
 	}
 }

@@ -15,10 +15,12 @@ public class Server extends Thread {
 	private ObjectInputStream _in;
 	public boolean _kill = false;
 	private String _report = null;
+	private String _myIP;
 
-	public Server(String routerIP, int port){
+	public Server(String routerIP, int port, String myIP){
 		_routerIP = routerIP;
 		_portNum = port;
+		_myIP = myIP;
 	}
 
 	public void run(){
@@ -26,15 +28,11 @@ public class Server extends Thread {
 		 * By: Rhett and Paul
 		 * 		
 		 */
-		addToReport("Server: Starting Up.");
-		addToReport("Server: Registering with Router.");
+		addToReport("Starting Up.");
+		addToReport("Registering with Router.");
 		if(register()){
 			try{
 				waitForPrey();
-				if(!connect()){
-					waitForPickUp();
-					return;
-				}
 				while(!_kill){
 					Message msg = (Message)_in.readObject();
 					Message complete = new Message();
@@ -60,24 +58,29 @@ public class Server extends Thread {
 			}catch(Exception ex){
 				log(ex.toString());
 			}
-			waitForPickUp();
 		}
 		waitForPickUp();
 	}
 
 	private void waitForPrey(){
+		/*
+		 * By: Rhett Paul - Named by Rhett
+		 * 		Waits for a Client Connection.
+		 */
 		try{
 			Socket newSocket = null;
 			ServerSocket serverSocket = null;
 			try {
 				serverSocket = new ServerSocket(5555);
-				addToReport("Server: Waiting for Connection.");
+				addToReport("Waiting for Connection.");
 				newSocket = serverSocket.accept();
-				addToReport("Server: Client Connected.");
+				addToReport("Client Connected.");
 				_socket = newSocket;
+				_out = new ObjectOutputStream(_socket.getOutputStream());
+				_in = new ObjectInputStream(_socket.getInputStream());
 			}
 			catch (IOException e) {
-				addToReport("Server: Couldn't Listen for Connections.");
+				addToReport("Couldn't Listen for Connections.");
 				return;
 			}
 			serverSocket.close();
@@ -97,27 +100,43 @@ public class Server extends Thread {
 			_out = new ObjectOutputStream(_socket.getOutputStream());
 			_in = new ObjectInputStream(_socket.getInputStream());
 		}catch(Exception ex){
-			addToReport("Server: Failed to Connect to Router.");
+			addToReport("Failed to Connect to Router.");
 			return false;
 		}
-		addToReport("Server: Connected to Router.");
+		addToReport("Connected to Router.");
 		return true;
 	}
 
 	private boolean register(){
-		//BANANA
-		RouterMessage msg = new RouterMessage();
-		msg.setIPToAdd("MYIP");
-		//Send msg
-
-		//connect
-		addToReport("Server: Registered.");
-		return true;
+		/*
+		 * By: Rhett, Paul, kinda John.
+		 */
+		try{
+			RouterMessage msg = new RouterMessage();
+			msg.setType('s');
+			msg.setIPToAdd(_myIP);
+			msg.setName("BANANA - from GUI");
+			if(!connect()){
+				return false;
+			}
+			_out.writeObject(msg);
+			RouterMessage newMsg = (RouterMessage)_in.readObject();
+			if(newMsg.getType() == 't')
+			{
+				addToReport("Registered.");
+				return true;
+			}else{
+				addToReport("Couldn't Register.");
+				return false;
+			}
+		}catch(Exception ex){
+			return false;
+		}
 	}
 
 	private void addToReport(String report){
 		log(report);
-		_report = "Client: " + report + "\n" + _report;
+		_report = "Server: " + report + "\n" + _report;
 	}
 
 	public String getReport(){
@@ -145,6 +164,6 @@ public class Server extends Thread {
 	}
 
 	private static void log(String x){
-		System.out.println("<!--Client: " + x + "-->");
+		System.out.println("<!--Router: " + x + "-->");
 	}
 }

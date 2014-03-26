@@ -32,15 +32,15 @@ public class Client extends Thread {
 		 * 		Starts up Client, gets IP from Router.
 		 * 		Connects to Server and Sends Message.
 		 */
-		addToReport("Client: Starting Up.");
+		addToReport("Starting Up.");
 		//Get Server IP.
-		addToReport("Client: Getting Server IP from Router.");
+		addToReport("Getting Server IP from Router.");
 		if(!getServerIP()){
-			addToReport("Client: Failed to Get IP from Router.");
+			addToReport("Failed to Get IP from Router.");
 			waitForPickUp();
 			return;
 		}else{
-			addToReport("Client: Got IP from Router.");
+			addToReport("Got IP from Router.");
 		}
 
 
@@ -48,19 +48,19 @@ public class Client extends Thread {
 		try{
 			//Connects...
 			if(!connect()){
-				addToReport("Client: Couldn't Connect to Server.");
+				addToReport("Couldn't Connect to Server.");
 				waitForPickUp();
 				return;
 			}else{
-				addToReport("Client: Connected to " + _msg.getServerName() + ".");
+				addToReport("Connected to " + _msg.getServerName() + ".");
 			}
 			//Send Message...
 			_out.writeObject(_msg);
-			addToReport("Client: Message Sent.");
+			addToReport("Message Sent.");
 			Message n = new Message();
 			//Get Response Message...
 			n = (Message)_in.readObject();
-			addToReport("Client: Server response is: " + (String)n.getData(true));
+			addToReport("Server response is: " + (String)n.getData(true));
 		}catch(Exception ex){
 			addToReport(ex.toString());
 		}
@@ -88,8 +88,9 @@ public class Client extends Thread {
 		 * By: Rhett
 		 * 		Connects to Router and returns the ip of the given serverName.
 		 */
-
-		_msg.getServerName();
+		//Msg to send to Router.
+		RouterMessage msg = new RouterMessage();
+		msg.setIPLookup(_msg.getServerName());
 
 		_msg.setDestination("Returned Value");
 
@@ -119,7 +120,7 @@ public class Client extends Thread {
 		 */
 		try{
 			while(_report != null){
-				Thread.sleep(1000);
+				Thread.sleep(100);
 			}
 		}catch(Exception ex){
 

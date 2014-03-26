@@ -4,108 +4,126 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.util.ArrayList;
-//BANANA
+import java.util.List;
+//BANANA - Check For Timeouts!!!!!!!
 public class RouterThread extends Thread {
-	private ArrayList<Connection> _RTable;
-	//private PrintWriter _out, _outTo; 
-	//private BufferedReader _in;
-	ObjectOutputStream _outToClient;
-	ObjectInputStream _inFromClient;
-	ObjectOutputStream _outToServer;
-	ObjectInputStream _inFromServer;
-	boolean _is1Server;
-	private Connection _current;
-	private Message _message;
-	private Message _responseMessage;
+	private Socket _socket, _tempSoc;
+	private ObjectOutputStream _out, _tempOut;
+	private ObjectInputStream _in, _tempIn;
+	private List<ServerID> _myServers;
+	private List<String> _routerList;
+	private RouterMessage _incoming;
 
-	public RouterThread(Socket socket, ArrayList<Connection> RTable, int index) throws IOException, ClassNotFoundException{
-		_RTable = RTable;
-		_responseMessage = new Message();
-		if(index == -1){
-			_RTable.add(new Connection(socket, socket.getInetAddress().getHostAddress()));
-			_current = _RTable.get(_RTable.size()-1);
-		}else{
-			_current = _RTable.get(index);
+	public RouterThread(Socket newSocket, List<ServerID> servers, List<String> routers){
+		try{
+			_socket = newSocket;
+			_out = new ObjectOutputStream(_socket.getOutputStream());
+			_in = new ObjectInputStream(_socket.getInputStream());
+			_myServers = servers;
+			_routerList = routers;
+		}catch(Exception ex){
+			
 		}
 	}
 
 	public void run(){
 		try{
-			ObjectOutputStream outTo1 = new ObjectOutputStream(_current.getSocket().getOutputStream());
-			ObjectInputStream inFrom1 = new ObjectInputStream(_current.getSocket().getInputStream());
-
-			_message = (Message)inFrom1.readObject();
-
-			/*if(_message.getType() == 1)
-				serverRun(outTo1, inFrom1);
-			else if(_message.getType() == 2)
-				clientRun(outTo1, inFrom1);
-			else*/
-				return;
+			RouterMessage out = new RouterMessage();
+			_incoming = (RouterMessage)_in.readObject();
+			if(_incoming.getType() == 's'){
+				_myServers.add(new ServerID(_incoming.getIPToAdd(),_incoming.getName()));
+			}else if(_incoming.getType() == 'r'){
+				_routerList.add(_incoming.getIPToAdd());
+			}else if(_incoming.getType() == 'n'){
+				_routerList.add(_incoming.getIPToAdd());
+				//BANANA ? - tinks paul refernce pas
+				out.setRouterList(_routerList);
+				_incoming.setType('r');
+				updateOthers();
+			}else if(_incoming.getType() == 'c'){
+				String IP = findIPFromName();
+				if(IP == null){
+					_incoming.setType('l');
+					IP = searchOthers();
+				}
+				out.setIPLookup(IP);
+			}else if(_incoming.getType() == 'l'){
+				String IP = findIPFromName();
+				out.setIPLookup(IP);
+			}
+			
+			out.setType('t');
+			_out.writeObject(out);
 		}catch(Exception ex){
-			ex.toString();
+			return;
 		}
-		return;
 	}
 	
-	public void serverRun(ObjectOutputStream outTo1, ObjectInputStream inFrom1) throws IOException{
-		_outToServer = outTo1;
-		_inFromServer = inFrom1;
-		
-		_current.setWaiting(true);
-		_current.setType("SERVER");
-		
-		_current._inFromServer = _inFromServer;
-		_current._outToServer = _outToServer;
+	public String findIPFromName(){
+		for(ServerID k : _myServers)
+		{
+			if(k.getServerName().equals(_incoming.getName())){
+				return k.getServerIP();
+			}
+		}
+		return null;
 	}
 	
-	public void clientRun(ObjectOutputStream outTo1, ObjectInputStream inFrom1) throws InterruptedException, IOException, ClassNotFoundException{
-		_outToClient = outTo1;
-		_inFromClient = inFrom1;
-		
-		int index;
-		while((index = findConnectionIndex(_message.getDestination())) == -1){
-			Thread.sleep(100);
+	public String updateOthers(){
+		try{
+			for(String i : _routerList){
+				if(!connect(i)){
+					removeRouter(i);
+				}else{
+					_tempOut.writeObject(_incoming);
+				}
+			}
+		}catch(Exception ex){
+
 		}
-		
-		while(!_RTable.get(index).getWaiting()){
-			Thread.sleep(100);
-		}
-		
-		_message.writeFileFromData("newpic.jpg");
-		
-		Connection server = _RTable.get(index);
-		
-		server.setWaiting(false);
-		
-		_outToServer = server._outToServer;
-		_inFromServer = server._inFromServer;
-		
-		_outToServer.writeObject(_message);
-		Message incoming = (Message)_inFromServer.readObject();
-		server.setWaiting(true);
-		_outToClient.writeObject(incoming);
-		
-		_outToClient.close();
-		_inFromClient.close();
-		
+		return null;
 	}
 	
-	public int findConnectionIndex(String addr){
-		for(int i = 0; i < _RTable.size(); i++){
-			if(_RTable.get(i).getAddr().equals(addr) && _RTable.get(i).isConnected())
-				return i;
+	public String searchOthers(){
+		try{
+			for(String i : _routerList){
+				if(!connect(i)){
+					removeRouter(i);
+				}else{
+					_tempOut.writeObject(_incoming);
+					RouterMessage msg = (RouterMessage)_tempIn.readObject();
+					if(msg.getIPLookup() != null)
+						return msg.getIPLookup();
+				}
+			}
+		}catch(Exception ex){
+
 		}
-		return -1;
+		return null;
+	}
+
+	public void removeRouter(String routerIP){
+		//BANANA - Second Chance?
+		
+		//BANANA - Send Removal Messages
+			//BANANA - Remove NonResponsive
+		
+		//BANANA - If None Respond... assume Russia Attacked...
 	}
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+	private boolean connect(String ip){
+		/*
+		 * By: Rhett
+		 * 		Connects to Router.
+		 */
+		//Connect To Router
+		try{
+			_tempSoc = new Socket(ip, 5555);
+			_tempOut = new ObjectOutputStream(_socket.getOutputStream());
+			_tempIn = new ObjectInputStream(_socket.getInputStream());
+		}catch(Exception ex){
+			return false;
+		}
+		return true;
+	}
 }
