@@ -20,8 +20,8 @@ public class RouterMessage {
 		return _toAdd;
 	}
 	
-	public void setIPToRemove(String ipToAdd){
-		_toRemove = (ipToAdd.trim() != "" ? ipToAdd.trim():null);
+	public void setIPToRemove(String ipToRemove){
+		_toRemove = (ipToRemove.trim() != "" ? ipToRemove.trim():null);
 	}
 	
 	public String getIPToRemove(){

@@ -15,25 +15,26 @@ public class Server extends Thread {
 	private ObjectInputStream _in;
 	public boolean _kill = false;
 	private String _report = null;
-	
+
 	public Server(String routerIP, int port){
 		_routerIP = routerIP;
 		_portNum = port;
 	}
-	
+
 	public void run(){
 		/*
 		 * By: Rhett and Paul
 		 * 		
 		 */
 		addToReport("Server: Starting Up.");
-		//BANANA - Reporting after done.
 		addToReport("Server: Registering with Router.");
 		if(register()){
 			try{
 				waitForPrey();
-				//if(!connect())
-				//	return;
+				if(!connect()){
+					waitForPickUp();
+					return;
+				}
 				while(!_kill){
 					Message msg = (Message)_in.readObject();
 					Message complete = new Message();
@@ -59,49 +60,61 @@ public class Server extends Thread {
 			}catch(Exception ex){
 				log(ex.toString());
 			}
+			waitForPickUp();
 		}
 		waitForPickUp();
 	}
-	
-	public void waitForPrey(){
+
+	private void waitForPrey(){
 		try{
 			Socket newSocket = null;
 			ServerSocket serverSocket = null;
 			try {
 				serverSocket = new ServerSocket(5555);
+				addToReport("Server: Waiting for Connection.");
 				newSocket = serverSocket.accept();
-				//BANANA
+				addToReport("Server: Client Connected.");
 				_socket = newSocket;
 			}
 			catch (IOException e) {
+				addToReport("Server: Couldn't Listen for Connections.");
 				return;
 			}
-
-			newSocket.close();
 			serverSocket.close();
-
 		}catch(Exception ex){
 
 		}
 	}
-	
-	public boolean connect() throws UnknownHostException, IOException{
-		_socket = new Socket(_routerIP, _portNum);
-		_out = new ObjectOutputStream(_socket.getOutputStream());
-		_in = new ObjectInputStream(_socket.getInputStream());
-		Message c = new Message();
-		c.setType(true);
-		_out.writeObject(c);
+
+	private boolean connect(){
+		/*
+		 * By: Rhett
+		 * 		Connects to Router.
+		 */
+		//Connect To Router
+		try{
+			_socket = new Socket(_routerIP, _portNum);
+			_out = new ObjectOutputStream(_socket.getOutputStream());
+			_in = new ObjectInputStream(_socket.getInputStream());
+		}catch(Exception ex){
+			addToReport("Server: Failed to Connect to Router.");
+			return false;
+		}
+		addToReport("Server: Connected to Router.");
 		return true;
 	}
-	
-	public boolean register(){
+
+	private boolean register(){
 		//BANANA
+		RouterMessage msg = new RouterMessage();
+		msg.setIPToAdd("MYIP");
+		//Send msg
+
 		//connect
 		addToReport("Server: Registered.");
 		return true;
 	}
-	
+
 	private void addToReport(String report){
 		log(report);
 		_report = "Client: " + report + "\n" + _report;
