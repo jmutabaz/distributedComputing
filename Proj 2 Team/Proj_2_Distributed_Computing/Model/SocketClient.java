@@ -65,20 +65,11 @@ public class SocketClient {
 			//._report is a filed that the Thread post messages to and
 			//._message is an error where ._flag indicates if there is 
 			// an error/
-			router.join();
+			//router.join();
 			return null;
 		}catch(Exception ex){
 			return "Failed To Run ServerRouter.";
 		}
 	}
-	
-	public String report(){
-		if(_cli != null)
-			return _cli.getReport();
-		if(_ser != null)
-			return _ser.getReport();
-		return null;
-	}
-	
 	
 }

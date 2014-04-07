@@ -13,7 +13,6 @@ public class Client extends Thread {
 	private ObjectOutputStream _out;
 	private ObjectInputStream _in;
 	private Message _msg;
-	private String _report = null;
 
 	public Client(String routerIP, int port, Message msg){
 		/*
@@ -37,7 +36,6 @@ public class Client extends Thread {
 		addToReport("Getting Server IP from Router.");
 		if(!getServerIP()){
 			addToReport("Failed to Get IP from Router.");
-			waitForPickUp();
 			return;
 		}else{
 			addToReport("Got IP from Router.");
@@ -49,7 +47,6 @@ public class Client extends Thread {
 			//Connects...
 			if(!connect()){
 				addToReport("Couldn't Connect to Server.");
-				waitForPickUp();
 				return;
 			}else{
 				addToReport("Connected to " + _msg.getServerName() + ".");
@@ -64,7 +61,6 @@ public class Client extends Thread {
 		}catch(Exception ex){
 			addToReport(ex.toString());
 		}
-		waitForPickUp();
 	}
 
 	private boolean connect() throws UnknownHostException, IOException{
@@ -100,31 +96,7 @@ public class Client extends Thread {
 
 	private void addToReport(String report){
 		log(report);
-		_report = "Client: " + report + "\n" + _report;
-	}
-
-	public String getReport(){
-		/*
-		 * By: Rhett
-		 * 		Returns current report to the SocketClient.
-		 */
-		String temp = _report;
-		_report = null;
-		return temp;
-	}
-
-	private void waitForPickUp(){
-		/*
-		 * By: Rhett
-		 * 		Waits for Report to be Retrieved.
-		 */
-		try{
-			while(_report != null){
-				Thread.sleep(100);
-			}
-		}catch(Exception ex){
-
-		}
+		//_report = "Client: " + report + "\n" + _report;
 	}
 
 	private static void log(String x){

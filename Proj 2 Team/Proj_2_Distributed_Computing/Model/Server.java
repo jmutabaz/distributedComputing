@@ -14,7 +14,6 @@ public class Server extends Thread {
 	private ObjectOutputStream _out;
 	private ObjectInputStream _in;
 	public boolean _kill = false;
-	private String _report = null;
 	private String _myIP;
 
 	public Server(String routerIP, int port, String myIP){
@@ -59,7 +58,6 @@ public class Server extends Thread {
 				log(ex.toString());
 			}
 		}
-		waitForPickUp();
 	}
 
 	private void waitForPrey(){
@@ -163,31 +161,6 @@ public class Server extends Thread {
 
 	private void addToReport(String report){
 		log(report);
-		_report = "Server: " + report + "\n" + _report;
-	}
-
-	public String getReport(){
-		/*
-		 * By: Rhett
-		 * 		Returns current report to the SocketClient.
-		 */
-		String temp = _report;
-		_report = null;
-		return temp;
-	}
-
-	private void waitForPickUp(){
-		/*
-		 * By: Rhett
-		 * 		Waits for Report to be Retrieved.
-		 */
-		try{
-			while(_report != null){
-				Thread.sleep(1000);
-			}
-		}catch(Exception ex){
-
-		}
 	}
 
 	private static void log(String x){

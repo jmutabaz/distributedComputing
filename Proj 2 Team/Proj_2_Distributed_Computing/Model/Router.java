@@ -14,7 +14,6 @@ import java.util.List;
 public class Router extends Thread {
 	private List<ServerID> _myServers;
 	private List<String> _routerList;
-	private String _report;
 	private int _port;
 	public boolean _running;
 	
@@ -89,31 +88,7 @@ public class Router extends Thread {
 	
 	private void addToReport(String report){
 		log(report);
-		_report = "Router: " + report + "\n" + _report;
-	}
-
-	public String getReport(){
-		/*
-		 * By: Rhett
-		 * 		Returns current report to the SocketClient.
-		 */
-		String temp = _report;
-		_report = null;
-		return temp;
-	}
-
-	private void waitForPickUp(){
-		/*
-		 * By: Rhett
-		 * 		Waits for Report to be Retrieved.
-		 */
-		try{
-			while(_report != null){
-				Thread.sleep(1000);
-			}
-		}catch(Exception ex){
-
-		}
+		//_report = "Router: " + report + "\n" + _report;
 	}
 
 	private static void log(String x){
