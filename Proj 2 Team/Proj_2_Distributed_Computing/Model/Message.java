@@ -61,7 +61,7 @@ public class Message implements Serializable {
 		}
 	}
 
-	private byte[] compress(byte[] data) throws IOException {
+	public byte[] compress(byte[] data) throws IOException {
 		Deflater deflater = new Deflater();
 		deflater.setLevel(Deflater.BEST_COMPRESSION);
 		deflater.setInput(data);
@@ -77,7 +77,7 @@ public class Message implements Serializable {
 		return outputStream.toByteArray(); 
 	}  
 
-	private static byte[] decompress(byte[] data) throws IOException, DataFormatException { 
+	public static byte[] decompress(byte[] data) throws IOException, DataFormatException { 
 		Inflater inflater = new Inflater();  
 		inflater.setInput(data); 
 		ByteArrayOutputStream outputStream = new ByteArrayOutputStream(data.length); 
