@@ -16,10 +16,10 @@ public class StartUp {
 		// Menu Options and Choices to Pick From.
 		//BANANA - Write To Folder, not File.
 		UpdateMessage m = new UpdateMessage();
-		m.message="New Message Son";
+		m.message="spsu is going to be taken over by evil hooters... aka the ksu owls... which really sucks... we really don't like it...";
 		m.WriteFile(m);
 		
-		UpdateMessage newMessage = UpdateMessage.ReadFile("");
+		UpdateMessage newMessage = UpdateMessage.ReadFile("update0.spsu");
 		p(newMessage.message);
 		int choice = -1;
 		p(".---------------------------------------.");
