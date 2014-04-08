@@ -34,7 +34,7 @@ public class Router extends Thread {
 			catch (IOException e) {
 				return;
 			}
-			
+			addToReport("Router Listening...");
 			while (_running == true)
 			{
 				try {
@@ -47,7 +47,7 @@ public class Router extends Thread {
 				}
 			}
 			
-			newSocket.close();
+			//newSocket.close();
 			serverSocket.close();
 			
 		}catch(Exception ex){
@@ -59,6 +59,7 @@ public class Router extends Thread {
 	private boolean getMeSetUp(String routerIP){
 		if(routerIP == null || routerIP.equals(""))//First Router?
 			return true;
+		//Contacts other routerIP to get the list of Routers.
 		Socket socket;
 		ObjectOutputStream out;
 		ObjectInputStream in;

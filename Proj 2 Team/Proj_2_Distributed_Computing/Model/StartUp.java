@@ -62,7 +62,7 @@ public class StartUp {
 				p("| " + cli.RunClient("WHO TO SEND TO", 5555, msg) + "\n|");
 				break;
 			case 2:
-				p("| " + "cli.RunClient(SERVER ROUTER BANANA, 5555)" + "\n|");
+				p("| " + cli.RunServerRouter() + "\n|");
 				p("Need to Kill ser...");
 				break;
 			case 3:
