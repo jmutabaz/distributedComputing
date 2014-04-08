@@ -50,12 +50,12 @@ public class Server extends Thread {
 						}
 						complete.setType(true);
 					}
-					log((String)complete.getData(true));
+					//log((String)complete.getData(true));
 					complete.done = true;
 					_out.writeObject(complete);
 				}
 			}catch(Exception ex){
-				log(ex.toString());
+				//log(ex.toString());
 			}
 		}
 	}
@@ -160,10 +160,11 @@ public class Server extends Thread {
 	}
 
 	private void addToReport(String report){
-		log(report);
+		//BANANA - Change how report is set.
+		UpdateMessage msg = new UpdateMessage();
+		msg.message = report;
+		msg.WriteFile(msg);
+		System.out.println("<!--Router: " + report + "-->");
 	}
 
-	private static void log(String x){
-		System.out.println("<!--Router: " + x + "-->");
-	}
 }
