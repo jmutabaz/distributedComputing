@@ -14,18 +14,13 @@ public class StartUp {
 	public static void main(String[] args) throws IOException, InterruptedException {
 		// Start Program From Here.
 		// Menu Options and Choices to Pick From.
+		//BANANA - Write To Folder, not File.
 		UpdateMessage m = new UpdateMessage();
-		Scanner sc= new Scanner(System.in);
-		p("what message to do you wanna save?");
-		String userInput = sc.next();
-		
-		m.message=userInput;
-		
+		m.message="New Message Son";
 		m.WriteFile(m);
 		
-		
-		//UpdateMessage newMessage = UpdateMessage.ReadFile("update1.spsu");
-		//p(newMessage.message);
+		UpdateMessage newMessage = UpdateMessage.ReadFile("");
+		p(newMessage.message);
 		int choice = -1;
 		p(".---------------------------------------.");
 		p("| Distributed Computing - Project 2 |");

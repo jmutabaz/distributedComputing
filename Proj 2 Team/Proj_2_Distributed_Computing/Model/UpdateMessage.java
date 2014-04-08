@@ -18,19 +18,16 @@ import java.util.zip.Deflater;
 import java.util.zip.Inflater;
 
 public class UpdateMessage implements Serializable {
-	
-	public static String filePath="../PObox/";
+	//BANANA - Write to Folder, not root of project
+	public static String filePath="update1.spsu";
 	public String message;
 	public int count;
 	
 	public boolean WriteFile(UpdateMessage msg)
 	{
 		try {
-			//File newfile = new File(filePath + "update1" + ".spsu");
-			//if(!newfile.exists())
-				//newfile.createNewFile();
 			FileOutputStream outputStream =
-					new FileOutputStream(filePath+"update1"+".spsu", false);
+					new FileOutputStream(filePath, false);
 			ByteArrayOutputStream out = new ByteArrayOutputStream();
 			ObjectOutputStream os = new ObjectOutputStream(out);
 			os.writeObject(msg);
