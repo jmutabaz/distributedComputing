@@ -24,8 +24,6 @@ public class StartUp {
 		p("| Charles (Rhett) Panter |");
 		p("| --------------------------------------");
 		p("| Welcome to the Awesome Socket Program! ");
-		SocketClient ser = new SocketClient();
-		ser.RunServer("SERVER-ROUTER IP", 5555);
 		do{
 			p("| What Would You Like To Do? ");
 			p("| 1) Send Message... ");
@@ -60,10 +58,11 @@ public class StartUp {
 			switch(choice){
 			case 1:
 				p("| " + cli.RunClient("WHO TO SEND TO", 5555, msg) + "\n|");
+				SocketClient ser = new SocketClient();
+				ser.RunServer("SERVER-ROUTER IP", 5555);
 				break;
 			case 2:
 				p("| " + cli.RunServerRouter() + "\n|");
-				p("Need to Kill ser...");
 				break;
 			case 3:
 				//Exit

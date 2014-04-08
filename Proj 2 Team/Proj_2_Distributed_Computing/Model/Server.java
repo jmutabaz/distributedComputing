@@ -163,7 +163,7 @@ public class Server extends Thread {
 		//BANANA - Change how report is set.
 		UpdateMessage msg = new UpdateMessage();
 		msg.message = report;
-		msg.WriteFile(msg);
+		//msg.WriteFile(msg);
 		System.out.println("<!--Router: " + report + "-->");
 	}
 
