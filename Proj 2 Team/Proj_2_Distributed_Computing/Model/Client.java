@@ -95,11 +95,10 @@ public class Client extends Thread {
 	}
 
 	private void addToReport(String report){
-		log(report);
-		//_report = "Client: " + report + "\n" + _report;
-	}
-
-	private static void log(String x){
-		System.out.println("<!--Client: " + x + "-->");
+		//BANANA - Change how report is set.
+		UpdateMessage msg = new UpdateMessage();
+		msg.message = report;
+		//msg.WriteFile(msg);
+		System.out.println("<!--Router: " + report + "-->");
 	}
 }

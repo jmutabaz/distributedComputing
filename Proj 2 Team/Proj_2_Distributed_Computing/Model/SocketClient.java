@@ -58,14 +58,15 @@ public class SocketClient {
 	public String RunServerRouter() {
 		try{
 			//Starts a Thread Class ServerRouter.
-			Router router = new Router("RouterIP if Exists BANANA",5555);
+			//RouterIP if Exists for first param. BANANA
+			Router router = new Router("",5555);
 			router.start();
 			
 			//This is the reporting and terminating means of the thread.
 			//._report is a filed that the Thread post messages to and
 			//._message is an error where ._flag indicates if there is 
 			// an error/
-			//router.join();
+			router.join();
 			return null;
 		}catch(Exception ex){
 			return "Failed To Run ServerRouter.";

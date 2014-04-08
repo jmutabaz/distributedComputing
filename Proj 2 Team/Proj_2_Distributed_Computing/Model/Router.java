@@ -85,14 +85,16 @@ public class Router extends Thread {
 	
 	public void deRegister(){
 		//BANANA
+		for(String x : _routerList){
+			
+		}
 	}
 	
 	private void addToReport(String report){
-		log(report);
-		//_report = "Router: " + report + "\n" + _report;
-	}
-
-	private static void log(String x){
-		System.out.println("<!--Router: " + x + "-->");
+		//BANANA - Change how report is set.
+		UpdateMessage msg = new UpdateMessage();
+		msg.message = report;
+		//msg.WriteFile(msg);
+		System.out.println("<!--Router: " + report + "-->");
 	}
 }
