@@ -163,6 +163,7 @@ public class Server extends Thread {
 		//BANANA - Change how report is set.
 		UpdateMessage msg = new UpdateMessage();
 		msg.message = report;
+		//msg.count=BANANA; make count equal the count number.....ha  ha
 		msg.WriteFile(msg);
 		System.out.println("<!--Router: " + report + "-->");
 	}

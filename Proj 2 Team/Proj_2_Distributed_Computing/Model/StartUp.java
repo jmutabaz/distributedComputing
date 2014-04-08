@@ -7,12 +7,25 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.ObjectOutputStream;
 import java.io.Reader;
+import java.util.Scanner;
 
 public class StartUp {
 
 	public static void main(String[] args) throws IOException, InterruptedException {
 		// Start Program From Here.
 		// Menu Options and Choices to Pick From.
+		UpdateMessage m = new UpdateMessage();
+		Scanner sc= new Scanner(System.in);
+		p("what message to do you wanna save?");
+		String userInput = sc.next();
+		
+		m.message=userInput;
+		
+		m.WriteFile(m);
+		
+		
+		//UpdateMessage newMessage = UpdateMessage.ReadFile("update1.spsu");
+		//p(newMessage.message);
 		int choice = -1;
 		p(".---------------------------------------.");
 		p("| Distributed Computing - Project 2 |");
