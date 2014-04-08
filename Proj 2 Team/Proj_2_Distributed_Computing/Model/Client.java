@@ -99,6 +99,6 @@ public class Client extends Thread {
 		UpdateMessage msg = new UpdateMessage();
 		msg.message = report;
 		//msg.WriteFile(msg);
-		System.out.println("<!--Router: " + report + "-->");
+		System.out.println("<!--Client: " + report + "-->");
 	}
 }

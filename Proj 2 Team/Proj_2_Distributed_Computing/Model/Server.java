@@ -165,7 +165,7 @@ public class Server extends Thread {
 		msg.message = report;
 		//msg.count=BANANA; make count equal the count number.....ha  ha
 		msg.WriteFile(msg);
-		System.out.println("<!--Router: " + report + "-->");
+		System.out.println("<!--Server: " + report + "-->");
 	}
 
 }

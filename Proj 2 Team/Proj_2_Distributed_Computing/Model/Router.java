@@ -84,9 +84,23 @@ public class Router extends Thread {
 	}
 	
 	public void deRegister(){
-		//BANANA
+		//Should Work...
 		for(String x : _routerList){
-			
+			//BANANA - If My IP is in list, don't contact.
+			Socket socket;
+			ObjectOutputStream out;
+			try{
+				socket = new Socket(x, 5555);
+				out = new ObjectOutputStream(socket.getOutputStream());
+				RouterMessage msg = new RouterMessage();
+				msg.setType('r');
+				msg.setIPToRemove("MyOwnIPFromGUI BANANA");
+				out.writeObject(msg);
+				out.close();
+				socket.close();
+			}catch(Exception ex){
+				
+			}
 		}
 	}
 	

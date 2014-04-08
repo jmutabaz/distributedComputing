@@ -18,8 +18,7 @@ import java.util.zip.Deflater;
 import java.util.zip.Inflater;
 
 public class UpdateMessage implements Serializable {
-	//BANANA - Write to Folder, not root of project
-	public static String filePath="POBox/";
+	public static String filePath="POBox/BANANA";
 	public String message;
 	public int count;
 	
@@ -27,7 +26,7 @@ public class UpdateMessage implements Serializable {
 	{
 		try {
 			FileOutputStream outputStream =
-					new FileOutputStream(filePath + "update" + msg.count + ".spsu", false);
+					new FileOutputStream(filePath + msg.count + ".spsu", false);
 			ByteArrayOutputStream out = new ByteArrayOutputStream();
 			ObjectOutputStream os = new ObjectOutputStream(out);
 			os.writeObject(msg);
@@ -45,7 +44,7 @@ public class UpdateMessage implements Serializable {
 	public static UpdateMessage ReadFile(String filename)
 	{
 		try {
-			Path path = Paths.get(filePath+filename);
+			Path path = Paths.get(filePath + filename + ".spsu");
 			byte[] dataBytes = Files.readAllBytes(path);
 			//dataBytes = Message.decompress(dataBytes);
 			ByteArrayInputStream byteStream = new ByteArrayInputStream(dataBytes);
