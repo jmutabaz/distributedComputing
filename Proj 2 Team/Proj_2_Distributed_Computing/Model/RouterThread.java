@@ -66,6 +66,7 @@ public class RouterThread extends Thread {
 				out.setIPLookup(IP);
 			}
 			
+			addToReport("Sending Out Message.");
 			out.setType('t');
 			_out.writeObject(out);
 		}catch(Exception ex){
@@ -206,5 +207,13 @@ public class RouterThread extends Thread {
 			return false;
 		}
 		return true;
+	}
+	
+	private void addToReport(String report){
+		//BANANA - Change how report is set.
+		UpdateMessage msg = new UpdateMessage();
+		msg.setMessage(report);
+		//msg.WriteFile(msg);
+		System.out.println("<!--Router Thread: " + report + "-->");
 	}
 }

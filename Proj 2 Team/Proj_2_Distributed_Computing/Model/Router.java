@@ -41,7 +41,7 @@ public class Router extends Thread {
 					newSocket = serverSocket.accept();
 					RouterThread t = new RouterThread(newSocket, _myServers, _routerList);
 					t.start();
-					addToReport("Router Thread Started");
+					addToReport("Router Thread Started, Count: " + _myServers.size());
 				}
 				catch (IOException e) {
 					
@@ -58,8 +58,10 @@ public class Router extends Thread {
 	}
 	
 	private boolean getMeSetUp(String routerIP){
-		if(routerIP == null || routerIP.equals(""))//First Router?
+		if(routerIP == null || routerIP.equals("")){//First Router?
+			addToReport("I'm the First Router.");
 			return true;
+		}
 		//Contacts other routerIP to get the list of Routers.
 		Socket socket;
 		ObjectOutputStream out;
@@ -108,7 +110,7 @@ public class Router extends Thread {
 	private void addToReport(String report){
 		//BANANA - Change how report is set.
 		UpdateMessage msg = new UpdateMessage();
-		msg.message = report;
+		msg.setMessage(report);
 		//msg.WriteFile(msg);
 		System.out.println("<!--Router: " + report + "-->");
 	}
