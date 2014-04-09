@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.ObjectOutputStream;
 import java.io.Reader;
+import java.util.Scanner;
 
 public class StartUp {
 
@@ -24,8 +25,6 @@ public class StartUp {
 		p("| Charles (Rhett) Panter |");
 		p("| --------------------------------------");
 		p("| Welcome to the Awesome Socket Program! ");
-		SocketClient ser = new SocketClient();
-		ser.RunServer("SERVER-ROUTER IP", 5555);
 		do{
 			p("| What Would You Like To Do? ");
 			p("| 1) Send Message... ");
@@ -59,11 +58,12 @@ public class StartUp {
 			
 			switch(choice){
 			case 1:
-				p("| " + cli.RunClient("WHO TO SEND TO", 5555, msg) + "\n|");
+				//p("| " + cli.RunClient("WHO TO SEND TO", 5555, msg) + "\n|");
+				SocketClient ser = new SocketClient();
+				ser.RunServer("l3lawns.com", 5555);
 				break;
 			case 2:
-				p("| " + "cli.RunClient(SERVER ROUTER BANANA, 5555)" + "\n|");
-				p("Need to Kill ser...");
+				p("| " + cli.RunServerRouter() + "\n|");
 				break;
 			case 3:
 				//Exit

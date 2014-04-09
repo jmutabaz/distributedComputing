@@ -9,6 +9,7 @@ public class SocketClient {
 	
 	private Server _ser;
 	private Client _cli;
+	private Router _router;
 	private String _myIp;
 	
 	public SocketClient(){
@@ -22,16 +23,14 @@ public class SocketClient {
 		
 		//BANANA - Need to add box to get ip.
 		//Type in Ip Address
-		_myIp = "192.168.254.3";
+		_myIp = "173.186.23.128";
 	}
 	
 	public boolean RunServer(String ip, int port) {
 		try{
 			_ser = new Server(ip, port, _myIp);
 			_ser.start();
-
-			System.out.println("<!--Running-->");
-
+			_ser.join();
 			return true;
 		}
 		catch(Exception e)
@@ -41,11 +40,18 @@ public class SocketClient {
 		}
 	}
 	
+	public void KillServer(){
+		if(_ser.isAlive()){
+			_ser.killMeOff();
+		}
+	}
+	
 	public boolean RunClient(String ip, int port, Message msg) {
 		try{
 			_cli = new Client(ip, port, msg);
 			_cli.start();
 			System.out.println("<!--Running-->");
+			_ser.join();
 			return true;
 		}
 		catch(Exception e)
@@ -58,27 +64,20 @@ public class SocketClient {
 	public String RunServerRouter() {
 		try{
 			//Starts a Thread Class ServerRouter.
-			Router router = new Router("RouterIP if Exists",5555);
-			router.start();
-			
-			//This is the reporting and terminating means of the thread.
-			//._report is a filed that the Thread post messages to and
-			//._message is an error where ._flag indicates if there is 
-			// an error/
-			router.join();
-			return null;
+			//RouterIP if Exists for first param. BANANA
+			_router = new Router("l3lawns.com",5555);
+			_router.start();
+			_router.join();
+			return "Server Router Ended.";
 		}catch(Exception ex){
 			return "Failed To Run ServerRouter.";
 		}
 	}
 	
-	public String report(){
-		if(_cli != null)
-			return _cli.getReport();
-		if(_ser != null)
-			return _ser.getReport();
-		return null;
+	public void KillServerRouter(){
+		if(_router.isAlive()){
+			_router.killMeOff();
+		}
 	}
-	
 	
 }

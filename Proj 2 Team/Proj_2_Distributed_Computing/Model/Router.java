@@ -12,11 +12,11 @@ import java.util.List;
  * incoming connections and route them where needed.
  */
 public class Router extends Thread {
-	private List<ServerID> _myServers;
-	private List<String> _routerList;
-	private String _report;
+	private List<ServerID> _myServers = new ArrayList<ServerID>();
+	private List<String> _routerList = new ArrayList<String>();
 	private int _port;
 	public boolean _running;
+	private ServerSocket _serverSocket = null;
 	
 	public Router(String otherRouterIP, int port){
 		_port = port;
@@ -28,38 +28,42 @@ public class Router extends Thread {
 		_running = true;
 		try{
 			Socket newSocket = null;
-			ServerSocket serverSocket = null;
+			
 			try {
-				serverSocket = new ServerSocket(_port);
+				_serverSocket = new ServerSocket(_port);
 			}
 			catch (IOException e) {
 				return;
 			}
-			
+			addToReport("Router Listening...");
 			while (_running == true)
 			{
 				try {
-					newSocket = serverSocket.accept();
+					newSocket = _serverSocket.accept();
 					RouterThread t = new RouterThread(newSocket, _myServers, _routerList);
 					t.start();
+					addToReport("Router Thread Started, Count: " + (_myServers != null ? _myServers.size():"None Yet..."));
 				}
 				catch (IOException e) {
 					
 				}
 			}
-			
+			addToReport("I'm Dying!!!");
 			newSocket.close();
-			serverSocket.close();
+			_serverSocket.close();
 			
 		}catch(Exception ex){
-			
+			addToReport("Error: " + ex.toString());
 		}
 		
 	}
 	
 	private boolean getMeSetUp(String routerIP){
-		if(routerIP == null || routerIP.equals(""))//First Router?
+		if(routerIP == null || routerIP.equals("")){//First Router?
+			addToReport("I'm the First Router.");
 			return true;
+		}
+		//Contacts other routerIP to get the list of Routers.
 		Socket socket;
 		ObjectOutputStream out;
 		ObjectInputStream in;
@@ -74,6 +78,7 @@ public class Router extends Thread {
 			RouterMessage newMsg = (RouterMessage)in.readObject();
 			//tinks paul my nead dep cpy
 			_routerList = newMsg.getRouterList();
+			_routerList.add(routerIP);
 			in.close();
 			out.close();
 			socket.close();
@@ -84,39 +89,39 @@ public class Router extends Thread {
 	}
 	
 	public void deRegister(){
-		//BANANA
+		//Should Work...
+		for(String x : _routerList){
+			//BANANA - If My IP is in list, don't contact.
+			Socket socket;
+			ObjectOutputStream out;
+			try{
+				socket = new Socket(x, 5555);
+				out = new ObjectOutputStream(socket.getOutputStream());
+				RouterMessage msg = new RouterMessage();
+				msg.setType('r');
+				msg.setIPToRemove("MyOwnIPFromGUI BANANA");
+				out.writeObject(msg);
+				out.close();
+				socket.close();
+			}catch(Exception ex){
+				
+			}
+		}
+	}
+	
+	public void killMeOff(){
+		try {
+			_serverSocket.close();
+			_running = false;
+		} catch (IOException e) {
+		}
 	}
 	
 	private void addToReport(String report){
-		log(report);
-		_report = "Router: " + report + "\n" + _report;
-	}
-
-	public String getReport(){
-		/*
-		 * By: Rhett
-		 * 		Returns current report to the SocketClient.
-		 */
-		String temp = _report;
-		_report = null;
-		return temp;
-	}
-
-	private void waitForPickUp(){
-		/*
-		 * By: Rhett
-		 * 		Waits for Report to be Retrieved.
-		 */
-		try{
-			while(_report != null){
-				Thread.sleep(1000);
-			}
-		}catch(Exception ex){
-
-		}
-	}
-
-	private static void log(String x){
-		System.out.println("<!--Router: " + x + "-->");
+		//BANANA - Change how report is set.
+		UpdateMessage msg = new UpdateMessage();
+		msg.setMessage(report);
+		//msg.WriteFile(msg);
+		System.out.println("<!--Router: " + report + "-->");
 	}
 }

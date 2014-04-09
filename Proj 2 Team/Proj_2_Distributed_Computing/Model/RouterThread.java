@@ -6,10 +6,11 @@ import java.net.Socket;
 import java.util.ArrayList;
 import java.util.List;
 //BANANA - Check For Timeouts!!!!!!!
-//Don't notify ourselves...
+// - Don't notify ourselves...
+// - Do Updates...
 /*
  * I've got a lovely bunch of coconuts!
- * By: (Rhett && Paul && 1/8*John ? true:false)
+ * By: (Rhett && Paul && (1/8*John) ? true:false)
  */
 public class RouterThread extends Thread {
 	private Socket _socket, _tempSoc;
@@ -38,10 +39,15 @@ public class RouterThread extends Thread {
 			_incoming = (RouterMessage)_in.readObject();
 			
 			if(_incoming.getType() == 's'){
-				if(_incoming.getIPToAdd() != null)
-					out.setError(addToServerList(new ServerID(_incoming.getIPToAdd(),_incoming.getName())));
+				
+				if(_incoming.getIPToAdd() != null){
+					char resp = addToServerList(new ServerID(_incoming.getIPToAdd(),_incoming.getName()));
+					if(resp != 't')
+						out.setError(resp);
+				}
 				else if(_incoming.getIPToRemove() != null)
 					_myServers.remove(searchServers(_incoming.getIPToRemove()));
+				
 			}else if(_incoming.getType() == 'c'){
 				String IP = findIPFromName();
 				if(IP == null){
@@ -55,19 +61,22 @@ public class RouterThread extends Thread {
 				else if(_incoming.getIPToRemove() != null)
 					removeRouter(_incoming.getIPToRemove());
 			}else if(_incoming.getType() == 'n'){
-				addToRouterList(_incoming.getIPToAdd());
-				//BANANA ? - tinks paul refernce pas
 				out.setRouterList(_routerList);
-				_incoming.setType('r');
+				_out.writeObject(out);
 				updateOthers();
+				addToRouterList(_incoming.getIPToAdd());
+				_incoming.setType('r');
 			}else if(_incoming.getType() == 'l'){
 				String IP = findIPFromName();
 				out.setIPLookup(IP);
 			}
 			
+			addToReport("Sending Out Message.");
 			out.setType('t');
-			_out.writeObject(out);
+			if(_incoming.getType() != 'r')
+				_out.writeObject(out);
 		}catch(Exception ex){
+			addToReport("ERROR: " + ex.toString());
 			return;
 		}
 	}
@@ -76,11 +85,12 @@ public class RouterThread extends Thread {
 		/*
 		 * By: Rhett, Paul
 		 */
-		for(String i : _routerList){
-			if(i.equals(ip)){
-				return;
+		if(_routerList != null)
+			for(String i : _routerList){
+				if(i.equals(ip)){
+					return;
+				}
 			}
-		}
 		_routerList.add(ip);
 	}
 	
@@ -88,14 +98,15 @@ public class RouterThread extends Thread {
 		/*
 		 * By: Rhett, Paul
 		 */
-		for(ServerID i : _myServers){
-			if(i.getServerIP().equals(id.getServerIP()) && i.getServerName().equals(id.getServerName()))
-				return 't';
-			if(i.getServerIP().equals(id.getServerIP()) && !i.getServerName().equals(id.getServerName()))
-				return 'a';
-			if(!i.getServerIP().equals(id.getServerIP()) && i.getServerName().equals(id.getServerName()))
-				return 'n';
-		}
+		System.out.println("--"+id.getServerIP()+":"+id.getServerName());
+			for(ServerID i : _myServers){
+				if(i.getServerIP().equals(id.getServerIP()) && i.getServerName().equals(id.getServerName()))
+					return 't';
+				if(i.getServerIP().equals(id.getServerIP()) && !i.getServerName().equals(id.getServerName()))
+					return 'a';
+				if(!i.getServerIP().equals(id.getServerIP()) && i.getServerName().equals(id.getServerName()))
+					return 'n';
+			}
 		_myServers.add(id);
 		return 't';
 	}
@@ -118,6 +129,9 @@ public class RouterThread extends Thread {
 		 * By: Rhett, Paul
 		 */
 		try{
+			_out.close();
+			_in.close();
+			_socket.close();
 			for(String i : _routerList){
 				if(!connect(i)){
 					Thread.sleep(1000);
@@ -128,7 +142,7 @@ public class RouterThread extends Thread {
 				}
 			}
 		}catch(Exception ex){
-
+			addToReport("ERROR: " + ex.toString());
 		}
 		return null;
 	}
@@ -158,8 +172,14 @@ public class RouterThread extends Thread {
 			for(String i : _routerList){
 				if(!connect(i)){
 					Thread.sleep(1000);
-					if(connect(i))
+					if(!connect(i))
 						removeRouter(i);
+					else{
+						_tempOut.writeObject(_incoming);
+						RouterMessage msg = (RouterMessage)_tempIn.readObject();
+						if(msg.getIPLookup() != null)
+							return msg.getIPLookup();
+					}
 				}else{
 					_tempOut.writeObject(_incoming);
 					RouterMessage msg = (RouterMessage)_tempIn.readObject();
@@ -168,7 +188,7 @@ public class RouterThread extends Thread {
 				}
 			}
 		}catch(Exception ex){
-
+			addToReport("ERROR: " + ex.toString());
 		}
 		return null;
 	}
@@ -201,8 +221,17 @@ public class RouterThread extends Thread {
 			_tempOut = new ObjectOutputStream(_socket.getOutputStream());
 			_tempIn = new ObjectInputStream(_socket.getInputStream());
 		}catch(Exception ex){
+			addToReport("ERROR: " + ex.toString());
 			return false;
 		}
 		return true;
+	}
+	
+	private void addToReport(String report){
+		//BANANA - Change how report is set.
+		UpdateMessage msg = new UpdateMessage();
+		msg.setMessage(report);
+		//msg.WriteFile(msg);
+		System.out.println("<!--Router Thread: " + report + "-->");
 	}
 }
