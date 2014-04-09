@@ -15,24 +15,30 @@ public class Router extends Thread {
 	private List<ServerID> _myServers = new ArrayList<ServerID>();
 	private List<String> _routerList = new ArrayList<String>();
 	private int _port;
+	private String _myIP;
 	public boolean _running;
 	private ServerSocket _serverSocket = null;
 	
-	public Router(String otherRouterIP, int port){
+	public Router(String otherRouterIP, int port, String myIP){
+		_myIP = myIP;
 		_port = port;
 		//Gets info from other routers.
 		_running = getMeSetUp(otherRouterIP);
 	}
 	
 	public void run(){
+		/*
+		 * By: Rhett and Paul
+		 * 		Starts the process of listing for incoming connections.
+		 */
 		_running = true;
 		try{
 			Socket newSocket = null;
-			
 			try {
 				_serverSocket = new ServerSocket(_port);
 			}
 			catch (IOException e) {
+				addToReport("Couldn't Listen, Error: " + e.toString());
 				return;
 			}
 			addToReport("Router Listening...");
@@ -48,7 +54,7 @@ public class Router extends Thread {
 					
 				}
 			}
-			addToReport("I'm Dying!!!");
+			addToReport("Router Closing.");
 			newSocket.close();
 			_serverSocket.close();
 			
@@ -59,8 +65,13 @@ public class Router extends Thread {
 	}
 	
 	private boolean getMeSetUp(String routerIP){
+		/*
+		 * By: Rhett and Paul
+		 * 		Gets the data it needs if the routerIP var is not null or ""
+		 * 		Contacts the routerIP and gets a list of other Routers logged on.
+		 */
 		if(routerIP == null || routerIP.equals("")){//First Router?
-			addToReport("I'm the First Router.");
+			addToReport("I'm Setup and the First Router.");
 			return true;
 		}
 		//Contacts other routerIP to get the list of Routers.
@@ -73,25 +84,27 @@ public class Router extends Thread {
 			in = new ObjectInputStream(socket.getInputStream());
 			RouterMessage msg = new RouterMessage();
 			msg.setType('n');
-			msg.setIPToAdd("MyOwnIPFromGUI BANANA");
+			msg.setIPToAdd(_myIP);
 			out.writeObject(msg);
 			RouterMessage newMsg = (RouterMessage)in.readObject();
-			//tinks paul my nead dep cpy
 			_routerList = newMsg.getRouterList();
 			_routerList.add(routerIP);
 			in.close();
 			out.close();
 			socket.close();
 		}catch(Exception ex){
+			addToReport("Couldn't Get Setup.");
 			return false;
 		}
 		return true;
 	}
 	
 	public void deRegister(){
-		//Should Work...
+		/*
+		 * By Rhett
+		 * 		Contacts all other Routers and Tells them that I am going offline.
+		 */
 		for(String x : _routerList){
-			//BANANA - If My IP is in list, don't contact.
 			Socket socket;
 			ObjectOutputStream out;
 			try{
@@ -99,22 +112,28 @@ public class Router extends Thread {
 				out = new ObjectOutputStream(socket.getOutputStream());
 				RouterMessage msg = new RouterMessage();
 				msg.setType('r');
-				msg.setIPToRemove("MyOwnIPFromGUI BANANA");
+				msg.setIPToRemove("_myIP");
 				out.writeObject(msg);
 				out.close();
 				socket.close();
 			}catch(Exception ex){
-				
+				addToReport("Couldn't Contact " + x);
 			}
 		}
 	}
 	
 	public void killMeOff(){
+		/*
+		 * By Rhett
+		 * 		If the Router is listening for connections, it stops then deregisters.
+		 */
 		try {
 			_serverSocket.close();
-			_running = false;
 		} catch (IOException e) {
+			//Eating It is OKAY.
 		}
+		deRegister();
+		_running = false;
 	}
 	
 	private void addToReport(String report){

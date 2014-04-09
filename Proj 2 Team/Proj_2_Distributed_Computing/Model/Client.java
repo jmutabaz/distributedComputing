@@ -85,12 +85,27 @@ public class Client extends Thread {
 		 * 		Connects to Router and returns the ip of the given serverName.
 		 */
 		//Msg to send to Router.
+		RouterMessage resp = null;
 		RouterMessage msg = new RouterMessage();
 		msg.setIPLookup(_msg.getServerName());
-
-		_msg.setDestination("Returned Value");
-
-		//BANANA - Get server info from server router... joy.
+		msg.setType('l');
+		
+		try{
+			Socket newSocket = new Socket(_routerIP, _portNum);
+			ObjectOutputStream newOut = new ObjectOutputStream(newSocket.getOutputStream());
+			ObjectInputStream newIn = new ObjectInputStream(newSocket.getInputStream());
+			
+			newOut.writeObject(msg);
+			addToReport("Waiting for Lookup Response.");
+			resp = (RouterMessage)newIn.readObject();
+			newIn.close();
+			newOut.close();
+			newSocket.close();
+		}catch(Exception x){
+			addToReport("Lookup Error: " + x.toString());
+			return false;
+		}
+		_msg.setDestination(resp.getIPLookup());
 		return true;
 	}
 
@@ -98,6 +113,7 @@ public class Client extends Thread {
 		//BANANA - Change how report is set.
 		UpdateMessage msg = new UpdateMessage();
 		msg.setMessage(report);
+		//msg.setCount(0);
 		//msg.WriteFile(msg);
 		System.out.println("<!--Client: " + report + "-->");
 	}

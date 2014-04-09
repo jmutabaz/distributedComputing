@@ -172,7 +172,7 @@ public class ClientScreenController implements Initializable, ControlledScreen {
 			// this needs to be in a new thread	 
 			System.out.println("start server");
 			serverConn = new SocketClient();
-			if(!serverConn.RunServer("l3lawns.com", 5555))
+			if(!serverConn.RunServer("l3lawns.com", 5555, "myIP"))
 			{
 				reset();
 			}

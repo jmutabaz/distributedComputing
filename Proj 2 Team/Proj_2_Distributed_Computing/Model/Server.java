@@ -15,12 +15,14 @@ public class Server extends Thread {
 	private ObjectInputStream _in;
 	public boolean _kill = false;
 	private String _myIP;
+	private String _myName;
 	private ServerSocket _serverSocket = null;
 
-	public Server(String routerIP, int port, String myIP){
+	public Server(String routerIP, int port, String myIP, String myName){
 		_routerIP = routerIP;
 		_portNum = port;
 		_myIP = myIP;
+		_myName = myName;
 	}
 
 	public void run(){
@@ -36,27 +38,32 @@ public class Server extends Thread {
 					waitForPrey();
 					Message msg = (Message)_in.readObject();
 					Message complete = new Message();
+					addToReport("Processing Message.");
 					if(msg.getType())
 					{
 						//Cap String.
+						addToReport("String to Cap: " + (String)msg.getData(true));
 						complete.setData(((String)msg.getData(true)).toUpperCase());
 						complete.setType(true);
 					}else{
 						//SaveFile
 						if(msg.getDataLength() > 0){
 							msg.writeFileFromData(msg.getFileName());
-							complete.setData("File Saved.");
+							complete.setData("File " + msg.getFileName() + " Saved.");
+							addToReport("File Saved. Named - " + msg.getFileName());
 						}else{
 							complete.setData("File Not Saved.");
+							addToReport("File Wasn't Saved.");
 						}
 						complete.setType(true);
 					}
 					//log((String)complete.getData(true));
 					complete.done = true;
 					_out.writeObject(complete);
+					addToReport("Message Complete.");
 				}
 			}catch(Exception ex){
-				//log(ex.toString());
+				addToReport("Server Error: " + ex.toString());
 			}
 		}else{
 			addToReport("Failed To Register...");
@@ -115,7 +122,7 @@ public class Server extends Thread {
 			RouterMessage msg = new RouterMessage();
 			msg.setType('s');
 			msg.setIPToAdd(_myIP);
-			msg.setName("RhettP");//BANANA - From GUI
+			msg.setName(_myName);
 			if(!connect()){
 				addToReport("Connection Failed.");
 				return false;
@@ -144,7 +151,7 @@ public class Server extends Thread {
 			RouterMessage msg = new RouterMessage();
 			msg.setType('s');
 			msg.setIPToRemove(_myIP);
-			msg.setName("BANANA - from GUI");
+			msg.setName(_myName);
 			if(!connect()){
 				return false;
 			}
@@ -166,6 +173,7 @@ public class Server extends Thread {
 	public void killMeOff(){
 		try {
 			_serverSocket.close();
+			deRegister();
 			_kill = true;
 		} catch (IOException e) {
 		}
@@ -176,7 +184,7 @@ public class Server extends Thread {
 		UpdateMessage msg = new UpdateMessage();
 		msg.setMessage(report);
 		//msg.count=BANANA; make count equal the count number.....ha  ha
-		msg.WriteFile(msg);
+		//msg.WriteFile(msg);
 		System.out.println("<!--Server: " + report + "-->");
 	}
 
