@@ -41,6 +41,7 @@ public class Router extends Thread {
 					newSocket = serverSocket.accept();
 					RouterThread t = new RouterThread(newSocket, _myServers, _routerList);
 					t.start();
+					addToReport("Thread Started.");
 				}
 				catch (IOException e) {
 					
@@ -107,7 +108,7 @@ public class Router extends Thread {
 	private void addToReport(String report){
 		//BANANA - Change how report is set.
 		UpdateMessage msg = new UpdateMessage();
-		msg.message = report;
+		msg.setMessage(report);
 		//msg.WriteFile(msg);
 		System.out.println("<!--Router: " + report + "-->");
 	}

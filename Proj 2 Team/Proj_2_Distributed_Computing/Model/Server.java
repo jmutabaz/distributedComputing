@@ -31,6 +31,7 @@ public class Server extends Thread {
 		addToReport("Registering with Router.");
 		if(register()){
 			try{
+				addToReport("Registered.");
 				waitForPrey();
 				while(!_kill){
 					Message msg = (Message)_in.readObject();
@@ -57,6 +58,8 @@ public class Server extends Thread {
 			}catch(Exception ex){
 				//log(ex.toString());
 			}
+		}else{
+			addToReport("Failed To Register...");
 		}
 	}
 
@@ -113,11 +116,13 @@ public class Server extends Thread {
 			RouterMessage msg = new RouterMessage();
 			msg.setType('s');
 			msg.setIPToAdd(_myIP);
-			msg.setName("BANANA - from GUI");
+			msg.setName("RhettP");//BANANA - From GUI
 			if(!connect()){
+				addToReport("Connection Failed.");
 				return false;
 			}
 			_out.writeObject(msg);
+			addToReport("Waiting For A Response.");
 			RouterMessage newMsg = (RouterMessage)_in.readObject();
 			if(newMsg.getType() == 't')
 			{
@@ -162,7 +167,7 @@ public class Server extends Thread {
 	private void addToReport(String report){
 		//BANANA - Change how report is set.
 		UpdateMessage msg = new UpdateMessage();
-		msg.message = report;
+		msg.setMessage(report);
 		//msg.count=BANANA; make count equal the count number.....ha  ha
 		msg.WriteFile(msg);
 		System.out.println("<!--Server: " + report + "-->");
