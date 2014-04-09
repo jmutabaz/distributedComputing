@@ -50,7 +50,7 @@
             <Label font="$x2" layoutX="50.0" layoutY="90.0" text="Peer-to-Peer Tiered Network Communtications" />
             <Label layoutX="120.0" layoutY="238.0" text="Enter your IP Address" />
             <TextField fx:id="iPAddressTextField" layoutX="120.0" layoutY="253.0" prefWidth="199.9998779296875" />
-            <Label fx:id="iPAddressErrorLabel" layoutX="120.0" layoutY="210.0" text="IP address error message" />
+            <Label fx:id="iPAddressErrorLabel" layoutX="120.0" layoutY="210.0" text="" />
           </children>
         </Pane>
       </top>
