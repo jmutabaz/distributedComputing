@@ -51,7 +51,7 @@ public class SocketClient {
 			_cli = new Client(ip, port, msg);
 			_cli.start();
 			System.out.println("<!--Running-->");
-			_ser.join();
+			_cli.join();
 			return true;
 		}
 		catch(Exception e)

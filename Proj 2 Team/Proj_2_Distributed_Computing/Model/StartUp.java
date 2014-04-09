@@ -53,7 +53,7 @@ public class StartUp {
 			msg.setMyIP("192.168.1.5");
 			msg.setType(false);//String Message
 			msg.setServerName("Old Paul");
-			msg.setFileName("NewwdPic.jpg");
+			msg.setFileName("PaulsPic.jpg");
 			msg.readFileIntoData("pic.jpg");
 			
 			switch(choice){
