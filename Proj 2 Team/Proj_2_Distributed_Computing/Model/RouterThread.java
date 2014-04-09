@@ -39,10 +39,12 @@ public class RouterThread extends Thread {
 			_incoming = (RouterMessage)_in.readObject();
 			
 			if(_incoming.getType() == 's'){
+				
 				if(_incoming.getIPToAdd() != null)
 					out.setError(addToServerList(new ServerID(_incoming.getIPToAdd(),_incoming.getName())));
 				else if(_incoming.getIPToRemove() != null)
 					_myServers.remove(searchServers(_incoming.getIPToRemove()));
+				
 			}else if(_incoming.getType() == 'c'){
 				String IP = findIPFromName();
 				if(IP == null){
@@ -79,6 +81,8 @@ public class RouterThread extends Thread {
 		/*
 		 * By: Rhett, Paul
 		 */
+		if(_routerList == null)
+			return;
 		for(String i : _routerList){
 			if(i.equals(ip)){
 				return;
@@ -92,6 +96,8 @@ public class RouterThread extends Thread {
 		 * By: Rhett, Paul
 		 */
 		System.out.println("--"+id.getServerIP()+":"+id.getServerName());
+		if(_myServers != null)
+			return 't';
 		for(ServerID i : _myServers){
 			if(i.getServerIP().equals(id.getServerIP()) && i.getServerName().equals(id.getServerName()))
 				return 't';
@@ -108,6 +114,8 @@ public class RouterThread extends Thread {
 		/*
 		 * By: Rhett, Paul
 		 */
+		if(_myServers == null)
+			return null;
 		for(ServerID k : _myServers)
 		{
 			if(k.getServerName().equals(_incoming.getName())){
@@ -122,6 +130,8 @@ public class RouterThread extends Thread {
 		 * By: Rhett, Paul
 		 */
 		try{
+			if(_routerList == null)
+				return null;
 			for(String i : _routerList){
 				if(!connect(i)){
 					Thread.sleep(1000);
@@ -132,7 +142,7 @@ public class RouterThread extends Thread {
 				}
 			}
 		}catch(Exception ex){
-
+			addToReport("ERROR: " + ex.toString());
 		}
 		return null;
 	}
@@ -145,6 +155,8 @@ public class RouterThread extends Thread {
 		if(ip.trim() == "" || ip == null)
 			return -1;
 		int count = 0;
+		if(_myServers == null)
+			return -1;
 		for(ServerID i : _myServers){
 			if(i.getServerIP().equals(ip.trim()))
 				return count;
@@ -159,6 +171,8 @@ public class RouterThread extends Thread {
 		 * 		Searches other routers for person.
 		 */
 		try{
+			if(_routerList == null)
+				return null;
 			for(String i : _routerList){
 				if(!connect(i)){
 					Thread.sleep(1000);
@@ -178,6 +192,8 @@ public class RouterThread extends Thread {
 	}
 
 	public boolean removeRouter(String routerIP){
+		if(_routerList == null)
+			return false;
 		for(int i = 0; i < _routerList.size(); i++)
 		{
 			if(_routerList.get(i).equals(routerIP))
