@@ -4,14 +4,14 @@ import java.io.Serializable;
 import java.util.List;
 
 public class RouterMessage implements Serializable {
-	private char _type; //Sending: s - Server(Register), r - Router(Existing Notify Others), n - New Router(Newly Online, need list), c - Client Look up IP, l - Router Look Up.
+	private char _type = '\0'; //Sending: s - Server(Register), r - Router(Existing Notify Others), n - New Router(Newly Online, need list), c - Client Look up IP, l - Router Look Up.
 						//Response: t - All Okay, f - Errors.
 	private String _toAdd;
 	private String _toRemove;
 	private List<String> _routerList;
 	private String _IPLookup;
 	private String _name;
-	private char _errorMsg;//n - NameExists, a - AddressHasDiffName, g - general.
+	private char _errorMsg = '\0';//n - NameExists, a - AddressHasDiffName, g - general.
 	
 	public RouterMessage(){
 		
@@ -23,7 +23,7 @@ public class RouterMessage implements Serializable {
 		/*
 		 * By: Rhett??
 		 */
-		_errorMsg = (type == 'n' ? 'n':(type == 'g' ? 'g':(type == 'a' ? 'a':null)));
+		_errorMsg = (type == 'n' ? 'n':(type == 'g' ? 'g':(type == 'a' ? 'a':'\0')));
 	}
 	
 	public char getError(){
@@ -34,7 +34,7 @@ public class RouterMessage implements Serializable {
 		/*
 		 * By: Rhett???????
 		 */
-		_type = (type == 's' ? 's':(type == 'r' ? 'r':(type == 'n' ? 'n':(type == 't' ? 't':(type == 'f' ? 'f':(type == 'l' ? 'l':(type == 'c' ? 'c':null)))))));
+		_type = (type == 's' ? 's':(type == 'r' ? 'r':(type == 'n' ? 'n':(type == 't' ? 't':(type == 'f' ? 'f':(type == 'l' ? 'l':(type == 'c' ? 'c':'\0')))))));
 	}
 	
 	public char getType(){

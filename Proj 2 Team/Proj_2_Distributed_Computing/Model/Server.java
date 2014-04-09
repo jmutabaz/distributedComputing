@@ -116,7 +116,7 @@ public class Server extends Thread {
 			RouterMessage msg = new RouterMessage();
 			msg.setType('s');
 			msg.setIPToAdd(_myIP);
-			msg.setName("RhettP");//BANANA - From GUI
+			msg.setName("RhettPanter");//BANANA - From GUI
 			if(!connect()){
 				addToReport("Connection Failed.");
 				return false;
@@ -124,7 +124,7 @@ public class Server extends Thread {
 			_out.writeObject(msg);
 			addToReport("Waiting For A Response.");
 			RouterMessage newMsg = (RouterMessage)_in.readObject();
-			if(newMsg.getType() == 't')
+			if(newMsg.getError() == '\0')
 			{
 				addToReport("Registered.");
 				return true;
