@@ -26,18 +26,18 @@
         </Pane>
       </center>
       <left>
-        <Pane fx:id="messageSendingPane" prefHeight="400.0" prefWidth="180.0" visible="false">
+        <Pane fx:id="messageSendingPane" prefHeight="400.0" prefWidth="180.0" visible="true">
           <children>
             <TextField fx:id="nameOfRecievingClientField" layoutX="20.0" layoutY="30.0" prefWidth="141.0" />
-            <Button fx:id="loadFileButton" layoutX="19.0" layoutY="168.0" mnemonicParsing="false" onAction="#loadFileButtonPressed" text="Load File" />
-            <Button fx:id="sendMessageButton" layoutX="53.0" layoutY="316.0" mnemonicParsing="false" onAction="#sendMessageButtonPressed" prefHeight="58.9609375" prefWidth="113.0" text="Send Message" visible="false" />
+            <Button fx:id="loadFileButton" layoutX="82.0" layoutY="276.0" mnemonicParsing="false" onAction="#loadFileButtonPressed" text="Load File" />
+            <Button fx:id="sendMessageButton" layoutX="53.0" layoutY="316.0" mnemonicParsing="false" onAction="#sendMessageButtonPressed" prefHeight="58.9609375" prefWidth="113.0" text="Send Message" visible="true" />
             <Label layoutX="15.0" layoutY="15.0" text="Name of Recieving Client" />
             <Label layoutX="15.0" layoutY="60.0" text="Recieving Client's IP Address" />
             <Label layoutX="15.0" layoutY="90.0" text="Recieving Client's Port Number" />
             <Label fx:id="recievingClientsPortNumberLabel" layoutX="20.0" layoutY="105.0" text="00000" />
             <Label fx:id="recievingClientsIPAddressLabel" layoutX="20.0" layoutY="75.0" text="000.000.000.000" />
             <Label layoutX="15.0" layoutY="120.0" text="Loaded File Name" />
-            <Label fx:id="loadedFileNameLabel" layoutX="20.0" layoutY="135.0" text="No File Loaded" wrapText="true" />
+            <TextArea id="loadedFileNameLabel" fx:id="fileMessageBoxArea" layoutX="8.0" layoutY="142.0" prefHeight="121.0" prefWidth="158.0" wrapText="true" />
           </children>
         </Pane>
       </left>

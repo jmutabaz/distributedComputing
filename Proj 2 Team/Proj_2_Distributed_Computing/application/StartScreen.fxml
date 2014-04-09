@@ -48,6 +48,9 @@
             <Label font="$x1" layoutX="95.0" layoutY="168.0" text="March 2014" />
             <Label font="$x2" layoutX="50.0" layoutY="60.0" text="Project 2 --" />
             <Label font="$x2" layoutX="50.0" layoutY="90.0" text="Peer-to-Peer Tiered Network Communtications" />
+            <Label layoutX="120.0" layoutY="238.0" text="Enter your IP Address" />
+            <TextField fx:id="iPAddressTextField" layoutX="120.0" layoutY="253.0" prefWidth="199.9998779296875" />
+            <Label fx:id="iPAddressErrorLabel" layoutX="120.0" layoutY="210.0" text="IP address error message" />
           </children>
         </Pane>
       </top>
