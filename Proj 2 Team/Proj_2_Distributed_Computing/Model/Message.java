@@ -14,7 +14,6 @@ import java.util.zip.Deflater;
 import java.util.zip.Inflater;
 
 public class Message implements Serializable {
-	private String _destinationIP; //Destination IP Address.
 	private String _myIP; // My IP Address
 	private boolean _type; // File or String. // true = String, false = File.
 	private byte[] _data; // Byte[] of data Object
@@ -26,9 +25,8 @@ public class Message implements Serializable {
 
 	}
 
-	public Message(boolean type, String destination, String myIP, Object data, String fileName, String serverName){
+	public Message(boolean type, String myIP, Object data, String fileName, String serverName){
 		setType(type);
-		setDestination(destination);
 		setFileName(fileName);
 		setData(data);
 		setMyIP(myIP);
@@ -154,13 +152,5 @@ public class Message implements Serializable {
 
 	public boolean getType(){
 		return _type;
-	}
-
-	public void setDestination(String destination){
-		_destinationIP = destination;
-	}
-
-	public String getDestination(){
-		return _destinationIP;
 	}
 }

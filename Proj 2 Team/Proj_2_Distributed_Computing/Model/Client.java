@@ -14,6 +14,7 @@ public class Client extends Thread {
 	private ObjectInputStream _in;
 	private Message _msg;
 	private int _count = 0;
+	public String _desIP;
 
 	public Client(String routerIP, int port, Message msg){
 		/*
@@ -70,7 +71,7 @@ public class Client extends Thread {
 		 * 		Establishes Connection to Server to send Message to.
 		 */
 		try{
-			_socket = new Socket(_msg.getDestination(), _portNum);
+			_socket = new Socket(_desIP, _portNum);
 			_out = new ObjectOutputStream(_socket.getOutputStream());
 			_in = new ObjectInputStream(_socket.getInputStream());
 		}catch(Exception x){
@@ -112,7 +113,7 @@ public class Client extends Thread {
 			return false;
 		}
 		
-		_msg.setDestination(resp.getIPLookup());
+		_desIP = resp.getIPLookup();
 		return true;
 	}
 
