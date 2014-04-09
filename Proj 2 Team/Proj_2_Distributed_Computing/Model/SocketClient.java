@@ -9,6 +9,7 @@ public class SocketClient {
 	
 	private Server _ser;
 	private Client _cli;
+	private Router _router;
 	private String _myIp;
 	
 	public SocketClient(){
@@ -29,8 +30,6 @@ public class SocketClient {
 		try{
 			_ser = new Server(ip, port, _myIp);
 			_ser.start();
-
-			System.out.println("<!--Running-->");
 			_ser.join();
 			return true;
 		}
@@ -38,6 +37,12 @@ public class SocketClient {
 		{
 			System.out.println("<!--" + e.toString() + "-->");
 			return false;
+		}
+	}
+	
+	public void KillServer(){
+		if(_ser.isAlive()){
+			_ser.killMeOff();
 		}
 	}
 	
@@ -60,17 +65,18 @@ public class SocketClient {
 		try{
 			//Starts a Thread Class ServerRouter.
 			//RouterIP if Exists for first param. BANANA
-			Router router = new Router("l3lawns.com",5555);
-			router.start();
-			
-			//This is the reporting and terminating means of the thread.
-			//._report is a filed that the Thread post messages to and
-			//._message is an error where ._flag indicates if there is 
-			// an error/
-			router.join();
+			_router = new Router("l3lawns.com",5555);
+			_router.start();
+			_router.join();
 			return "Server Router Ended.";
 		}catch(Exception ex){
 			return "Failed To Run ServerRouter.";
+		}
+	}
+	
+	public void KillServerRouter(){
+		if(_router.isAlive()){
+			_router.killMeOff();
 		}
 	}
 	

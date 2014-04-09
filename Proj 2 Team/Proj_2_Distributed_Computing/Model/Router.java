@@ -16,6 +16,7 @@ public class Router extends Thread {
 	private List<String> _routerList = new ArrayList<String>();
 	private int _port;
 	public boolean _running;
+	private ServerSocket _serverSocket = null;
 	
 	public Router(String otherRouterIP, int port){
 		_port = port;
@@ -27,9 +28,9 @@ public class Router extends Thread {
 		_running = true;
 		try{
 			Socket newSocket = null;
-			ServerSocket serverSocket = null;
+			
 			try {
-				serverSocket = new ServerSocket(_port);
+				_serverSocket = new ServerSocket(_port);
 			}
 			catch (IOException e) {
 				return;
@@ -38,7 +39,7 @@ public class Router extends Thread {
 			while (_running == true)
 			{
 				try {
-					newSocket = serverSocket.accept();
+					newSocket = _serverSocket.accept();
 					RouterThread t = new RouterThread(newSocket, _myServers, _routerList);
 					t.start();
 					addToReport("Router Thread Started, Count: " + (_myServers != null ? _myServers.size():"None Yet..."));
@@ -49,7 +50,7 @@ public class Router extends Thread {
 			}
 			addToReport("I'm Dying!!!");
 			newSocket.close();
-			serverSocket.close();
+			_serverSocket.close();
 			
 		}catch(Exception ex){
 			addToReport("Error: " + ex.toString());
@@ -105,6 +106,14 @@ public class Router extends Thread {
 			}catch(Exception ex){
 				
 			}
+		}
+	}
+	
+	public void killMeOff(){
+		try {
+			_serverSocket.close();
+			_running = false;
+		} catch (IOException e) {
 		}
 	}
 	

@@ -15,6 +15,7 @@ public class Server extends Thread {
 	private ObjectInputStream _in;
 	public boolean _kill = false;
 	private String _myIP;
+	private ServerSocket _serverSocket = null;
 
 	public Server(String routerIP, int port, String myIP){
 		_routerIP = routerIP;
@@ -31,8 +32,8 @@ public class Server extends Thread {
 		addToReport("Registering with Router.");
 		if(register()){
 			try{
-				waitForPrey();
 				while(!_kill){
+					waitForPrey();
 					Message msg = (Message)_in.readObject();
 					Message complete = new Message();
 					if(msg.getType())
@@ -69,11 +70,10 @@ public class Server extends Thread {
 		 */
 		try{
 			Socket newSocket = null;
-			ServerSocket serverSocket = null;
 			try {
-				serverSocket = new ServerSocket(5555);
+				_serverSocket = new ServerSocket(5555);
 				addToReport("Waiting for Connection.");
-				newSocket = serverSocket.accept();
+				newSocket = _serverSocket.accept();
 				addToReport("Client Connected.");
 				_socket = newSocket;
 				_out = new ObjectOutputStream(_socket.getOutputStream());
@@ -83,7 +83,7 @@ public class Server extends Thread {
 				addToReport("Couldn't Listen for Connections.");
 				return;
 			}
-			serverSocket.close();
+			_serverSocket.close();
 		}catch(Exception ex){
 
 		}
@@ -160,6 +160,14 @@ public class Server extends Thread {
 			}
 		}catch(Exception ex){
 			return false;
+		}
+	}
+	
+	public void killMeOff(){
+		try {
+			_serverSocket.close();
+			_kill = true;
+		} catch (IOException e) {
 		}
 	}
 
