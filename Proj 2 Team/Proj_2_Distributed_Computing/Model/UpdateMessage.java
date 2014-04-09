@@ -18,9 +18,11 @@ import java.util.zip.Deflater;
 import java.util.zip.Inflater;
 
 public class UpdateMessage implements Serializable {
-	private static String _filePath="POBox/BANANA";
+	private static String _filePath="";
 	private String _message;
 	private int _count;
+	
+	
 	
 	public boolean WriteFile(UpdateMessage msg)
 	{

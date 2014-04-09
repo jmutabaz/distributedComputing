@@ -1,7 +1,6 @@
 package application;
 
 import java.io.File;
-import java.io.IOException;
 import java.net.SocketException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -42,6 +41,7 @@ public class ClientScreenController implements Initializable, ControlledScreen {
 	@FXML	Button		exitButton;
 
 	@FXML	TextField	clientsNameField;
+	@FXML	TextField	clientsPortNumberField;
 	@FXML	TextField	serverRouterIPAddressField;
 	@FXML	TextField	nameOfRecievingClientField;
 
@@ -90,7 +90,6 @@ public class ClientScreenController implements Initializable, ControlledScreen {
 			//	start update loop
 			init();
 			clientSetup();
-			clientsIPAddressLabel.setText(Main.IPADDRESSSTRING);
 			messageLogHolderString = messageLogArea.getText();	
 			messageLogArea.setText("Start Client\n" + messageLogHolderString);
 			startUpdateLoop();
@@ -158,6 +157,9 @@ public class ClientScreenController implements Initializable, ControlledScreen {
 			serverRouterIPAddressString = serverRouterIPAddressField.getText();
 			serverRouterIPAddressField.setEditable(false);
 			serverRouterIPAddressField.setFocusTraversable(false);
+			clientPortNumber = Integer.parseInt(clientsPortNumberField.getText());
+			clientsPortNumberField.setEditable(false);
+			clientsPortNumberField.setFocusTraversable(false);
 			startClientButton.setText("Reset Client");
 			messageLogHolderString = messageLogArea.getText();
 			messageLogArea.setText("Client's Name: " + clientNameString 
@@ -167,16 +169,12 @@ public class ClientScreenController implements Initializable, ControlledScreen {
 					+ "\n" + messageLogHolderString);
 			init();
 			nameOfRecievingClientField.requestFocus();
-			
-			/*
-			// this needs to be in a new thread	 
-			System.out.println("start server");
-			serverConn = new SocketClient();
+			//Start a Server... BANANA
+			serverConn = new SocketClient("","","");
 			if(!serverConn.RunServer("l3lawns.com", 5555, "myIP"))
 			{
 				reset();
 			}
-			*/
 
 		} catch (NumberFormatException e) {
 			messageLogHolderString = messageLogArea.getText();
@@ -197,6 +195,9 @@ public class ClientScreenController implements Initializable, ControlledScreen {
 		clientsNameField.setEditable(true);
 		clientsNameField.setFocusTraversable(true);
 		clientsNameField.setText("");
+		clientsPortNumberField.setEditable(true);
+		clientsPortNumberField.setFocusTraversable(true);
+		clientsPortNumberField.setText("");
 		serverRouterIPAddressField.setEditable(true);
 		serverRouterIPAddressField.setFocusTraversable(true);
 		serverRouterIPAddressField.setText("");
@@ -205,7 +206,6 @@ public class ClientScreenController implements Initializable, ControlledScreen {
 		fileMessageBoxArea.setText("No File Loaded"); 
 		messageSendingPane.setVisible(false);
 		fileNameString = "";
-		clientsNameField.requestFocus();
 		timer.cancel();
 	}
 
@@ -229,7 +229,7 @@ public class ClientScreenController implements Initializable, ControlledScreen {
 		messageLogHolderString = messageLogArea.getText();
 		//Add new at top of box.
 		messageLogArea.setText("Start Update Loop\n" + messageLogHolderString);
-		System.out.println("Path name to update is: "+ Main.PATHTOUPDATEString);
+
 		timer.schedule(new TimerTask() {
 			public void run() {
 				Platform.runLater(new Runnable() {
@@ -243,30 +243,38 @@ public class ClientScreenController implements Initializable, ControlledScreen {
 							String data;
 							if((data = getSocketData()) != null){
 								messageLogHolderString = messageLogArea.getText();
-								messageLogArea.setText("Updated Information call: " + data + "\n" + messageLogHolderString);
+								messageLogArea.setText(data + "\n" + messageLogHolderString);
 							}
 						}
-						if(updateCounter == 2000){
+						if(updateCounter == 250){
 							updateCounter = 0;
-							
 							try{
+								/*File folder = new File("~/Proj_2_Distributed_Computing/");
+								File[] listOfFiles = folder.listFiles();
+	
+							    for (int i = 0; i < listOfFiles.length; i++) {
+							      if (listOfFiles[i].isFile()) {
+							        System.out.println("File " + listOfFiles[i].getName());
+							      } else if (listOfFiles[i].isDirectory()) {
+							        System.out.println("Directory " + listOfFiles[i].getName());
+							      }
+							    }*/
+								String path = getClass().getClassLoader().getResource(".").getPath();
+								System.out.println("the path is " + path + "UpdataFolder/");
 								list = new ArrayList<String>();
-								File[] files = new File(Main.PATHTOUPDATEString).listFiles();
-								System.out.println("file list to string: " + files.toString());
+								File[] files = new File(path).listFiles();
+								files.toString();
 								for (File file : files) {
 								    if (file.isFile()) {
 								        list.add(file.getName());
-								        
+								        messageLogHolderString = messageLogArea.getText();
+										messageLogArea.setText(list.get(0) + "\n" + messageLogHolderString);
 								    }
 								}
 							} catch(Exception e){
 								System.out.println("Problem opening folder");
 							}
-							for (int i = 0; i < list.size(); i++){
-								System.out.println("file name " + i + " is: " + list.get(i));
-								messageLogHolderString = messageLogArea.getText();
-								messageLogArea.setText(list.get(i) + "\n" + messageLogHolderString);
-							}
+
 						}
 					}
 				});

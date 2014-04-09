@@ -48,7 +48,7 @@ public class StartUp {
 				p("| Starting Up...\n|");
 			//Break from here with the menu options.
 			Message msg = new Message();
-			SocketClient cli = new SocketClient();
+			SocketClient cli = new SocketClient("","","");
 			msg.setData("Hi Alex Phelps!");
 			msg.setMyIP("192.168.1.4");
 			msg.setType(false);//String Message

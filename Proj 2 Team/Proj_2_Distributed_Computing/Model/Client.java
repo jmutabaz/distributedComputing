@@ -105,6 +105,12 @@ public class Client extends Thread {
 			addToReport("Lookup Error: " + x.toString());
 			return false;
 		}
+		
+		if(resp.getIPLookup() == null){
+			addToReport("Server Doesn't Exist.");
+			return false;
+		}
+		
 		_msg.setDestination(resp.getIPLookup());
 		return true;
 	}

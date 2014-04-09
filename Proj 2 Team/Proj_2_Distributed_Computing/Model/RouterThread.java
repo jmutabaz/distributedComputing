@@ -5,9 +5,7 @@ import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.util.ArrayList;
 import java.util.List;
-//BANANA - Check For Timeouts!!!!!!!
-// - Don't notify ourselves...
-// - Do Updates...
+
 /*
  * I've got a lovely bunch of coconuts!
  * By: (Rhett && Paul && (1/8*John) ? true:false)
