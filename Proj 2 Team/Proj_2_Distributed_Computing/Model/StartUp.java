@@ -48,7 +48,7 @@ public class StartUp {
 				p("| Starting Up...\n|");
 			//Break from here with the menu options.
 			Message msg = new Message();
-			SocketClient cli = new SocketClient("","","");
+			//SocketClient cli = new SocketClient("","","");
 			msg.setData("Hi Alex Phelps!");
 			msg.setMyIP("192.168.1.4");
 			msg.setType(false);//String Message
@@ -59,13 +59,13 @@ public class StartUp {
 			switch(choice){
 			case 1:
 				//BANANA needs to "know" routerIP
-				p("| " + cli.RunClient("192.168.1.2", 5555, msg) + "\n|");
+				//p("| " + cli.RunClient("192.168.1.2", 5555, msg) + "\n|");
 				//SocketClient ser = new SocketClient();
 				//ser.RunServer("192.168.1.3", 5555, "Alex");
 				break;
 			case 2:
 				//p("| " + cli.RunServerRouter("MyIP", "OtherRouterIP") + "\n|");
-				p("| " + cli.RunServerRouter("192.168.1.4", "") + "\n|");
+				//p("| " + cli.RunServerRouter("192.168.1.4", "") + "\n|");
 				break;
 			case 3:
 				//Exit

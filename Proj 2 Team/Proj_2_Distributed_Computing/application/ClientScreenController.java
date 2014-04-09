@@ -146,7 +146,7 @@ public class ClientScreenController implements Initializable, ControlledScreen {
 		msg.setType(true);
 		msg.setMyIP("192.168.0.3");
 		msg.setServerName("Paul");
-		clientConn.RunClient(msg.getDestination(), 5555, msg);
+		//clientConn.RunClient(msg.getDestination(), 5555, msg);
 	}
 
 	void clientSetup(){
@@ -170,11 +170,11 @@ public class ClientScreenController implements Initializable, ControlledScreen {
 			init();
 			nameOfRecievingClientField.requestFocus();
 			//Start a Server... BANANA
-			serverConn = new SocketClient("","","");
+			/*serverConn = new SocketClient("","","");
 			if(!serverConn.RunServer("l3lawns.com", 5555, "myIP"))
 			{
 				reset();
-			}
+			}*/
 
 		} catch (NumberFormatException e) {
 			messageLogHolderString = messageLogArea.getText();
@@ -317,7 +317,7 @@ public class ClientScreenController implements Initializable, ControlledScreen {
 	public void initialize(URL location, ResourceBundle resources) {
 		// TODO Auto-generated method stub
 		rootScreen.setStyle("-fx-background-color: lightblue");
-
+		clientsIPAddressLabel.setText(Main.IPADDRESSSTRING);
 		Main.CSC = this;
 	}
 
