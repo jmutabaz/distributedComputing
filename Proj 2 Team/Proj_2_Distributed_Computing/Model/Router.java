@@ -143,6 +143,7 @@ public class Router extends Thread {
 	private void addToReport(String report, boolean updateList){
 		UpdateMessage msg = new UpdateMessage();
 		_count++;
+		msg._fileName = "Router" + _count;
 		if(updateList)
 		{
 			msg._myServers = _myServers;

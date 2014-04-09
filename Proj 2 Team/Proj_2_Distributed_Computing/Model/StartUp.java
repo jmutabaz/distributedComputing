@@ -64,8 +64,8 @@ public class StartUp {
 				//ser.RunServer("192.168.1.3", 5555, "Alex");
 				break;
 			case 2:
-				//p("| " + cli.RunServerRouter("MyIP", "OtherRouterIP") + "\n|");
-				//p("| " + cli.RunServerRouter("192.168.1.4", "") + "\n|");
+				SocketClient cli = new SocketClient("192.168.0.1","","",3,null);
+				cli.start();
 				break;
 			case 3:
 				//Exit

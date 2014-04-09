@@ -17,7 +17,7 @@ public class RouterThread extends Thread {
 	private List<ServerID> _myServers;
 	private List<String> _routerList;
 	private RouterMessage _incoming;
-	private int _count;
+	private int _count, _myCount;
 
 	public RouterThread(Socket newSocket, List<ServerID> servers, List<String> routers, int count){
 		try{
@@ -237,12 +237,13 @@ public class RouterThread extends Thread {
 	
 	private void addToReport(String report, boolean updateList){
 		UpdateMessage msg = new UpdateMessage();
-		_count++;
+		_myCount++;
 		if(updateList)
 		{
 			msg._myServers = _myServers;
 			msg._routerList = _routerList;
 		}
+		msg._fileName = "RouterThread" + _count + "Report" + _myCount;
 		msg.setMessage(report);
 		msg.setCount(_count);
 		msg.WriteFile(msg);
