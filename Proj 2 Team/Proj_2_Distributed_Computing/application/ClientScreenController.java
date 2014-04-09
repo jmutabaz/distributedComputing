@@ -283,7 +283,8 @@ public class ClientScreenController implements Initializable, ControlledScreen {
 	}
 
 	String getSocketData() {
-		if(clientConn != null){
+		//BANANA - Needs to get data from File...
+		/*if(clientConn != null){
 			String data = "", temp;
 			if((temp = clientConn.report()) != null)
 			{
@@ -301,7 +302,8 @@ public class ClientScreenController implements Initializable, ControlledScreen {
 				return data;
 		}else{
 			return null;
-		}
+		}*/
+		return "";
 	}
 
 	//==============================================================================
