@@ -12,8 +12,8 @@ import java.util.List;
  * incoming connections and route them where needed.
  */
 public class Router extends Thread {
-	private List<ServerID> _myServers;
-	private List<String> _routerList;
+	private List<ServerID> _myServers = new ArrayList<ServerID>();
+	private List<String> _routerList = new ArrayList<String>();
 	private int _port;
 	public boolean _running;
 	

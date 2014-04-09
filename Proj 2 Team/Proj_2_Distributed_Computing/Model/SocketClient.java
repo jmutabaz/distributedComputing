@@ -31,7 +31,7 @@ public class SocketClient {
 			_ser.start();
 
 			System.out.println("<!--Running-->");
-
+			_ser.join();
 			return true;
 		}
 		catch(Exception e)
@@ -46,6 +46,7 @@ public class SocketClient {
 			_cli = new Client(ip, port, msg);
 			_cli.start();
 			System.out.println("<!--Running-->");
+			_ser.join();
 			return true;
 		}
 		catch(Exception e)
