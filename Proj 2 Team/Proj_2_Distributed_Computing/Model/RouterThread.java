@@ -129,6 +129,9 @@ public class RouterThread extends Thread {
 		 * By: Rhett, Paul
 		 */
 		try{
+			_out.close();
+			_in.close();
+			_socket.close();
 			for(String i : _routerList){
 				if(!connect(i)){
 					Thread.sleep(1000);
@@ -169,8 +172,14 @@ public class RouterThread extends Thread {
 			for(String i : _routerList){
 				if(!connect(i)){
 					Thread.sleep(1000);
-					if(connect(i))
+					if(!connect(i))
 						removeRouter(i);
+					else{
+						_tempOut.writeObject(_incoming);
+						RouterMessage msg = (RouterMessage)_tempIn.readObject();
+						if(msg.getIPLookup() != null)
+							return msg.getIPLookup();
+					}
 				}else{
 					_tempOut.writeObject(_incoming);
 					RouterMessage msg = (RouterMessage)_tempIn.readObject();
@@ -179,7 +188,7 @@ public class RouterThread extends Thread {
 				}
 			}
 		}catch(Exception ex){
-
+			addToReport("ERROR: " + ex.toString());
 		}
 		return null;
 	}
@@ -212,6 +221,7 @@ public class RouterThread extends Thread {
 			_tempOut = new ObjectOutputStream(_socket.getOutputStream());
 			_tempIn = new ObjectInputStream(_socket.getInputStream());
 		}catch(Exception ex){
+			addToReport("ERROR: " + ex.toString());
 			return false;
 		}
 		return true;
