@@ -26,18 +26,20 @@
         </Pane>
       </center>
       <left>
-        <Pane fx:id="messageSendingPane" prefHeight="400.0" prefWidth="180.0" visible="true">
+        <Pane fx:id="messageSendingPane" prefHeight="400.0" prefWidth="180.0" visible="false">
           <children>
             <TextField fx:id="nameOfRecievingClientField" layoutX="20.0" layoutY="30.0" prefWidth="141.0" />
-            <Button fx:id="loadFileButton" layoutX="82.0" layoutY="276.0" mnemonicParsing="false" onAction="#loadFileButtonPressed" text="Load File" />
-            <Button fx:id="sendMessageButton" layoutX="53.0" layoutY="316.0" mnemonicParsing="false" onAction="#sendMessageButtonPressed" prefHeight="58.9609375" prefWidth="113.0" text="Send Message" visible="true" />
+            <Button fx:id="loadFileButton" layoutX="13.0" layoutY="162.0" mnemonicParsing="false" onAction="#loadFileButtonPressed" text="Load File" />
+            <Button fx:id="sendMessageButton" layoutX="62.0" layoutY="334.0" mnemonicParsing="false" onAction="#sendMessageButtonPressed" prefHeight="58.9609375" prefWidth="113.0" text="Send Message" visible="false" />
             <Label layoutX="15.0" layoutY="15.0" text="Name of Recieving Client" />
-            <Label layoutX="15.0" layoutY="60.0" text="Recieving Client's IP Address" />
-            <Label layoutX="15.0" layoutY="90.0" text="Recieving Client's Port Number" />
-            <Label fx:id="recievingClientsPortNumberLabel" layoutX="20.0" layoutY="105.0" text="00000" />
-            <Label fx:id="recievingClientsIPAddressLabel" layoutX="20.0" layoutY="75.0" text="000.000.000.000" />
-            <Label layoutX="15.0" layoutY="120.0" text="Loaded File Name" />
-            <TextArea id="loadedFileNameLabel" fx:id="fileMessageBoxArea" layoutX="8.0" layoutY="142.0" prefHeight="121.0" prefWidth="158.0" wrapText="true" />
+            <Label layoutX="15.0" layoutY="60.0" text="Recieving Client's" />
+            <Label layoutX="15.0" layoutY="110.0" text="Recieving Client's" />
+            <Label fx:id="recievingClientsPortNumberLabel" layoutX="25.0" layoutY="140.0" text="00000" />
+            <Label fx:id="recievingClientsIPAddressLabel" layoutX="25.0" layoutY="90.0" text="000.000.000.000" />
+            <Label layoutX="15.0" layoutY="185.0" text="Loaded File Name" />
+            <TextArea id="loadedFileNameLabel" fx:id="fileMessageBoxArea" layoutX="17.0" layoutY="207.0" prefHeight="121.0" prefWidth="158.0" wrapText="true" />
+            <Label layoutX="20.0" layoutY="75.0" text="IP Address" />
+            <Label layoutX="20.0" layoutY="125.0" text="Port Number" />
           </children>
         </Pane>
       </left>
@@ -48,7 +50,6 @@
         <Pane prefHeight="100.0" prefWidth="200.0">
           <children>
             <TextField fx:id="clientsNameField" layoutX="155.0" layoutY="30.0" prefWidth="141.0" />
-            <TextField fx:id="clientsPortNumberField" layoutX="155.0" layoutY="65.0" prefWidth="60.0" />
             <TextField fx:id="serverRouterIPAddressField" layoutX="325.0" layoutY="29.0" prefWidth="133.0" />
             <Button fx:id="startClientButton" layoutX="500.0" layoutY="18.0" mnemonicParsing="false" onAction="#startClientButtonPressed" prefHeight="39.90234375" prefWidth="103.0" text="Start Client" />
             <Label layoutX="25.0" layoutY="11.0" text="Client">
@@ -57,13 +58,12 @@
               </font>
             </Label>
             <Label layoutX="320.0" layoutY="14.0" text="Server-Router IP Address" />
-            <Label layoutX="320.0" layoutY="50.0" text="Client's IP Address" />
-            <Label fx:id="clientsIPAddressLabel" layoutX="325.0" layoutY="65.0" text="000.000.000.000" />
+            <Label layoutX="150.0" layoutY="51.0" text="Client's IP Address" />
+            <Label fx:id="clientsIPAddressLabel" layoutX="155.0" layoutY="66.0" text="000.000.000.000" />
             <Label layoutX="646.0" layoutY="15.0" text="Run Time" />
             <Label layoutX="646.0" layoutY="45.0" text="Messages Recieved" />
             <Label fx:id="messagesRecievedLabel" layoutX="651.0" layoutY="60.0" text="00000" />
             <Label fx:id="runTimeLabel" layoutX="651.0" layoutY="30.0" text="00000" />
-            <Label layoutX="150.0" layoutY="50.0" text="Client's Port Number" />
             <Label layoutX="150.0" layoutY="15.0" text="Client's Name" />
           </children>
         </Pane>

@@ -1,6 +1,9 @@
 //Version 0.8
 package application;
 	
+import java.io.File;
+import java.io.IOException;
+
 import javafx.application.Application;
 import javafx.stage.Stage;
 import javafx.scene.Group;
@@ -24,6 +27,7 @@ public class Main extends Application {
 	public	static	ServerScreenController		SSC;
 	public  static	String						fileName;
 	public 	static 	String						IPADDRESSSTRING;
+	public  static	String						PATHTOUPDATEString;
 
 	@Override
 	public void start(Stage primaryStage) {
@@ -47,6 +51,19 @@ public class Main extends Application {
 		mainScene = scene;
 		primaryStage.setScene(scene);
 		primaryStage.show();
+		
+		File file1 = new File(".");  
+		try {
+			System.out.println("Current dir : " + file1.getCanonicalPath());
+			System.out.println("the path is " + file1 + "/UpdateFolder");
+			String path = getClass().getClassLoader().getResource(".").getPath();
+			System.out.println("the path is " + file1 + "/UpdateFolder");
+			PATHTOUPDATEString = file1 +  "/UpdateFolder";
+			System.out.println("Updated path name: " + PATHTOUPDATEString);
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			System.out.println("problem getting canonical path");
+		}
 	
 	}
 	
