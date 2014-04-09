@@ -41,6 +41,7 @@ public class Router extends Thread {
 					newSocket = serverSocket.accept();
 					RouterThread t = new RouterThread(newSocket, _myServers, _routerList);
 					t.start();
+					addToReport("Router Thread Started");
 				}
 				catch (IOException e) {
 					

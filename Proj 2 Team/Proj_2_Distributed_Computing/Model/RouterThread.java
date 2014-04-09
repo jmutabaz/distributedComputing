@@ -89,6 +89,7 @@ public class RouterThread extends Thread {
 		/*
 		 * By: Rhett, Paul
 		 */
+		System.out.println("--"+id.getServerIP()+":"+id.getServerName());
 		for(ServerID i : _myServers){
 			if(i.getServerIP().equals(id.getServerIP()) && i.getServerName().equals(id.getServerName()))
 				return 't';
