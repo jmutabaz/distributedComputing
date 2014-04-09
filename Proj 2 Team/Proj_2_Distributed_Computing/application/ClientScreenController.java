@@ -6,6 +6,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.ArrayList;
 
 import Model.Message;
 import Model.SocketClient;
@@ -33,7 +34,6 @@ public class ClientScreenController implements Initializable, ControlledScreen {
 	@FXML	Label		messagesRecievedLabel;
 	@FXML	Label		recievingClientsIPAddressLabel;
 	@FXML	Label		recievingClientsPortNumberLabel;
-	@FXML	Label		loadedFileNameLabel;
 
 	@FXML 	Button		startClientButton;
 	@FXML	Button		loadFileButton;
@@ -46,25 +46,28 @@ public class ClientScreenController implements Initializable, ControlledScreen {
 	@FXML	TextField	nameOfRecievingClientField;
 
 	@FXML	TextArea	messageLogArea;
+	@FXML	TextArea	fileMessageBoxArea;
 
 	//variables
 	private			Timer 				timer;
 	private			boolean				clientSetup						= true;
 	private 		int 				clock 							= 0,
-			counter							= 0,
-			clientPortNumber				= 0;
+										counter							= 0,
+										updateCounter					= 0,
+										clientPortNumber				= 0;
 	private			String				messageLogHolderString			= "",
-			serverRouterIPAddressString		= "",
-			clientNameString				= "",
-			handlerClientNameString			= "",
-			clientIPAddressString			= "",
-			handlerClientIPAddressString	= "",
-			handlerClientPortNumberString	= "",
-			fileNameString					= "";
+										serverRouterIPAddressString		= "",
+										clientNameString				= "",
+										handlerClientNameString			= "",
+										clientIPAddressString			= "",
+										handlerClientIPAddressString	= "",
+										handlerClientPortNumberString	= "",
+										fileNameString					= "";
 	private 		FileChooser			fileChooser 					= new FileChooser();
 	private			SocketClient		clientConn						;
 	private			SocketClient		serverConn						;
 
+	private			ArrayList<String> 	list;
 
 	@FXML
 	void exitClientButtonPressed(ActionEvent event){
@@ -111,7 +114,7 @@ public class ClientScreenController implements Initializable, ControlledScreen {
 		if (file != null) {
 			//openFile(file);
 			fileNameString = file.getAbsolutePath();
-			loadedFileNameLabel.setText(fileNameString);
+			fileMessageBoxArea.setText(fileNameString);
 			System.out.println("filename = " + fileNameString);
 			if (fileNameString != null){
 				sendMessageButton.setVisible(true);
@@ -200,7 +203,7 @@ public class ClientScreenController implements Initializable, ControlledScreen {
 		serverRouterIPAddressField.setText("");
 		serverRouterIPAddressString = null;
 		startClientButton.setText("Start Server");
-		loadedFileNameLabel.setText("No File Loaded"); 
+		fileMessageBoxArea.setText("No File Loaded"); 
 		messageSendingPane.setVisible(false);
 		fileNameString = "";
 		timer.cancel();
@@ -232,6 +235,7 @@ public class ClientScreenController implements Initializable, ControlledScreen {
 				Platform.runLater(new Runnable() {
 					public void run() {
 						counter++;
+						updateCounter++;
 						if (counter == 1000){ // one second clock
 							counter = 0;
 							clock++;
@@ -241,6 +245,36 @@ public class ClientScreenController implements Initializable, ControlledScreen {
 								messageLogHolderString = messageLogArea.getText();
 								messageLogArea.setText(data + "\n" + messageLogHolderString);
 							}
+						}
+						if(updateCounter == 250){
+							updateCounter = 0;
+							try{
+								/*File folder = new File("~/Proj_2_Distributed_Computing/");
+								File[] listOfFiles = folder.listFiles();
+	
+							    for (int i = 0; i < listOfFiles.length; i++) {
+							      if (listOfFiles[i].isFile()) {
+							        System.out.println("File " + listOfFiles[i].getName());
+							      } else if (listOfFiles[i].isDirectory()) {
+							        System.out.println("Directory " + listOfFiles[i].getName());
+							      }
+							    }*/
+								String path = getClass().getClassLoader().getResource(".").getPath();
+								System.out.println("the path is " + path + "UpdataFolder/");
+								list = new ArrayList<String>();
+								File[] files = new File(path).listFiles();
+								files.toString();
+								for (File file : files) {
+								    if (file.isFile()) {
+								        list.add(file.getName());
+								        messageLogHolderString = messageLogArea.getText();
+										messageLogArea.setText(list.get(0) + "\n" + messageLogHolderString);
+								    }
+								}
+							} catch(Exception e){
+								System.out.println("Problem opening folder");
+							}
+
 						}
 					}
 				});
