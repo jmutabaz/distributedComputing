@@ -68,6 +68,8 @@ public class RouterThread extends Thread {
 				addToRouterList(_incoming.getIPToAdd());
 			}else if(_incoming.getType() == 'l'){
 				String IP = findIPFromName();
+				if(IP == null)
+					IP = searchOthers();
 				out.setIPLookup(IP);
 			}
 			

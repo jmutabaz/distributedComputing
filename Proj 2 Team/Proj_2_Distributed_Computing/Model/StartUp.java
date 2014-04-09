@@ -49,19 +49,19 @@ public class StartUp {
 			//Break from here with the menu options.
 			Message msg = new Message();
 			SocketClient cli = new SocketClient();
-			msg.setData("Hi Paul!");
-			msg.setMyIP("192.168.1.5");
+			msg.setData("Hi Alex Phelps!");
+			msg.setMyIP("192.168.1.4");
 			msg.setType(false);//String Message
-			msg.setServerName("Old Paul");
-			msg.setFileName("PaulsPic.jpg");
+			msg.setServerName("Phelps");
+			msg.setFileName("NewwdPic.jpg");
 			msg.readFileIntoData("pic.jpg");
 			
 			switch(choice){
 			case 1:
 				//BANANA needs to "know" routerIP
-				p("| " + cli.RunClient("192.168.1.3", 5555, msg) + "\n|");
+				p("| " + cli.RunClient("192.168.1.2", 5555, msg) + "\n|");
 				//SocketClient ser = new SocketClient();
-				//ser.RunServer("192.168.1.3", 5555, "Rhett");
+				//ser.RunServer("192.168.1.3", 5555, "Alex");
 				break;
 			case 2:
 				//p("| " + cli.RunServerRouter("MyIP", "OtherRouterIP") + "\n|");

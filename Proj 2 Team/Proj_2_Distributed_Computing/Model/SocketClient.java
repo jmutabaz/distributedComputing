@@ -23,7 +23,7 @@ public class SocketClient {
 
 		//BANANA - Need to add box to get ip.
 		//Type in Ip Address
-		_myIp = "192.168.1.4";
+		_myIp = "192.168.1.5";
 	}
 
 	public boolean RunServer(String ip, int port, String name) {
