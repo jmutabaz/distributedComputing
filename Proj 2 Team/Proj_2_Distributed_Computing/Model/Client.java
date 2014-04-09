@@ -119,6 +119,18 @@ public class Client extends Thread {
 	private void addToReport(String report){
 		UpdateMessage msg = new UpdateMessage();
 		_count++;
+		msg._shouldRestart = false;
+		msg._fileName = "Client" + _count;
+		msg.setMessage(report);
+		msg.setCount(_count);
+		msg.WriteFile(msg);
+		System.out.println("<!--Client: " + report + "-->");
+	}
+	
+	private void addToReport(String report, boolean shouldRestart){
+		UpdateMessage msg = new UpdateMessage();
+		_count++;
+		msg._shouldRestart = shouldRestart;
 		msg._fileName = "Client" + _count;
 		msg.setMessage(report);
 		msg.setCount(_count);

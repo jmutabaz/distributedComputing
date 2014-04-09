@@ -67,7 +67,7 @@ public class Server extends Thread {
 				addToReport("Server Error: " + ex.toString());
 			}
 		}else{
-			addToReport("Failed To Register...");
+			addToReport("Failed To Register...", true);
 		}
 	}
 
@@ -88,7 +88,7 @@ public class Server extends Thread {
 				_in = new ObjectInputStream(_socket.getInputStream());
 			}
 			catch (IOException e) {
-				addToReport("Couldn't Listen for Connections.");
+				addToReport("Couldn't Listen for Connections.", true);
 				return;
 			}
 			_serverSocket.close();
@@ -108,7 +108,7 @@ public class Server extends Thread {
 			_out = new ObjectOutputStream(_socket.getOutputStream());
 			_in = new ObjectInputStream(_socket.getInputStream());
 		}catch(Exception ex){
-			addToReport("Failed to Connect to Router.");
+			addToReport("Failed to Connect to Router.", true);
 			return false;
 		}
 		addToReport("Connected to Router.");
@@ -183,6 +183,18 @@ public class Server extends Thread {
 	private void addToReport(String report){
 		UpdateMessage msg = new UpdateMessage();
 		_count++;
+		msg._shouldRestart = false;
+		msg._fileName = "Server" + _count;
+		msg.setMessage(report);
+		msg.setCount(_count);
+		msg.WriteFile(msg);
+		System.out.println("<!--Server: " + report + "-->");
+	}
+	
+	private void addToReport(String report, boolean shouldRestart){
+		UpdateMessage msg = new UpdateMessage();
+		_count++;
+		msg._shouldRestart = shouldRestart;
 		msg._fileName = "Server" + _count;
 		msg.setMessage(report);
 		msg.setCount(_count);
