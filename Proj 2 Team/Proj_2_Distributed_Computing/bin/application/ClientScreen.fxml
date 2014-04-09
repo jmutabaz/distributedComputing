@@ -36,6 +36,7 @@
             <TextArea id="loadedFileNameLabel" fx:id="fileMessageBoxArea" layoutX="17.0" layoutY="222.0" prefHeight="121.0" prefWidth="158.0" wrapText="true" />
             <Label layoutX="15.0" layoutY="57.0" text="Type in Message to Send" />
             <TextArea fx:id="messgaeToSendArea" layoutX="17.0" layoutY="72.0" prefHeight="81.689453125" prefWidth="141.0" wrapText="true" />
+            <Label layoutX="15.0" layoutY="157.0" text="or select a file to send" />
           </children>
         </Pane>
       </left>
