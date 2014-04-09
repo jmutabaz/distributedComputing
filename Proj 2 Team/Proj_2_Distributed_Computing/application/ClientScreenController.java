@@ -170,7 +170,7 @@ public class ClientScreenController implements Initializable, ControlledScreen {
 			init();
 			nameOfRecievingClientField.requestFocus();
 			//Start a Server... BANANA
-			serverConn = new SocketClient();
+			serverConn = new SocketClient("","","");
 			if(!serverConn.RunServer("l3lawns.com", 5555, "myIP"))
 			{
 				reset();

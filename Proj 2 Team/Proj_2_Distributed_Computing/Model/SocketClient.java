@@ -5,30 +5,40 @@ import java.net.InetAddress;
 import java.net.SocketException;
 import java.net.UnknownHostException;
 
-public class SocketClient {
+public class SocketClient extends Thread {
 
 	private Server _ser;
 	private Client _cli;
 	private Router _router;
+	private String _routerIP;
 	private String _myIp;
+	private String _updatePath;
+	private String _name;
+	private int _runType;
+	private Message _msg;
 
-	public SocketClient(){
-		InetAddress addr;
-		try {
-			addr = InetAddress.getLocalHost();
-			_myIp = addr.getHostAddress(); // Client machine's IP
-		} catch (UnknownHostException e1) {
-			return;
+	public SocketClient(String MyIP, String routerIP, String UpdatePath, String name, int runType, Message msg){
+		_updatePath = UpdatePath;
+		_myIp = MyIP;
+		_name = name;
+		_runType = runType;
+		_routerIP = routerIP;
+		_msg = msg;
+	}
+	
+	public void run(){
+		switch(_runType){
+		case 1:
+			RunServer();
+			break;
+		default:
+			break;
 		}
-
-		//BANANA - Need to add box to get ip.
-		//Type in Ip Address
-		_myIp = "192.168.1.5";
 	}
 
-	public boolean RunServer(String ip, int port, String name) {
+	private boolean RunServer() {
 		try{
-			_ser = new Server(ip, port, _myIp, name);
+			_ser = new Server(_routerIP, 5555, _myIp, _name);
 			_ser.start();
 			_ser.join();
 			return true;
@@ -46,9 +56,9 @@ public class SocketClient {
 		}
 	}
 
-	public boolean RunClient(String ip, int port, Message msg) {
+	private boolean RunClient() {
 		try{
-			_cli = new Client(ip, port, msg);
+			_cli = new Client(_routerIP, 5555, _msg);
 			_cli.start();
 			System.out.println("<!--Running-->");
 			_cli.join();
@@ -61,9 +71,9 @@ public class SocketClient {
 		}
 	}
 
-	public String RunServerRouter(String myIP, String otherRouterIP) {
+	private String RunServerRouter() {
 		try{
-			_router = new Router(otherRouterIP, 5555, myIP);
+			_router = new Router(_routerIP, 5555, _myIp);
 			_router.start();
 			_router.join();
 			return "Server Router Ended.";
