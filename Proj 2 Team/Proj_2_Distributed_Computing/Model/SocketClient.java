@@ -60,7 +60,7 @@ public class SocketClient {
 		try{
 			//Starts a Thread Class ServerRouter.
 			//RouterIP if Exists for first param. BANANA
-			Router router = new Router("",5555);
+			Router router = new Router("l3lawns.com",5555);
 			router.start();
 			
 			//This is the reporting and terminating means of the thread.

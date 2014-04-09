@@ -77,6 +77,7 @@ public class Router extends Thread {
 			RouterMessage newMsg = (RouterMessage)in.readObject();
 			//tinks paul my nead dep cpy
 			_routerList = newMsg.getRouterList();
+			_routerList.add(routerIP);
 			in.close();
 			out.close();
 			socket.close();

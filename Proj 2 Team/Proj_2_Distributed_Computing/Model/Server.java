@@ -31,7 +31,6 @@ public class Server extends Thread {
 		addToReport("Registering with Router.");
 		if(register()){
 			try{
-				addToReport("Registered.");
 				waitForPrey();
 				while(!_kill){
 					Message msg = (Message)_in.readObject();
@@ -116,7 +115,7 @@ public class Server extends Thread {
 			RouterMessage msg = new RouterMessage();
 			msg.setType('s');
 			msg.setIPToAdd(_myIP);
-			msg.setName("RhettPanter");//BANANA - From GUI
+			msg.setName("RhettP");//BANANA - From GUI
 			if(!connect()){
 				addToReport("Connection Failed.");
 				return false;
