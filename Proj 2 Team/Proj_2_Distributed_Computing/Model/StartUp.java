@@ -63,7 +63,8 @@ public class StartUp {
 				ser.RunServer("l3lawns.com", 5555, "Rhett");
 				break;
 			case 2:
-				p("| " + cli.RunServerRouter("MyIP", "OtherRouterIP") + "\n|");
+				//p("| " + cli.RunServerRouter("MyIP", "OtherRouterIP") + "\n|");
+				p("| " + cli.RunServerRouter("192.168.1.4", "") + "\n|");
 				break;
 			case 3:
 				//Exit

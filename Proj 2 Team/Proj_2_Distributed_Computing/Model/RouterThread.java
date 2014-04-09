@@ -63,9 +63,9 @@ public class RouterThread extends Thread {
 			}else if(_incoming.getType() == 'n'){
 				out.setRouterList(_routerList);
 				_out.writeObject(out);
+				_incoming.setType('r');
 				updateOthers();
 				addToRouterList(_incoming.getIPToAdd());
-				_incoming.setType('r');
 			}else if(_incoming.getType() == 'l'){
 				String IP = findIPFromName();
 				out.setIPLookup(IP);
@@ -135,8 +135,10 @@ public class RouterThread extends Thread {
 			for(String i : _routerList){
 				if(!connect(i)){
 					Thread.sleep(1000);
-					if(connect(i))
+					if(!connect(i))
 						removeRouter(i);
+					else
+						_tempOut.writeObject(_incoming);
 				}else{
 					_tempOut.writeObject(_incoming);
 				}
@@ -211,15 +213,15 @@ public class RouterThread extends Thread {
 		 * 		Connects to Router.
 		 */
 		try{
-			if(_tempSoc.isConnected())
+			if(_tempSoc != null && _tempSoc.isConnected())
 			{
 				_tempOut.close();
 				_tempIn.close();
 				_tempSoc.close();
 			}
 			_tempSoc = new Socket(ip, 5555);
-			_tempOut = new ObjectOutputStream(_socket.getOutputStream());
-			_tempIn = new ObjectInputStream(_socket.getInputStream());
+			_tempOut = new ObjectOutputStream(_tempSoc.getOutputStream());
+			_tempIn = new ObjectInputStream(_tempSoc.getInputStream());
 		}catch(Exception ex){
 			addToReport("ERROR: " + ex.toString());
 			return false;
