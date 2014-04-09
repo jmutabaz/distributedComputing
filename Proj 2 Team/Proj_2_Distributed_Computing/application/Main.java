@@ -23,6 +23,7 @@ public class Main extends Application {
 	public	static 	ClientScreenController		CSC;
 	public	static	ServerScreenController		SSC;
 	public  static	String						fileName;
+	public 	static 	String						IPADDRESSSTRING;
 
 	@Override
 	public void start(Stage primaryStage) {
