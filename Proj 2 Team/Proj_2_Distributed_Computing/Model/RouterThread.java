@@ -61,11 +61,11 @@ public class RouterThread extends Thread {
 				else if(_incoming.getIPToRemove() != null)
 					removeRouter(_incoming.getIPToRemove());
 			}else if(_incoming.getType() == 'n'){
-				addToRouterList(_incoming.getIPToAdd());
-				//BANANA ? - tinks paul refernce pas
 				out.setRouterList(_routerList);
-				_incoming.setType('r');
+				_out.writeObject(out);
 				updateOthers();
+				addToRouterList(_incoming.getIPToAdd());
+				_incoming.setType('r');
 			}else if(_incoming.getType() == 'l'){
 				String IP = findIPFromName();
 				out.setIPLookup(IP);
@@ -73,7 +73,8 @@ public class RouterThread extends Thread {
 			
 			addToReport("Sending Out Message.");
 			out.setType('t');
-			_out.writeObject(out);
+			if(_incoming.getType() != 'r')
+				_out.writeObject(out);
 		}catch(Exception ex){
 			addToReport("ERROR: " + ex.toString());
 			return;
