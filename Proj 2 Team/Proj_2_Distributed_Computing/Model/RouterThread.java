@@ -17,14 +17,16 @@ public class RouterThread extends Thread {
 	private List<ServerID> _myServers;
 	private List<String> _routerList;
 	private RouterMessage _incoming;
+	private int _count;
 
-	public RouterThread(Socket newSocket, List<ServerID> servers, List<String> routers){
+	public RouterThread(Socket newSocket, List<ServerID> servers, List<String> routers, int count){
 		try{
 			_socket = newSocket;
 			_out = new ObjectOutputStream(_socket.getOutputStream());
 			_in = new ObjectInputStream(_socket.getInputStream());
 			_myServers = servers;
 			_routerList = routers;
+			_count = count;
 		}catch(Exception ex){
 			
 		}
@@ -47,6 +49,7 @@ public class RouterThread extends Thread {
 					_myServers.remove(searchServers(_incoming.getIPToRemove()));
 				
 			}else if(_incoming.getType() == 'c'){
+				addToReport("Client is Looking for IP.", false);
 				String IP = findIPFromName();
 				if(IP == null){
 					_incoming.setType('l');
@@ -58,25 +61,28 @@ public class RouterThread extends Thread {
 					addToRouterList(_incoming.getIPToAdd());
 				else if(_incoming.getIPToRemove() != null)
 					removeRouter(_incoming.getIPToRemove());
+				addToReport("Router List Updated.", true);
 			}else if(_incoming.getType() == 'n'){
 				out.setRouterList(_routerList);
 				_out.writeObject(out);
 				_incoming.setType('r');
 				updateOthers();
 				addToRouterList(_incoming.getIPToAdd());
+				addToReport("New Router Connected.", true);
 			}else if(_incoming.getType() == 'l'){
+				addToReport("Router Searching for IP.", false);
 				String IP = findIPFromName();
 				if(IP == null)
 					IP = searchOthers();
 				out.setIPLookup(IP);
 			}
 			
-			addToReport("Sending Out Message.");
+			addToReport("Sending Out Message.", false);
 			out.setType('t');
 			if(_incoming.getType() != 'r')
 				_out.writeObject(out);
 		}catch(Exception ex){
-			addToReport("ERROR: " + ex.toString());
+			addToReport("ERROR: " + ex.toString(), false);
 			return;
 		}
 	}
@@ -144,7 +150,7 @@ public class RouterThread extends Thread {
 				}
 			}
 		}catch(Exception ex){
-			addToReport("ERROR: " + ex.toString());
+			addToReport("ERROR: " + ex.toString(), false);
 		}
 		return null;
 	}
@@ -190,7 +196,7 @@ public class RouterThread extends Thread {
 				}
 			}
 		}catch(Exception ex){
-			addToReport("ERROR: " + ex.toString());
+			addToReport("ERROR: " + ex.toString(), false);
 		}
 		return null;
 	}
@@ -223,17 +229,23 @@ public class RouterThread extends Thread {
 			_tempOut = new ObjectOutputStream(_tempSoc.getOutputStream());
 			_tempIn = new ObjectInputStream(_tempSoc.getInputStream());
 		}catch(Exception ex){
-			addToReport("ERROR: " + ex.toString());
+			addToReport("ERROR: " + ex.toString(),false);
 			return false;
 		}
 		return true;
 	}
 	
-	private void addToReport(String report){
-		//BANANA - Change how report is set.
+	private void addToReport(String report, boolean updateList){
 		UpdateMessage msg = new UpdateMessage();
+		_count++;
+		if(updateList)
+		{
+			msg._myServers = _myServers;
+			msg._routerList = _routerList;
+		}
 		msg.setMessage(report);
-		//msg.WriteFile(msg);
+		msg.setCount(_count);
+		msg.WriteFile(msg);
 		System.out.println("<!--Router Thread: " + report + "-->");
 	}
 }

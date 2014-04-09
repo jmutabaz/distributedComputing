@@ -13,22 +13,29 @@ import java.io.UnsupportedEncodingException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.zip.DataFormatException;
 import java.util.zip.Deflater;
 import java.util.zip.Inflater;
 
+import application.Main;
+
 public class UpdateMessage implements Serializable {
-	private static String _filePath="";
+	private static String _filePath = Main.IPADDRESSSTRING;
 	private String _message;
 	private int _count;
-	
-	
+	public String _fileName;
+	public List<ServerID> _myServers;
+	public List<String> _routerList;
+	public boolean _shouldRestart;
+	public boolean _isRouter;
 	
 	public boolean WriteFile(UpdateMessage msg)
 	{
 		try {
 			FileOutputStream outputStream =
-					new FileOutputStream(_filePath + msg._count + ".spsu", false);
+					new FileOutputStream(_filePath + _fileName + ".spsu", false);
 			ByteArrayOutputStream out = new ByteArrayOutputStream();
 			ObjectOutputStream os = new ObjectOutputStream(out);
 			os.writeObject(msg);

@@ -17,6 +17,7 @@ public class Server extends Thread {
 	private String _myIP;
 	private String _myName;
 	private ServerSocket _serverSocket = null;
+	private int _count = 0;
 
 	public Server(String routerIP, int port, String myIP, String myName){
 		_routerIP = routerIP;
@@ -66,7 +67,7 @@ public class Server extends Thread {
 				addToReport("Server Error: " + ex.toString());
 			}
 		}else{
-			addToReport("Failed To Register...");
+			addToReport("Failed To Register...", true);
 		}
 	}
 
@@ -87,7 +88,7 @@ public class Server extends Thread {
 				_in = new ObjectInputStream(_socket.getInputStream());
 			}
 			catch (IOException e) {
-				addToReport("Couldn't Listen for Connections.");
+				addToReport("Couldn't Listen for Connections.", true);
 				return;
 			}
 			_serverSocket.close();
@@ -107,7 +108,7 @@ public class Server extends Thread {
 			_out = new ObjectOutputStream(_socket.getOutputStream());
 			_in = new ObjectInputStream(_socket.getInputStream());
 		}catch(Exception ex){
-			addToReport("Failed to Connect to Router.");
+			addToReport("Failed to Connect to Router.", true);
 			return false;
 		}
 		addToReport("Connected to Router.");
@@ -180,11 +181,24 @@ public class Server extends Thread {
 	}
 
 	private void addToReport(String report){
-		//BANANA - Change how report is set.
 		UpdateMessage msg = new UpdateMessage();
+		_count++;
+		msg._shouldRestart = false;
+		msg._fileName = "Server" + _count;
 		msg.setMessage(report);
-		//msg.count=BANANA; make count equal the count number.....ha  ha
-		//msg.WriteFile(msg);
+		msg.setCount(_count);
+		msg.WriteFile(msg);
+		System.out.println("<!--Server: " + report + "-->");
+	}
+	
+	private void addToReport(String report, boolean shouldRestart){
+		UpdateMessage msg = new UpdateMessage();
+		_count++;
+		msg._shouldRestart = shouldRestart;
+		msg._fileName = "Server" + _count;
+		msg.setMessage(report);
+		msg.setCount(_count);
+		msg.WriteFile(msg);
 		System.out.println("<!--Server: " + report + "-->");
 	}
 

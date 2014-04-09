@@ -1,4 +1,9 @@
+/.classpath
+/.project
+/.settings
 /Model
 /POBox
-/application
 /UpdateFolder
+/application
+/build.fxbuild
+/pic.jpg

@@ -13,6 +13,8 @@ public class Client extends Thread {
 	private ObjectOutputStream _out;
 	private ObjectInputStream _in;
 	private Message _msg;
+	private int _count = 0;
+	public String _desIP;
 
 	public Client(String routerIP, int port, Message msg){
 		/*
@@ -69,7 +71,7 @@ public class Client extends Thread {
 		 * 		Establishes Connection to Server to send Message to.
 		 */
 		try{
-			_socket = new Socket(_msg.getDestination(), _portNum);
+			_socket = new Socket(_desIP, _portNum);
 			_out = new ObjectOutputStream(_socket.getOutputStream());
 			_in = new ObjectInputStream(_socket.getInputStream());
 		}catch(Exception x){
@@ -111,16 +113,29 @@ public class Client extends Thread {
 			return false;
 		}
 		
-		_msg.setDestination(resp.getIPLookup());
+		_desIP = resp.getIPLookup();
 		return true;
 	}
 
 	private void addToReport(String report){
-		//BANANA - Change how report is set.
 		UpdateMessage msg = new UpdateMessage();
+		_count++;
+		msg._shouldRestart = false;
+		msg._fileName = "Client" + _count;
 		msg.setMessage(report);
-		//msg.setCount(0);
-		//msg.WriteFile(msg);
+		msg.setCount(_count);
+		msg.WriteFile(msg);
+		System.out.println("<!--Client: " + report + "-->");
+	}
+	
+	private void addToReport(String report, boolean shouldRestart){
+		UpdateMessage msg = new UpdateMessage();
+		_count++;
+		msg._shouldRestart = shouldRestart;
+		msg._fileName = "Client" + _count;
+		msg.setMessage(report);
+		msg.setCount(_count);
+		msg.WriteFile(msg);
 		System.out.println("<!--Client: " + report + "-->");
 	}
 }

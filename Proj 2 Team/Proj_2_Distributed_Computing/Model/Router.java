@@ -18,6 +18,7 @@ public class Router extends Thread {
 	private String _myIP;
 	public boolean _running;
 	private ServerSocket _serverSocket = null;
+	private int _count = 0;
 	
 	public Router(String otherRouterIP, int port, String myIP){
 		_myIP = myIP;
@@ -38,28 +39,28 @@ public class Router extends Thread {
 				_serverSocket = new ServerSocket(_port);
 			}
 			catch (IOException e) {
-				addToReport("Couldn't Listen, Error: " + e.toString());
+				addToReport("Couldn't Listen, Error: " + e.toString(), false);
 				return;
 			}
-			addToReport("Router Listening...");
+			addToReport("Router Listening...", false);
 			while (_running == true)
 			{
 				try {
 					newSocket = _serverSocket.accept();
-					RouterThread t = new RouterThread(newSocket, _myServers, _routerList);
+					RouterThread t = new RouterThread(newSocket, _myServers, _routerList, _count);
 					t.start();
-					addToReport("Router Thread Started, Count: " + (_myServers != null ? _myServers.size():"None Yet..."));
+					addToReport("Router Thread Started, Count: " + (_myServers != null ? _myServers.size():"None Yet..."), false);
 				}
 				catch (IOException e) {
 					
 				}
 			}
-			addToReport("Router Closing.");
+			addToReport("Router Closing.", false);
 			newSocket.close();
 			_serverSocket.close();
 			
 		}catch(Exception ex){
-			addToReport("Error: " + ex.toString());
+			addToReport("Error: " + ex.toString(), false);
 		}
 		
 	}
@@ -71,7 +72,7 @@ public class Router extends Thread {
 		 * 		Contacts the routerIP and gets a list of other Routers logged on.
 		 */
 		if(routerIP == null || routerIP.equals("")){//First Router?
-			addToReport("I'm Setup and the First Router.");
+			addToReport("I'm Setup and the First Router.", false);
 			return true;
 		}
 		//Contacts other routerIP to get the list of Routers.
@@ -90,11 +91,12 @@ public class Router extends Thread {
 			_routerList = newMsg.getRouterList();
 			//BANANA - Remove me if there...
 			_routerList.add(routerIP);
+			addToReport("Got Router List.", true);
 			in.close();
 			out.close();
 			socket.close();
 		}catch(Exception ex){
-			addToReport("Couldn't Get Setup.");
+			addToReport("Couldn't Get Setup.", false);
 			return false;
 		}
 		return true;
@@ -117,8 +119,9 @@ public class Router extends Thread {
 				out.writeObject(msg);
 				out.close();
 				socket.close();
+				addToReport("DeRegistered.", false);
 			}catch(Exception ex){
-				addToReport("Couldn't Contact " + x);
+				addToReport("Couldn't Contact " + x, false);
 			}
 		}
 	}
@@ -137,11 +140,17 @@ public class Router extends Thread {
 		_running = false;
 	}
 	
-	private void addToReport(String report){
-		//BANANA - Change how report is set.
+	private void addToReport(String report, boolean updateList){
 		UpdateMessage msg = new UpdateMessage();
+		_count++;
+		if(updateList)
+		{
+			msg._myServers = _myServers;
+			msg._routerList = _routerList;
+		}
 		msg.setMessage(report);
-		//msg.WriteFile(msg);
+		msg.setCount(_count);
+		msg.WriteFile(msg);
 		System.out.println("<!--Router: " + report + "-->");
 	}
 }

@@ -12,13 +12,11 @@ public class SocketClient extends Thread {
 	private Router _router;
 	private String _routerIP;
 	private String _myIp;
-	private String _updatePath;
 	private String _name;
 	private int _runType;
 	private Message _msg;
 
-	public SocketClient(String MyIP, String routerIP, String UpdatePath, String name, int runType, Message msg){
-		_updatePath = UpdatePath;
+	public SocketClient(String MyIP, String routerIP, String name, int runType, Message msg){
 		_myIp = MyIP;
 		_name = name;
 		_runType = runType;
@@ -30,6 +28,27 @@ public class SocketClient extends Thread {
 		switch(_runType){
 		case 1:
 			RunServer();
+			break;
+		case 2:
+			RunClient();
+			break;
+		case 3:
+			RunServerRouter();
+			break;
+		default:
+			break;
+		}
+	}
+	
+	public void killMe(){
+		switch(_runType){
+		case 1:
+			KillServer();
+			break;
+		case 2:
+			break;
+		case 3:
+			KillServerRouter();
 			break;
 		default:
 			break;
@@ -50,7 +69,7 @@ public class SocketClient extends Thread {
 		}
 	}
 
-	public void KillServer(){
+	private void KillServer(){
 		if(_ser.isAlive()){
 			_ser.killMeOff();
 		}
@@ -60,32 +79,29 @@ public class SocketClient extends Thread {
 		try{
 			_cli = new Client(_routerIP, 5555, _msg);
 			_cli.start();
-			System.out.println("<!--Running-->");
 			_cli.join();
 			return true;
 		}
 		catch(Exception e)
 		{
-			System.out.println("<!--" + e.toString() + "-->");
 			return false;
 		}
 	}
 
-	private String RunServerRouter() {
+	private boolean RunServerRouter() {
 		try{
 			_router = new Router(_routerIP, 5555, _myIp);
 			_router.start();
 			_router.join();
-			return "Server Router Ended.";
+			return true;
 		}catch(Exception ex){
-			return "Failed To Run ServerRouter.";
+			return false;
 		}
 	}
 
-	public void KillServerRouter(){
+	private void KillServerRouter(){
 		if(_router.isAlive()){
 			_router.killMeOff();
 		}
 	}
-
 }

@@ -80,6 +80,17 @@ public class StartScreenController implements Initializable, ControlledScreen {
 	public boolean validateIP(String IP)
 	{
 		String[] n = IP.split("\\.");
+		
+		try{
+			if(IP.matches(".*[a-zA-Z]+.*"))
+			{
+				System.out.println("OOPS!!!Wrong IP format used.");
+			}
+		}catch(Exception e)
+		{
+			//System.err.println(e.toString());
+		}
+		
 		if((Integer.parseInt(n[0]) < 0) || (Integer.parseInt(n[0]) > 255 ))
 		{
 			return false;
