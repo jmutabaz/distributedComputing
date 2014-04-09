@@ -41,7 +41,7 @@ public class Router extends Thread {
 					newSocket = serverSocket.accept();
 					RouterThread t = new RouterThread(newSocket, _myServers, _routerList);
 					t.start();
-					addToReport("Router Thread Started, Count: " + _myServers.size());
+					addToReport("Router Thread Started, Count: " + (_myServers != null ? _myServers.size():"None Yet..."));
 				}
 				catch (IOException e) {
 					
