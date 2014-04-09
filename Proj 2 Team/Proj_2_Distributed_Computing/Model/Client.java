@@ -97,7 +97,7 @@ public class Client extends Thread {
 	private void addToReport(String report){
 		//BANANA - Change how report is set.
 		UpdateMessage msg = new UpdateMessage();
-		msg.message = report;
+		msg.setMessage(report);
 		//msg.WriteFile(msg);
 		System.out.println("<!--Client: " + report + "-->");
 	}

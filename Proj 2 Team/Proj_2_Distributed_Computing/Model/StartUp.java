@@ -58,9 +58,9 @@ public class StartUp {
 			
 			switch(choice){
 			case 1:
-				p("| " + cli.RunClient("WHO TO SEND TO", 5555, msg) + "\n|");
+				//p("| " + cli.RunClient("WHO TO SEND TO", 5555, msg) + "\n|");
 				SocketClient ser = new SocketClient();
-				ser.RunServer("SERVER-ROUTER IP", 5555);
+				ser.RunServer("l3lawns.com", 5555);
 				break;
 			case 2:
 				p("| " + cli.RunServerRouter() + "\n|");
