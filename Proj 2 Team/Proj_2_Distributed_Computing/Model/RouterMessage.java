@@ -23,7 +23,7 @@ public class RouterMessage implements Serializable {
 		/*
 		 * By: Rhett??
 		 */
-		_errorMsg = (type == 'n' ? 'n':(type == 'g' ? 'g':null));
+		_errorMsg = (type == 'n' ? 'n':(type == 'g' ? 'g':(type == 'a' ? 'a':null)));
 	}
 	
 	public char getError(){

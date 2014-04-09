@@ -40,8 +40,11 @@ public class RouterThread extends Thread {
 			
 			if(_incoming.getType() == 's'){
 				
-				if(_incoming.getIPToAdd() != null)
-					out.setError(addToServerList(new ServerID(_incoming.getIPToAdd(),_incoming.getName())));
+				if(_incoming.getIPToAdd() != null){
+					char resp = addToServerList(new ServerID(_incoming.getIPToAdd(),_incoming.getName()));
+					if(resp != 't')
+						out.setError(resp);
+				}
 				else if(_incoming.getIPToRemove() != null)
 					_myServers.remove(searchServers(_incoming.getIPToRemove()));
 				
