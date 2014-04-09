@@ -94,28 +94,6 @@ public class Message implements Serializable {
 		return _data.length;
 	}
 
-	public static boolean validateIP(String IP)
-	{
-		String[] n = IP.split("\\.");
-		if((Integer.parseInt(n[0]) < 0) || (Integer.parseInt(n[0]) > 255 ))
-		{
-			return false;
-		}
-		else if((Integer.parseInt(n[1]) < 0) || (Integer.parseInt(n[1]) > 255 ))
-		{
-			return false;
-		}
-		else if((Integer.parseInt(n[2]) < 0) || (Integer.parseInt(n[2]) > 255 ))
-		{
-			return false;
-		}
-		else if((Integer.parseInt(n[3]) < 0) || (Integer.parseInt(n[3]) > 255 ))
-		{
-			return false;
-		}
-		return true;
-	}
-
 	//--------------------------------GET AND SET--------------------------------//
 
 	public boolean setData(Object data){

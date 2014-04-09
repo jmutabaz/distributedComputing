@@ -13,6 +13,7 @@ public class Client extends Thread {
 	private ObjectOutputStream _out;
 	private ObjectInputStream _in;
 	private Message _msg;
+	private int _count = 0;
 
 	public Client(String routerIP, int port, Message msg){
 		/*
@@ -116,11 +117,12 @@ public class Client extends Thread {
 	}
 
 	private void addToReport(String report){
-		//BANANA - Change how report is set.
 		UpdateMessage msg = new UpdateMessage();
+		_count++;
+		msg._fileName = "Client" + _count;
 		msg.setMessage(report);
-		//msg.setCount(0);
-		//msg.WriteFile(msg);
+		msg.setCount(_count);
+		msg.WriteFile(msg);
 		System.out.println("<!--Client: " + report + "-->");
 	}
 }

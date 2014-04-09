@@ -17,6 +17,7 @@ public class Server extends Thread {
 	private String _myIP;
 	private String _myName;
 	private ServerSocket _serverSocket = null;
+	private int _count = 0;
 
 	public Server(String routerIP, int port, String myIP, String myName){
 		_routerIP = routerIP;
@@ -180,11 +181,12 @@ public class Server extends Thread {
 	}
 
 	private void addToReport(String report){
-		//BANANA - Change how report is set.
 		UpdateMessage msg = new UpdateMessage();
+		_count++;
+		msg._fileName = "Server" + _count;
 		msg.setMessage(report);
-		//msg.count=BANANA; make count equal the count number.....ha  ha
-		//msg.WriteFile(msg);
+		msg.setCount(_count);
+		msg.WriteFile(msg);
 		System.out.println("<!--Server: " + report + "-->");
 	}
 
