@@ -31,14 +31,22 @@ public class StartScreenController implements Initializable, ControlledScreen {
 	@FXML
 	void startClientButtonPressed(ActionEvent event){
 		testLabel.setText("Start Client buttton depressed");
-		myController.setScreen(Main.CLIENT_SCREEN);
+		if(getIPAddress()){
+			myController.setScreen(Main.CLIENT_SCREEN);
+		} else {
+			iPAddressTextField.requestFocus();
+		}
 	}
 	
 	@FXML
 	void startServerButtonPressed(ActionEvent event){
 		testLabel.setText("Start Server buttton depressed");
+		if(getIPAddress()){
+			myController.setScreen(Main.SERVER_SCREEN);
+		} else {
+			iPAddressTextField.requestFocus();
+		}
 		
-		myController.setScreen(Main.SERVER_SCREEN);
 	}
 	
 	@FXML
@@ -47,19 +55,48 @@ public class StartScreenController implements Initializable, ControlledScreen {
 	}
 	
 	@FXML
-	private void getIPAddress() {
+	private boolean getIPAddress() {
+		System.out.println("checking IP address");
 		boolean getIPAddress = true;
+		
 		while(getIPAddress){
 			Main.IPADDRESSSTRING = iPAddressTextField.getText();
+			System.out.println("IP address = " + Main.IPADDRESSSTRING);
 			// test IP address
-			 if (!Model.Message.validateIP(Main.IPADDRESSSTRING)){
+			 if (!validateIP(Main.IPADDRESSSTRING)){
 			 	iPAddressErrorLabel.setText("The IP Address you entered is not valid please enter a valid IP Address");
+			 	System.out.println("The IP Address you entered is not valid please enter a valid IP Address");
+			 	return false;
 			 } else{
 			 	getIPAddress = false;
-			 	
+			 	System.out.println("The IP address has been set as: " + Main.IPADDRESSSTRING);
+			 	return true;
 			 }
-			getIPAddress = false;
+			 
 		}
+		return false;
+	}
+	
+	public boolean validateIP(String IP)
+	{
+		String[] n = IP.split("\\.");
+		if((Integer.parseInt(n[0]) < 0) || (Integer.parseInt(n[0]) > 255 ))
+		{
+			return false;
+		}
+		else if((Integer.parseInt(n[1]) < 0) || (Integer.parseInt(n[1]) > 255 ))
+		{
+			return false;
+		}
+		else if((Integer.parseInt(n[2]) < 0) || (Integer.parseInt(n[2]) > 255 ))
+		{
+			return false;
+		}
+		else if((Integer.parseInt(n[3]) < 0) || (Integer.parseInt(n[3]) > 255 ))
+		{
+			return false;
+		}
+		return true;
 	}
 	
 	//==============================================================================
