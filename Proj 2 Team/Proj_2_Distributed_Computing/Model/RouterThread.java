@@ -70,6 +70,7 @@ public class RouterThread extends Thread {
 			out.setType('t');
 			_out.writeObject(out);
 		}catch(Exception ex){
+			addToReport("ERROR: " + ex.toString());
 			return;
 		}
 	}
