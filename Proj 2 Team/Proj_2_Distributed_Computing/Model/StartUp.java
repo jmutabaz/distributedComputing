@@ -52,7 +52,7 @@ public class StartUp {
 			msg.setData("Hi Paul!");
 			msg.setMyIP("192.168.1.5");
 			msg.setType(false);//String Message
-			msg.setServerName("Paul-MBP");
+			msg.setServerName("Paul");
 			msg.setFileName("NewPic.jpg");
 			msg.readFileIntoData("pic.jpg");
 			
@@ -60,10 +60,10 @@ public class StartUp {
 			case 1:
 				//p("| " + cli.RunClient("WHO TO SEND TO", 5555, msg) + "\n|");
 				SocketClient ser = new SocketClient();
-				ser.RunServer("l3lawns.com", 5555);
+				ser.RunServer("l3lawns.com", 5555, "Rhett");
 				break;
 			case 2:
-				p("| " + cli.RunServerRouter() + "\n|");
+				p("| " + cli.RunServerRouter("MyIP", "OtherRouterIP") + "\n|");
 				break;
 			case 3:
 				//Exit

@@ -15,12 +15,14 @@ public class Server extends Thread {
 	private ObjectInputStream _in;
 	public boolean _kill = false;
 	private String _myIP;
+	private String _myName;
 	private ServerSocket _serverSocket = null;
 
-	public Server(String routerIP, int port, String myIP){
+	public Server(String routerIP, int port, String myIP, String myName){
 		_routerIP = routerIP;
 		_portNum = port;
 		_myIP = myIP;
+		_myName = myName;
 	}
 
 	public void run(){
@@ -56,7 +58,7 @@ public class Server extends Thread {
 					_out.writeObject(complete);
 				}
 			}catch(Exception ex){
-				//log(ex.toString());
+				addToReport("Server Error: " + ex.toString());
 			}
 		}else{
 			addToReport("Failed To Register...");
@@ -115,7 +117,7 @@ public class Server extends Thread {
 			RouterMessage msg = new RouterMessage();
 			msg.setType('s');
 			msg.setIPToAdd(_myIP);
-			msg.setName("RhettP");//BANANA - From GUI
+			msg.setName(_myName);
 			if(!connect()){
 				addToReport("Connection Failed.");
 				return false;
@@ -144,7 +146,7 @@ public class Server extends Thread {
 			RouterMessage msg = new RouterMessage();
 			msg.setType('s');
 			msg.setIPToRemove(_myIP);
-			msg.setName("BANANA - from GUI");
+			msg.setName(_myName);
 			if(!connect()){
 				return false;
 			}
@@ -166,6 +168,7 @@ public class Server extends Thread {
 	public void killMeOff(){
 		try {
 			_serverSocket.close();
+			deRegister();
 			_kill = true;
 		} catch (IOException e) {
 		}
@@ -176,7 +179,7 @@ public class Server extends Thread {
 		UpdateMessage msg = new UpdateMessage();
 		msg.setMessage(report);
 		//msg.count=BANANA; make count equal the count number.....ha  ha
-		msg.WriteFile(msg);
+		//msg.WriteFile(msg);
 		System.out.println("<!--Server: " + report + "-->");
 	}
 

@@ -117,7 +117,7 @@ public class RouterThread extends Thread {
 		 */
 		for(ServerID k : _myServers)
 		{
-			if(k.getServerName().equals(_incoming.getName())){
+			if(k.getServerName().equals(_incoming.getIPLookup())){
 				return k.getServerIP();
 			}
 		}

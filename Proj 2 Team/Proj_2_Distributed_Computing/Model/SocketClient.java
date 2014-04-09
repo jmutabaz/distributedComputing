@@ -6,12 +6,12 @@ import java.net.SocketException;
 import java.net.UnknownHostException;
 
 public class SocketClient {
-	
+
 	private Server _ser;
 	private Client _cli;
 	private Router _router;
 	private String _myIp;
-	
+
 	public SocketClient(){
 		InetAddress addr;
 		try {
@@ -20,15 +20,15 @@ public class SocketClient {
 		} catch (UnknownHostException e1) {
 			return;
 		}
-		
+
 		//BANANA - Need to add box to get ip.
 		//Type in Ip Address
 		_myIp = "173.186.23.128";
 	}
-	
-	public boolean RunServer(String ip, int port) {
+
+	public boolean RunServer(String ip, int port, String name) {
 		try{
-			_ser = new Server(ip, port, _myIp);
+			_ser = new Server(ip, port, _myIp, name);
 			_ser.start();
 			_ser.join();
 			return true;
@@ -39,13 +39,13 @@ public class SocketClient {
 			return false;
 		}
 	}
-	
+
 	public void KillServer(){
 		if(_ser.isAlive()){
 			_ser.killMeOff();
 		}
 	}
-	
+
 	public boolean RunClient(String ip, int port, Message msg) {
 		try{
 			_cli = new Client(ip, port, msg);
@@ -60,12 +60,10 @@ public class SocketClient {
 			return false;
 		}
 	}
-	
-	public String RunServerRouter() {
+
+	public String RunServerRouter(String myIP, String otherRouterIP) {
 		try{
-			//Starts a Thread Class ServerRouter.
-			//RouterIP if Exists for first param. BANANA
-			_router = new Router("l3lawns.com",5555);
+			_router = new Router(otherRouterIP, 5555, myIP);
 			_router.start();
 			_router.join();
 			return "Server Router Ended.";
@@ -73,11 +71,11 @@ public class SocketClient {
 			return "Failed To Run ServerRouter.";
 		}
 	}
-	
+
 	public void KillServerRouter(){
 		if(_router.isAlive()){
 			_router.killMeOff();
 		}
 	}
-	
+
 }
