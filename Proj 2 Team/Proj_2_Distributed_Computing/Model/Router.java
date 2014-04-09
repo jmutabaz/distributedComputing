@@ -47,12 +47,12 @@ public class Router extends Thread {
 					
 				}
 			}
-			
-			//newSocket.close();
+			addToReport("I'm Dying!!!");
+			newSocket.close();
 			serverSocket.close();
 			
 		}catch(Exception ex){
-			
+			addToReport("Error: " + ex.toString());
 		}
 		
 	}

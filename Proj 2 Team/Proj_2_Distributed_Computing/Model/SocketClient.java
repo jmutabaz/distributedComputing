@@ -67,7 +67,7 @@ public class SocketClient {
 			//._message is an error where ._flag indicates if there is 
 			// an error/
 			router.join();
-			return null;
+			return "Server Router Ended.";
 		}catch(Exception ex){
 			return "Failed To Run ServerRouter.";
 		}
