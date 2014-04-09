@@ -92,8 +92,8 @@ public class Client extends Thread {
 		
 		try{
 			Socket newSocket = new Socket(_routerIP, _portNum);
-			ObjectOutputStream newOut = new ObjectOutputStream(_socket.getOutputStream());
-			ObjectInputStream newIn = new ObjectInputStream(_socket.getInputStream());
+			ObjectOutputStream newOut = new ObjectOutputStream(newSocket.getOutputStream());
+			ObjectInputStream newIn = new ObjectInputStream(newSocket.getInputStream());
 			
 			newOut.writeObject(msg);
 			addToReport("Waiting for Lookup Response.");

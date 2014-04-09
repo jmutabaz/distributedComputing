@@ -38,24 +38,29 @@ public class Server extends Thread {
 					waitForPrey();
 					Message msg = (Message)_in.readObject();
 					Message complete = new Message();
+					addToReport("Processing Message.");
 					if(msg.getType())
 					{
 						//Cap String.
+						addToReport("String to Cap: " + (String)msg.getData(true));
 						complete.setData(((String)msg.getData(true)).toUpperCase());
 						complete.setType(true);
 					}else{
 						//SaveFile
 						if(msg.getDataLength() > 0){
 							msg.writeFileFromData(msg.getFileName());
-							complete.setData("File Saved.");
+							complete.setData("File " + msg.getFileName() + " Saved.");
+							addToReport("File Saved. Named - " + msg.getFileName());
 						}else{
 							complete.setData("File Not Saved.");
+							addToReport("File Wasn't Saved.");
 						}
 						complete.setType(true);
 					}
 					//log((String)complete.getData(true));
 					complete.done = true;
 					_out.writeObject(complete);
+					addToReport("Message Complete.");
 				}
 			}catch(Exception ex){
 				addToReport("Server Error: " + ex.toString());

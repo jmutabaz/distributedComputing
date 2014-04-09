@@ -41,7 +41,7 @@ public class RouterThread extends Thread {
 			if(_incoming.getType() == 's'){
 				
 				if(_incoming.getIPToAdd() != null){
-					char resp = addToServerList(new ServerID(_incoming.getIPToAdd(),_incoming.getName()));
+					char resp = addToServerList(new ServerID(_incoming.getName(),_incoming.getIPToAdd()));
 					if(resp != 't')
 						out.setError(resp);
 				}

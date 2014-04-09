@@ -52,15 +52,16 @@ public class StartUp {
 			msg.setData("Hi Paul!");
 			msg.setMyIP("192.168.1.5");
 			msg.setType(false);//String Message
-			msg.setServerName("Paul");
-			msg.setFileName("NewPic.jpg");
+			msg.setServerName("Old Paul");
+			msg.setFileName("NewwdPic.jpg");
 			msg.readFileIntoData("pic.jpg");
 			
 			switch(choice){
 			case 1:
-				//p("| " + cli.RunClient("WHO TO SEND TO", 5555, msg) + "\n|");
-				SocketClient ser = new SocketClient();
-				ser.RunServer("l3lawns.com", 5555, "Rhett");
+				//BANANA needs to "know" routerIP
+				p("| " + cli.RunClient("192.168.1.3", 5555, msg) + "\n|");
+				//SocketClient ser = new SocketClient();
+				//ser.RunServer("192.168.1.3", 5555, "Rhett");
 				break;
 			case 2:
 				//p("| " + cli.RunServerRouter("MyIP", "OtherRouterIP") + "\n|");
