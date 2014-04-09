@@ -46,6 +46,7 @@ public class ClientScreenController implements Initializable, ControlledScreen {
 	@FXML	TextField	nameOfRecievingClientField;
 
 	@FXML	TextArea	messageLogArea;
+	@FXML	TextArea	messgaeToSendArea;
 	@FXML	TextArea	fileMessageBoxArea;
 
 	//variables
@@ -62,7 +63,8 @@ public class ClientScreenController implements Initializable, ControlledScreen {
 										clientIPAddressString			= "",
 										handlerClientIPAddressString	= "",
 										handlerClientPortNumberString	= "",
-										fileNameString					= "";
+										fileNameString					= "",
+										messageToSendString				= "";
 	private 		FileChooser			fileChooser 					= new FileChooser();
 	private			SocketClient		clientConn						;
 	private			SocketClient		serverConn						;
@@ -140,12 +142,29 @@ public class ClientScreenController implements Initializable, ControlledScreen {
 		// 	show load file button
 		// 	clear nameOfRecievingClientField, and recievingClientIPAddressLabel and 
 		//		recievingClientsPortNumberLabel
+		
+		
+		
 		Message msg = new Message();
-		msg.setData(fileNameString);
-		msg.setDestination("192.168.1.4");
-		msg.setType(true);
-		msg.setMyIP("192.168.0.3");
-		msg.setServerName("Paul");
+		msg.setMyIP(Main.IPADDRESSSTRING);
+		msg.setServerName(handlerClientNameString);
+		
+		//if sending a file
+		//do
+		// msg.setType = true
+		// setData to the string to send
+		//
+		msg.setData(fileNameString); // the string to send
+		msg.setType(true); // true if string false if file
+		
+		// if sending a message
+		//do
+		msg.readFileIntoData(fileNameString); // file to send
+		
+		
+		
+		//
+		
 		//clientConn.RunClient(msg.getDestination(), 5555, msg);
 	}
 
@@ -175,6 +194,9 @@ public class ClientScreenController implements Initializable, ControlledScreen {
 			{
 				reset();
 			}*/
+			serverConn = new SocketClient(Main.IPADDRESSSTRING, serverRouterIPAddressString, Main.PATHTOUPDATEString, clientNameString, 1, null);
+			serverConn.start();
+			
 
 		} catch (NumberFormatException e) {
 			messageLogHolderString = messageLogArea.getText();
@@ -229,7 +251,7 @@ public class ClientScreenController implements Initializable, ControlledScreen {
 		messageLogHolderString = messageLogArea.getText();
 		//Add new at top of box.
 		messageLogArea.setText("Start Update Loop\n" + messageLogHolderString);
-
+		clientsIPAddressLabel.setText(Main.IPADDRESSSTRING);
 		timer.schedule(new TimerTask() {
 			public void run() {
 				Platform.runLater(new Runnable() {
@@ -249,16 +271,6 @@ public class ClientScreenController implements Initializable, ControlledScreen {
 						if(updateCounter == 250){
 							updateCounter = 0;
 							try{
-								/*File folder = new File("~/Proj_2_Distributed_Computing/");
-								File[] listOfFiles = folder.listFiles();
-	
-							    for (int i = 0; i < listOfFiles.length; i++) {
-							      if (listOfFiles[i].isFile()) {
-							        System.out.println("File " + listOfFiles[i].getName());
-							      } else if (listOfFiles[i].isDirectory()) {
-							        System.out.println("Directory " + listOfFiles[i].getName());
-							      }
-							    }*/
 								String path = getClass().getClassLoader().getResource(".").getPath();
 								System.out.println("the path is " + path + "UpdataFolder/");
 								list = new ArrayList<String>();
@@ -273,6 +285,8 @@ public class ClientScreenController implements Initializable, ControlledScreen {
 								}
 							} catch(Exception e){
 								System.out.println("Problem opening folder");
+								messageLogHolderString = messageLogArea.getText();
+								messageLogArea.setText("Problem opening folder" + "\n" + messageLogHolderString);
 							}
 
 						}
