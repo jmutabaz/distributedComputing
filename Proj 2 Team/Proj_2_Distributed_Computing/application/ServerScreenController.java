@@ -121,6 +121,7 @@ public class ServerScreenController implements Initializable, ControlledScreen {
 			timer = null;
 		}
 		cli.killMe();
+		cli = null;
 		//reset all server setting
 	}
 	
