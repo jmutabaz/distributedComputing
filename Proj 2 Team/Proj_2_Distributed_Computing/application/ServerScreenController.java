@@ -188,7 +188,7 @@ public class ServerScreenController implements Initializable, ControlledScreen {
 										//checks or an updated client list and replaces the current list with the new list
 										if(updateMessage._myServers != null){
 											for(int s = 0; s < updateMessage._myServers.size(); s++){
-												messageLogHolderString += updateMessage._myServers.get(i).getServerName() + "\n";
+												messageLogHolderString += updateMessage._myServers.get(i).getServerIP() + "\n";
 											}
 											clientTableArea.setText(messageLogHolderString);
 										} else {
