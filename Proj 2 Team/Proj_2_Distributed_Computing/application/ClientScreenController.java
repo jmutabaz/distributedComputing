@@ -274,9 +274,6 @@ public class ClientScreenController implements Initializable, ControlledScreen {
 										messageLogHolderString = messageLogArea.getText();
 										messageLogArea.setText(updateMessage.get_message() + "\n" + messageLogHolderString);
 									}
-										
-								
-								
 								}
 							} catch(Exception e){
 								System.out.println("Problem opening folder");
