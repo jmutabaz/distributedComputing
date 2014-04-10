@@ -201,8 +201,12 @@ public class ServerScreenController implements Initializable, ControlledScreen {
 											if (updateMessage._routerList != null){
 												System.out.println("routerlist is not null");
 												for(int r = 0; r < updateMessage._routerList.size(); r++){
-													messageLogHolderString += updateMessage._routerList.get(r) + "\n";
-													System.out.println(updateMessage._routerList.get(r) + "\n");
+													if (updateMessage._routerList.get(r).equals(Main.IPADDRESSSTRING)){
+														System.out.println("Removed own IP address from Router Table");
+													} else {
+														messageLogHolderString += updateMessage._routerList.get(r) + "\n";
+														System.out.println(updateMessage._routerList.get(r) + "\n");
+													}
 												}
 												if (messageLogHolderString != ""){
 													routerTableArea.setText(messageLogHolderString);
