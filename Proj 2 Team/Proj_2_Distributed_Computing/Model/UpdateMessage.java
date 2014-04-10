@@ -48,7 +48,7 @@ public class UpdateMessage implements Serializable {
 			return true;
 		}
 		catch(Exception ex) {
-			System.out.print("I died..." + ex.toString());
+			System.out.print("Write UpdateMessage Error: " + ex.toString());
 			return false;
 		}
 	}
