@@ -62,6 +62,9 @@ public class ServerScreenController implements Initializable, ControlledScreen {
 			timer.cancel();
 			timer = null;
 		}
+		if(cli != null){
+			cli.killMe();
+		}
 		myController.setScreen(Main.START_SCREEN);
 	}
 	
@@ -153,7 +156,7 @@ public class ServerScreenController implements Initializable, ControlledScreen {
 							//messageLogHolderString = serverRuntimeLogArea.getText();
 							//serverRuntimeLogArea.setText("Clock tick: " + clock + "\n" + messageLogHolderString);
 						}
-						if(updateCounter == 5000){
+						if(updateCounter == 1000){
 							updateCounter = 0;
 							list = new ArrayList<String>();
 							File[] files = new File(Main.PATHTOUPDATEString).listFiles();
