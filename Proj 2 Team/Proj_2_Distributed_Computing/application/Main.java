@@ -4,6 +4,7 @@ package application;
 import java.io.File;
 import java.io.IOException;
 
+import Model.UpdateMessage;
 import javafx.application.Application;
 import javafx.stage.Stage;
 import javafx.scene.Group;
@@ -64,6 +65,8 @@ public class Main extends Application {
 			System.out.println("problem getting canonical path");
 		}
 	
+		UpdateMessage updateMessage = new UpdateMessage();
+		System.out.println("Update message toString test: " + updateMessage.toString());
 	}
 	
 	public static void main(String[] args) {

@@ -151,7 +151,7 @@ public class ServerScreenController implements Initializable, ControlledScreen {
 							//messageLogHolderString = serverRuntimeLogArea.getText();
 							//serverRuntimeLogArea.setText("Clock tick: " + clock + "\n" + messageLogHolderString);
 						}
-						if(updateCounter == 2500){
+						if(updateCounter == 5000){
 							updateCounter = 0;
 							try{
 								
@@ -173,7 +173,7 @@ public class ServerScreenController implements Initializable, ControlledScreen {
 
 						}
 						
-						
+						System.out.println("Server controller file list size = " + list.size());
 						for (int i = 0; i < list.size(); i++){
 							String messagePathString = list.get(i);
 							System.out.println("servercontroller messagepath " + messagePathString);

@@ -114,16 +114,20 @@ public class UpdateMessage implements Serializable {
 				+ ", _fileName=" + _fileName + ", _shouldRestart="
 				+ _shouldRestart + ", _isRouter=" + _isRouter + "\nServer List:\n";
 		String listString = "";
-		for (int i = 0; i < _myServers.size(); i++){
-			listString += _myServers.get(i).getServerName() + " :: "+ _myServers.get(i).getServerIP() + "\n";
+		if (_myServers != null){
+			for (int i = 0; i < _myServers.size(); i++){
+				listString += _myServers.get(i).getServerName() + " :: "+ _myServers.get(i).getServerIP() + "\n";
+			}
+			resultString += "\nRouter List:\n";
+			resultString += listString;
 		}
-		resultString += "\nRouter List:\n";
-		resultString += listString;
 		listString = "";
-		for (int i = 0; i < _routerList.size(); i++){
-			listString += _routerList.get(i) + "\n";
+		if(_routerList != null){
+			for (int i = 0; i < _routerList.size(); i++){
+				listString += _routerList.get(i) + "\n";
+			}
+			resultString += listString;
 		}
-		resultString += listString;
 		resultString += "]";
 		return resultString;
 	}
