@@ -70,7 +70,7 @@ public class SocketClient extends Thread {
 	}
 
 	private void KillServer(){
-		if(_ser.isAlive()){
+		if(_ser != null &&_ser.isAlive()){
 			_ser.killMeOff();
 		}
 	}
@@ -100,7 +100,7 @@ public class SocketClient extends Thread {
 	}
 
 	private void KillServerRouter(){
-		if(_router.isAlive()){
+		if(_router != null && _router.isAlive()){
 			_router.killMeOff();
 		}
 	}
