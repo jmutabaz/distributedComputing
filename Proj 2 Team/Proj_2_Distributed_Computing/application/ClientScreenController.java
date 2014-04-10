@@ -129,21 +129,6 @@ public class ClientScreenController implements Initializable, ControlledScreen {
 
 	@FXML
 	void sendMessageButtonPressed(ActionEvent event){
-		//	create socket, connect to server-router to request "Lookup" of handler client
-		//	hide load file button 
-		//	hide send message button (possible change to cancel send button or something
-		// 	display client's information in window
-		//	create peer-to-peer with handler client
-		//	show conversation specifics in message log window
-		//	display returned message and any other data required
-		//  terminate socket connection
-		//	hide send message button
-		// 	show load file button
-		// 	clear nameOfRecievingClientField, and recievingClientIPAddressLabel and 
-		//		recievingClientsPortNumberLabel
-		
-		
-		
 		Message msg = new Message();
 		msg.setMyIP(Main.IPADDRESSSTRING);
 		msg.setServerName(handlerClientNameString);
@@ -215,7 +200,7 @@ public class ClientScreenController implements Initializable, ControlledScreen {
 		serverRouterIPAddressField.setFocusTraversable(true);
 		serverRouterIPAddressField.setText("");
 		serverRouterIPAddressString = null;
-		startClientButton.setText("Start Server");
+		startClientButton.setText("Start Client");
 		fileMessageBoxArea.setText("No File Loaded"); 
 		messageSendingPane.setVisible(false);
 		fileNameString = "";
@@ -254,15 +239,11 @@ public class ClientScreenController implements Initializable, ControlledScreen {
 							clock++;
 							runTimeLabel.setText("" + clock);
 							String data;
-							if((data = getSocketData()) != null){
-								messageLogHolderString = messageLogArea.getText();
-								messageLogArea.setText(data + "\n" + messageLogHolderString);
-							}
 						}
 						if(updateCounter == 250){
 							updateCounter = 0;
 							try{
-								System.out.println("the path is " + Main.PATHTOUPDATEString);
+								System.out.println("Client Controller sees the path as: " + Main.PATHTOUPDATEString);
 								list = new ArrayList<String>();
 								File[] files = new File(Main.PATHTOUPDATEString).listFiles();
 								files.toString();
@@ -275,8 +256,8 @@ public class ClientScreenController implements Initializable, ControlledScreen {
 								}
 							} catch(Exception e){
 								System.out.println("Problem opening folder");
-								messageLogHolderString = messageLogArea.getText();
-								messageLogArea.setText("Problem opening folder" + "\n" + messageLogHolderString);
+								//messageLogHolderString = messageLogArea.getText();
+								//messageLogArea.setText("Problem opening folder" + "\n" + messageLogHolderString);
 							}
 
 						}
@@ -284,30 +265,6 @@ public class ClientScreenController implements Initializable, ControlledScreen {
 				});
 			}
 		}, 0, 1);
-	}
-
-	String getSocketData() {
-		//BANANA - Needs to get data from File...
-		/*if(clientConn != null){
-			String data = "", temp;
-			if((temp = clientConn.report()) != null)
-			{
-				data += temp;
-				temp = null;
-			}
-			if((temp = serverConn.report()) != null)
-			{
-				data += temp;
-			}
-
-			if(data == "")
-				return null;
-			else
-				return data;
-		}else{
-			return null;
-		}*/
-		return "";
 	}
 
 	//==============================================================================

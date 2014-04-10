@@ -58,7 +58,7 @@ public class Main extends Application {
 			System.out.println("the path is " + file1 + "/POBox");
 			String path = getClass().getClassLoader().getResource(".").getPath();
 			System.out.println("the path is " + file1 + "/POBox");
-			PATHTOUPDATEString = file1 +  "/POBox/";
+			PATHTOUPDATEString = file1 +  "/POBox";
 			System.out.println("Updated path name: " + PATHTOUPDATEString);
 		} catch (IOException e1) {
 			// TODO Auto-generated catch block
