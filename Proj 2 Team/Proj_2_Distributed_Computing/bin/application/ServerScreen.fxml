@@ -20,7 +20,7 @@
       <center>
         <Pane prefHeight="400.0" prefWidth="130.0">
           <children>
-            <TextArea fx:id="clientTableArea" editable="false" focusTraversable="false" layoutX="14.0" layoutY="0.0" prefHeight="400.0" prefWidth="120.0" wrapText="true" />
+            <TextArea fx:id="clientTableArea" editable="false" focusTraversable="false" layoutX="15.0" layoutY="0.0" prefHeight="400.0" prefWidth="120.0" wrapText="true" />
           </children>
         </Pane>
       </center>
@@ -49,12 +49,12 @@
                 <Font name="System Bold" size="30.0" />
               </font>
             </Label>
-            <Label layoutX="510.0" layoutY="78.0" text="Registerd Client Table">
+            <Label layoutX="533.0" layoutY="75.0" text="Client Table">
               <font>
                 <Font name="System Bold" size="12.0" fx:id="x1" />
               </font>
             </Label>
-            <Label font="$x1" layoutX="643.0" layoutY="78.0" text="Registered Router Table" />
+            <Label font="$x1" layoutX="671.0" layoutY="75.0" text="Router Table" />
             <Label fx:id="hostServerRouterIPAddressLabel" layoutX="437.0" layoutY="16.0" text="Server-Router Peer" />
             <Button fx:id="startServerRouterButton" layoutX="651.0" layoutY="26.0" mnemonicParsing="false" onAction="#startServerButtonPressed" prefHeight="35.331931250002526" prefWidth="119.99997792968497" text="Start Server" />
             <Label fx:id="serversIPAddressLabel" layoutX="294.0" layoutY="46.0" text="000.000.000.000" />
