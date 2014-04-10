@@ -243,6 +243,7 @@ public class RouterThread extends Thread {
 			msg._myServers = _myServers;
 			msg._routerList = _routerList;
 		}
+		msg._isRouter = true;
 		msg._fileName = "RouterThread" + _count + "Report" + _myCount;
 		msg.setMessage(report);
 		msg.setCount(_count);

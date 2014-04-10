@@ -149,6 +149,7 @@ public class Router extends Thread {
 			msg._myServers = _myServers;
 			msg._routerList = _routerList;
 		}
+		msg._isRouter = true;
 		msg.setMessage(report);
 		msg.setCount(_count);
 		msg.WriteFile(msg);
