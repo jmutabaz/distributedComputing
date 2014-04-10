@@ -14,33 +14,29 @@
         <Pane prefHeight="100.0" prefWidth="800.0">
           <children>
             <Button fx:id="exitButton" layoutX="694.0" layoutY="40.0" mnemonicParsing="false" onAction="#exitServerButtonPressed" prefHeight="28.9609375" prefWidth="57.0" text="Exit" />
-            <Label layoutX="317.0" layoutY="11.0" text="Number of  Clients:" />
-            <Label layoutX="557.0" layoutY="11.0" text="Number of Server-Routers:" />
-            <Label fx:id="numberOfClientsLabel" layoutX="446.0" layoutY="11.0" text="00000" />
-            <Label fx:id="numberOfServersLabel" layoutX="733.0" layoutY="11.0" text="00000" />
           </children>
         </Pane>
       </bottom>
       <center>
-        <Pane prefHeight="200.0" prefWidth="250.0">
+        <Pane prefHeight="400.0" prefWidth="130.0">
           <children>
-            <TextArea fx:id="clientTableArea" editable="false" focusTraversable="false" layoutX="14.0" layoutY="0.0" prefHeight="400.0" prefWidth="220.0" wrapText="true" />
+            <TextArea fx:id="clientTableArea" editable="false" focusTraversable="false" layoutX="14.0" layoutY="0.0" prefHeight="400.0" prefWidth="120.0" wrapText="true" />
           </children>
         </Pane>
       </center>
       <left>
-        <Pane prefHeight="300.0" prefWidth="300.0">
+        <Pane prefHeight="300.0" prefWidth="500.0">
           <children>
             <Label layoutX="11.0" layoutY="14.0" text="Run Time:" />
             <Label fx:id="runTimeLabel" layoutX="19.0" layoutY="30.0" text="00000" />
-            <TextArea fx:id="serverRuntimeLogArea" editable="false" focusTraversable="false" layoutX="76.0" layoutY="0.0" prefHeight="400.0" prefWidth="220.0" wrapText="true" />
+            <TextArea fx:id="serverRuntimeLogArea" editable="false" focusTraversable="false" layoutX="76.0" layoutY="0.0" prefHeight="400.0" prefWidth="430.0" wrapText="true" />
           </children>
         </Pane>
       </left>
       <right>
-        <Pane prefHeight="200.0" prefWidth="250.0">
+        <Pane prefHeight="200.0" prefWidth="150.0">
           <children>
-            <TextArea id="serverRouterTableArea" fx:id="routerTableArea" editable="false" focusTraversable="false" layoutX="0.0" layoutY="0.0" prefHeight="400.0" prefWidth="220.0" wrapText="true" />
+            <TextArea id="serverRouterTableArea" fx:id="routerTableArea" editable="false" focusTraversable="false" layoutX="0.0" layoutY="0.0" prefHeight="400.0" prefWidth="120.0" wrapText="true" />
           </children>
         </Pane>
       </right>
@@ -53,12 +49,12 @@
                 <Font name="System Bold" size="30.0" />
               </font>
             </Label>
-            <Label layoutX="321.0" layoutY="78.0" text="Registerd Client Table">
+            <Label layoutX="510.0" layoutY="78.0" text="Registerd Client Table">
               <font>
                 <Font name="System Bold" size="12.0" fx:id="x1" />
               </font>
             </Label>
-            <Label font="$x1" layoutX="552.0" layoutY="78.0" text="Registered Server-Router Table" />
+            <Label font="$x1" layoutX="643.0" layoutY="78.0" text="Registered Router Table" />
             <Label fx:id="hostServerRouterIPAddressLabel" layoutX="437.0" layoutY="16.0" text="Server-Router Peer" />
             <Button fx:id="startServerRouterButton" layoutX="651.0" layoutY="26.0" mnemonicParsing="false" onAction="#startServerButtonPressed" prefHeight="35.331931250002526" prefWidth="119.99997792968497" text="Start Server" />
             <Label fx:id="serversIPAddressLabel" layoutX="294.0" layoutY="46.0" text="000.000.000.000" />
