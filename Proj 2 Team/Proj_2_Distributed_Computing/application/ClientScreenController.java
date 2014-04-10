@@ -257,9 +257,12 @@ public class ClientScreenController implements Initializable, ControlledScreen {
 								//messageLogArea.setText("Problem opening folder" + "\n" + messageLogHolderString);
 							}
 							if (list != null){
+								if (list.size() > 0){
+									System.out.println("Client controller file list size = " + list.size());
+								}
 								for (int i = 0; i < list.size(); i++){
 									String messagePathString = list.get(i);
-									System.out.println("Client message path name: " + messagePathString);
+									//System.out.println("Client message path name: " + messagePathString);
 									UpdateMessage updateMessage = UpdateMessage.ReadFile(messagePathString);
 									if (updateMessage != null){
 										//messageLogHolderString = messageLogArea.getText();
@@ -288,6 +291,7 @@ public class ClientScreenController implements Initializable, ControlledScreen {
 									File file = new File(Main.PATHTOUPDATEString + messagePathString);
 									file.delete();
 								}
+								list.clear();
 							}
 						}
 					}
