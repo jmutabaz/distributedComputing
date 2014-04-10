@@ -255,8 +255,18 @@ public class ClientScreenController implements Initializable, ControlledScreen {
 								    }
 								}
 								
-								for (int i = 0; i < list.size(); i++){
-									UpdateMessage updateMessage = UpdateMessage.ReadFile(Main.PATHTOUPDATEString + "/" + list.get(i));
+								
+							} catch(Exception e){
+								System.out.println("Problem opening folder");
+								//messageLogHolderString = messageLogArea.getText();
+								//messageLogArea.setText("Problem opening folder" + "\n" + messageLogHolderString);
+							}
+							
+							for (int i = 0; i < list.size(); i++){
+								String messagePathString = Main.PATHTOUPDATEString + "/" + list.get(i);
+								System.out.println("Client message path name: " + messagePathString);
+								UpdateMessage updateMessage = UpdateMessage.ReadFile(messagePathString);
+								if (updateMessage != null){
 									messageLogHolderString = messageLogArea.getText();
 									messageLogArea.setText(list.get(i) + "\n" + Main.PATHTOUPDATEString + "/" + list.get(i) + "\n" + messageLogHolderString);
 									if (updateMessage._shouldRestart){
@@ -274,13 +284,10 @@ public class ClientScreenController implements Initializable, ControlledScreen {
 										messageLogHolderString = messageLogArea.getText();
 										messageLogArea.setText(updateMessage.get_message() + "\n" + messageLogHolderString);
 									}
+								} else {
+									System.out.println("\nThe update associated with file: " + messagePathString + " is null");
 								}
-							} catch(Exception e){
-								System.out.println("Problem opening folder");
-								//messageLogHolderString = messageLogArea.getText();
-								//messageLogArea.setText("Problem opening folder" + "\n" + messageLogHolderString);
 							}
-
 						}
 					}
 				});
