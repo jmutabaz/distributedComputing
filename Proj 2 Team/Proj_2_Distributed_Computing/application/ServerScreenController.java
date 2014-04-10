@@ -136,7 +136,8 @@ public class ServerScreenController implements Initializable, ControlledScreen {
 	void startUpdateLoop(){
 		messageLogHolderString = serverRuntimeLogArea.getText();
 		serverRuntimeLogArea.setText("Start Update Loop\n" + messageLogHolderString);
-	
+		routerTableArea.setText("hello");
+		clientTableArea.setText("Hello");
 		timer.schedule(new TimerTask() {
 			public void run() {
 				Platform.runLater(new Runnable() {
