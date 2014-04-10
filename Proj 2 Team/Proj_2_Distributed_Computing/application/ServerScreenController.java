@@ -186,9 +186,12 @@ public class ServerScreenController implements Initializable, ControlledScreen {
 											if(updateMessage._myServers != null){
 												System.out.println("serverlist is not null");
 												for(int s = 0; s < updateMessage._myServers.size(); s++){
-													//messageLogHolderString += updateMessage._myServers.get(i).getServerIP() + "\n";
+													messageLogHolderString += updateMessage._myServers.get(i).getServerIP() + "\n";
+													System.out.println(updateMessage._myServers.get(i).getServerIP() + "\n");
 												}
-												clientTableArea.setText(messageLogHolderString);
+												if (messageLogHolderString != ""){
+													clientTableArea.setText(messageLogHolderString);
+												}
 											} else {
 												System.out.println("No change to client table or it is null");
 											}
@@ -197,9 +200,12 @@ public class ServerScreenController implements Initializable, ControlledScreen {
 											if (updateMessage._routerList != null){
 												System.out.println("routerlist is not null");
 												for(int r = 0; r < updateMessage._routerList.size(); r++){
-													//messageLogHolderString += updateMessage._routerList.get(i) + "\n";
+													messageLogHolderString += updateMessage._routerList.get(i) + "\n";
+													System.out.println(updateMessage._routerList.get(i) + "\n");
 												}
-												routerTableArea.setText(messageLogHolderString);
+												if (messageLogHolderString != ""){
+													routerTableArea.setText(messageLogHolderString);
+												}
 											} else {
 												System.out.println("No change to router table or it is null");
 											}
