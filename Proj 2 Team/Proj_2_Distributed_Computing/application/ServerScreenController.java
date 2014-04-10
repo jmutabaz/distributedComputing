@@ -142,8 +142,8 @@ public class ServerScreenController implements Initializable, ControlledScreen {
 							counter = 0;
 							clock++;
 							runTimeLabel.setText("" + clock);
-							messageLogHolderString = serverRuntimeLogArea.getText();
-							serverRuntimeLogArea.setText("Clock tick: " + clock + "\n" + messageLogHolderString);
+							//messageLogHolderString = serverRuntimeLogArea.getText();
+							//serverRuntimeLogArea.setText("Clock tick: " + clock + "\n" + messageLogHolderString);
 						}
 					}
 				});
