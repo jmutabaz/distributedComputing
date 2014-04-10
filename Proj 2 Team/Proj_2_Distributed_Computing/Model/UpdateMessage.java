@@ -75,14 +75,18 @@ public class UpdateMessage implements Serializable {
 	//--------------------GET AND SET--------------------//
 	
 	public void setRouterList(List<String> in){
-		_routerList = in;
+		for(int i = 0; i < in.size(); i++){
+			_routerList.add(in.get(i));
+		}
 	}
 	public List<String> getRouterList(){
 		return _routerList;
 	}
 	
 	public void setServerList(List<ServerID> in){
-		_myServers = in;
+		for(int i = 0; i < in.size(); i++){
+			_myServers.add(in.get(i));
+		}
 	}
 	public List<ServerID> getServerList(){
 		return _myServers;
