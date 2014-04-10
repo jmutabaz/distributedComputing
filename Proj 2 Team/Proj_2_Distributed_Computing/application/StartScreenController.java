@@ -85,6 +85,7 @@ public class StartScreenController implements Initializable, ControlledScreen {
 			if(IP.matches(".*[a-zA-Z]+.*"))
 			{
 				System.out.println("OOPS!!!Wrong IP format used.");
+				return false;
 			}
 		}catch(Exception e)
 		{

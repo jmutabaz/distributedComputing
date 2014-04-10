@@ -62,7 +62,6 @@ public class ClientScreenController implements Initializable, ControlledScreen {
 										handlerClientNameString			= "",
 										clientIPAddressString			= "",
 										handlerClientIPAddressString	= "",
-										handlerClientPortNumberString	= "",
 										fileNameString					= "",
 										messageToSendString				= "";
 	private 		FileChooser			fileChooser 					= new FileChooser();
@@ -194,7 +193,7 @@ public class ClientScreenController implements Initializable, ControlledScreen {
 			{
 				reset();
 			}*/
-			serverConn = new SocketClient(Main.IPADDRESSSTRING, serverRouterIPAddressString, Main.PATHTOUPDATEString, clientNameString, 1, null);
+			serverConn = new SocketClient(Main.IPADDRESSSTRING, serverRouterIPAddressString, Main.PATHTOUPDATEString, 1, null);
 			serverConn.start();
 			
 
