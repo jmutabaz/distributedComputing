@@ -186,8 +186,8 @@ public class ServerScreenController implements Initializable, ControlledScreen {
 											if(updateMessage._myServers != null){
 												System.out.println("serverlist is not null");
 												for(int s = 0; s < updateMessage._myServers.size(); s++){
-													messageLogHolderString += updateMessage._myServers.get(i).getServerIP() + "\n";
-													System.out.println(updateMessage._myServers.get(i).getServerIP() + "\n");
+													messageLogHolderString += updateMessage._myServers.get(s).getServerIP() + "\n";
+													System.out.println(updateMessage._myServers.get(s).getServerIP() + "\n");
 												}
 												if (messageLogHolderString != ""){
 													clientTableArea.setText(messageLogHolderString);
@@ -200,8 +200,8 @@ public class ServerScreenController implements Initializable, ControlledScreen {
 											if (updateMessage._routerList != null){
 												System.out.println("routerlist is not null");
 												for(int r = 0; r < updateMessage._routerList.size(); r++){
-													messageLogHolderString += updateMessage._routerList.get(i) + "\n";
-													System.out.println(updateMessage._routerList.get(i) + "\n");
+													messageLogHolderString += updateMessage._routerList.get(r) + "\n";
+													System.out.println(updateMessage._routerList.get(r) + "\n");
 												}
 												if (messageLogHolderString != ""){
 													routerTableArea.setText(messageLogHolderString);
