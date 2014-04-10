@@ -1,12 +1,15 @@
 package application;
 
 
+import java.io.File;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 import java.util.Timer;
 import java.util.TimerTask;
 
 import Model.SocketClient;
+import Model.UpdateMessage;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -35,17 +38,19 @@ public class ServerScreenController implements Initializable, ControlledScreen {
 	
 	@FXML	TextArea	serverRuntimeLogArea;
 	@FXML	TextArea	clientTableArea;
-	@FXML	TextArea	serverRouterTableArea;
+	@FXML	TextArea	routerTableArea;
 	
 	//variables
 	private			Timer 				timer;
 	private			boolean				serverSetup						= true;
 	private 		int 				clock 							= 0,
 										counter							= 0,
+										updateCounter					= 0,
 										ServerPortNumber				= 5555;
 	private			String				messageLogHolderString			= "";
 	private			SocketClient 		cli;
 	
+	private			ArrayList<String> 	list;
 	//private		dataType to store Tables	clientRouterTable,
 	//											serverRouterTable;
 	
@@ -138,6 +143,7 @@ public class ServerScreenController implements Initializable, ControlledScreen {
 					public void run() {
 						//Do Stuff here
 						counter++;
+						updateCounter++;
 						if (counter == 1000){ // one second clock
 							counter = 0;
 							clock++;
@@ -145,6 +151,65 @@ public class ServerScreenController implements Initializable, ControlledScreen {
 							//messageLogHolderString = serverRuntimeLogArea.getText();
 							//serverRuntimeLogArea.setText("Clock tick: " + clock + "\n" + messageLogHolderString);
 						}
+						if(updateCounter == 250){
+							updateCounter = 0;
+							try{
+								
+								list = new ArrayList<String>();
+								File[] files = new File(Main.PATHTOUPDATEString).listFiles();
+								files.toString();
+								for (File file : files) {
+								    if (file.isFile()) {
+								        list.add(file.getName());
+								    }
+								}
+								
+								for (int i = 0; i < list.size(); i++){
+									UpdateMessage updateMessage = UpdateMessage.ReadFile(Main.PATHTOUPDATEString + "/" + list.get(i));
+									messageLogHolderString = serverRuntimeLogArea.getText();
+									serverRuntimeLogArea.setText(list.get(i) + "\n" + Main.PATHTOUPDATEString + "/" + list.get(i) + "\n" + messageLogHolderString);
+									if (updateMessage._shouldRestart){
+										messageLogHolderString = serverRuntimeLogArea.getText();
+										serverRuntimeLogArea.setText("Error Sending message to remote client" + "\n" + messageLogHolderString);
+									}
+									if (updateMessage._isRouter){
+										messageLogHolderString = "";
+										//checks or an updated client list and replaces the current list with the new list
+										if(updateMessage._myServers.size() != 0){
+											for(int s = 0; s < updateMessage._myServers.size(); s++){
+												messageLogHolderString += updateMessage._myServers.get(i) + "\n";
+											}
+											clientTableArea.setText(messageLogHolderString);
+										}
+										messageLogHolderString = "";
+										//checks for an updated router table and replaces the current list with the new list
+										if (updateMessage._routerList.size() != 0){
+											for(int r = 0; r < updateMessage._routerList.size(); r++){
+												messageLogHolderString += updateMessage._routerList.get(i) + "\n";
+											}
+											routerTableArea.setText(messageLogHolderString);
+										}
+
+									}
+									if (updateMessage._fileName != null){
+										messageLogHolderString = serverRuntimeLogArea.getText();
+										serverRuntimeLogArea.setText("File: " + updateMessage._fileName + " has been received." + "\n" + messageLogHolderString);
+									}
+									if (updateMessage.get_message() != null){
+										messageLogHolderString = serverRuntimeLogArea.getText();
+										serverRuntimeLogArea.setText(updateMessage.get_message() + "\n" + messageLogHolderString);
+									}
+								}
+							} catch(Exception e){
+								System.out.println("Problem opening folder");
+								//messageLogHolderString = messageLogArea.getText();
+								//messageLogArea.setText("Problem opening folder" + "\n" + messageLogHolderString);
+							}
+
+						}
+						
+						
+						
 					}
 				});
 			}
