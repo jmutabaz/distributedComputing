@@ -175,9 +175,6 @@ public class ClientScreenController implements Initializable, ControlledScreen {
 			serverRouterIPAddressString = serverRouterIPAddressField.getText();
 			serverRouterIPAddressField.setEditable(false);
 			serverRouterIPAddressField.setFocusTraversable(false);
-			clientPortNumber = Integer.parseInt(clientsPortNumberField.getText());
-			clientsPortNumberField.setEditable(false);
-			clientsPortNumberField.setFocusTraversable(false);
 			startClientButton.setText("Reset Client");
 			messageLogHolderString = messageLogArea.getText();
 			messageLogArea.setText("Client's Name: " + clientNameString 
@@ -187,12 +184,7 @@ public class ClientScreenController implements Initializable, ControlledScreen {
 					+ "\n" + messageLogHolderString);
 			init();
 			nameOfRecievingClientField.requestFocus();
-			//Start a Server... BANANA
-			/*serverConn = new SocketClient("","","");
-			if(!serverConn.RunServer("l3lawns.com", 5555, "myIP"))
-			{
-				reset();
-			}*/
+			//Start a Server thread
 			serverConn = new SocketClient(Main.IPADDRESSSTRING, serverRouterIPAddressString, Main.PATHTOUPDATEString, 1, null);
 			serverConn.start();
 			
