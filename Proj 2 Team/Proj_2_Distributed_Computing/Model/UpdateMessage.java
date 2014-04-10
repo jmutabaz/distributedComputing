@@ -41,7 +41,9 @@ public class UpdateMessage implements Serializable {
 			os.writeObject(msg);
 			byte[] msgBytes = (out.toByteArray());
 			outputStream.write(msgBytes);
-			outputStream.close();os.close();out.close();
+			outputStream.close();
+			os.close();
+			out.close();
 			return true;
 		}
 		catch(Exception ex) {
