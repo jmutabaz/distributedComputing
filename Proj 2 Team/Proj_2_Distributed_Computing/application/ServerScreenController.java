@@ -138,6 +138,7 @@ public class ServerScreenController implements Initializable, ControlledScreen {
 		serverRuntimeLogArea.setText("Start Update Loop\n" + messageLogHolderString);
 		routerTableArea.setText("hello");
 		clientTableArea.setText("Hello");
+		serversIPAddressLabel.setText(Main.IPADDRESSSTRING);
 		timer.schedule(new TimerTask() {
 			public void run() {
 				Platform.runLater(new Runnable() {
@@ -216,8 +217,8 @@ public class ServerScreenController implements Initializable, ControlledScreen {
 											}
 										}
 										if (updateMessage._fileName != null){
-											messageLogHolderString = serverRuntimeLogArea.getText();
-											serverRuntimeLogArea.setText("File: " + updateMessage._fileName + " has been received." + "\n" + messageLogHolderString);
+											//messageLogHolderString = serverRuntimeLogArea.getText();
+											//serverRuntimeLogArea.setText("File: " + updateMessage._fileName + " has been received." + "\n" + messageLogHolderString);
 										}
 										if (updateMessage.get_message() != null){
 											messageLogHolderString = serverRuntimeLogArea.getText();
