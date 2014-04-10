@@ -256,37 +256,38 @@ public class ClientScreenController implements Initializable, ControlledScreen {
 								//messageLogHolderString = messageLogArea.getText();
 								//messageLogArea.setText("Problem opening folder" + "\n" + messageLogHolderString);
 							}
-							
-							for (int i = 0; i < list.size(); i++){
-								String messagePathString = list.get(i);
-								System.out.println("Client message path name: " + messagePathString);
-								UpdateMessage updateMessage = UpdateMessage.ReadFile(messagePathString);
-								if (updateMessage != null){
-									//messageLogHolderString = messageLogArea.getText();
-									//messageLogArea.setText(list.get(i) + "\n" + Main.PATHTOUPDATEString + "/" + list.get(i) + "\n" + messageLogHolderString);
-									if (updateMessage._shouldRestart){
-										messageLogHolderString = messageLogArea.getText();
-										messageLogArea.setText("Error Sending message to remote client" + "\n" + messageLogHolderString);
-									}
-									if (updateMessage._isRouter){
-										System.out.println(" Error router message in Client ");
-									}
-									if (updateMessage._fileName != null){
+							if (list != null){
+								for (int i = 0; i < list.size(); i++){
+									String messagePathString = list.get(i);
+									System.out.println("Client message path name: " + messagePathString);
+									UpdateMessage updateMessage = UpdateMessage.ReadFile(messagePathString);
+									if (updateMessage != null){
 										//messageLogHolderString = messageLogArea.getText();
-										//messageLogArea.setText("File: " + updateMessage._fileName + " has been received." + "\n" + messageLogHolderString);
+										//messageLogArea.setText(list.get(i) + "\n" + Main.PATHTOUPDATEString + "/" + list.get(i) + "\n" + messageLogHolderString);
+										if (updateMessage._shouldRestart){
+											messageLogHolderString = messageLogArea.getText();
+											messageLogArea.setText("Error Sending message to remote client" + "\n" + messageLogHolderString);
+										}
+										if (updateMessage._isRouter){
+											System.out.println(" Error router message in Client ");
+										}
+										if (updateMessage._fileName != null){
+											//messageLogHolderString = messageLogArea.getText();
+											//messageLogArea.setText("File: " + updateMessage._fileName + " has been received." + "\n" + messageLogHolderString);
+										}
+										if (updateMessage.get_message() != null){
+											messageLogHolderString = messageLogArea.getText();
+											messageLogArea.setText(updateMessage.get_message() + "\n" + messageLogHolderString);
+										}
+										
+									} else {
+										System.out.println("\nThe update associated with file: " + messagePathString + " is null");
 									}
-									if (updateMessage.get_message() != null){
-										messageLogHolderString = messageLogArea.getText();
-										messageLogArea.setText(updateMessage.get_message() + "\n" + messageLogHolderString);
-									}
-									
-								} else {
-									System.out.println("\nThe update associated with file: " + messagePathString + " is null");
+									// delete the file
+									System.out.println("delete file: " + messagePathString);
+									File file = new File(Main.PATHTOUPDATEString + messagePathString);
+									file.delete();
 								}
-								// delete the file
-								System.out.println("delete file: " + messagePathString);
-								File file = new File(Main.PATHTOUPDATEString + messagePathString);
-								file.delete();
 							}
 						}
 					}
