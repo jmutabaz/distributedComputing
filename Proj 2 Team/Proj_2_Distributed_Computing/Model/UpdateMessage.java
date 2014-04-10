@@ -33,7 +33,7 @@ public class UpdateMessage implements Serializable {
 	
 	public boolean WriteFile(UpdateMessage msg)
 	{
-		System.out.println("Send message tostring: " + msg.toString());
+		System.out.println("Write message tostring: " + msg.toString());
 		try {
 			FileOutputStream outputStream =
 					new FileOutputStream(_filePath + _fileName + ".spsu", false);
@@ -62,7 +62,7 @@ public class UpdateMessage implements Serializable {
 			ByteArrayInputStream byteStream = new ByteArrayInputStream(dataBytes);
 			ObjectInputStream objStream = new ObjectInputStream(byteStream);
 			UpdateMessage x = (UpdateMessage)objStream.readObject();
-			System.out.println("Received message toString: " + x.toString());
+			System.out.println("readfile message toString: " + x.toString());
 			return x;
 		}
 		catch(Exception ex) {
