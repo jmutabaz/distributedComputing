@@ -89,7 +89,6 @@ public class Router extends Thread {
 			out.writeObject(msg);
 			RouterMessage newMsg = (RouterMessage)in.readObject();
 			_routerList = newMsg.getRouterList();
-			//BANANA - Remove me if there...
 			_routerList.add(routerIP);
 			addToReport("Got Router List.", true);
 			in.close();
