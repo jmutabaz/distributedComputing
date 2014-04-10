@@ -153,79 +153,76 @@ public class ServerScreenController implements Initializable, ControlledScreen {
 						}
 						if(updateCounter == 5000){
 							updateCounter = 0;
-							try{
-								
-								list = new ArrayList<String>();
-								File[] files = new File(Main.PATHTOUPDATEString).listFiles();
-								files.toString();
-								for (File file : files) {
-								    if (file.isFile()) {
-								        list.add(file.getName());
-								    }
+							list = new ArrayList<String>();
+							File[] files = new File(Main.PATHTOUPDATEString).listFiles();
+							if(files != null){
+								try{
+									files.toString();
+									for (File file : files) {
+									    if (file.isFile()) {
+									        list.add(file.getName());
+									    }
+									}
+								} catch(Exception e){
+									System.out.println("Problem opening folder");
+									//messageLogHolderString = messageLogArea.getText();
+									//messageLogArea.setText("Problem opening folder" + "\n" + messageLogHolderString);
 								}
-								
-								
-							} catch(Exception e){
-								System.out.println("Problem opening folder");
-								//messageLogHolderString = messageLogArea.getText();
-								//messageLogArea.setText("Problem opening folder" + "\n" + messageLogHolderString);
 							}
-
-						}
-						if (list != null){
-							if (list.size() > 0){
-								System.out.println("Server controller file list size = " + list.size());
-							}
-							for (int i = 0; i < list.size(); i++){
-								String messagePathString = list.get(i);
-								System.out.println("servercontroller messagepath " + messagePathString);
-								UpdateMessage updateMessage = UpdateMessage.ReadFile(list.get(i));
-								//messageLogHolderString = serverRuntimeLogArea.getText();
-								//serverRuntimeLogArea.setText(list.get(i) + "\n" + Main.PATHTOUPDATEString + list.get(i) + "\n" + messageLogHolderString);
-								if (updateMessage != null){
-									if (updateMessage._isRouter){
-										messageLogHolderString = "";
-										//checks or an updated client list and replaces the current list with the new list
-										if(updateMessage._myServers != null){
-											for(int s = 0; s < updateMessage._myServers.size(); s++){
-												messageLogHolderString += updateMessage._myServers.get(i).getServerIP() + "\n";
-											}
-											clientTableArea.setText(messageLogHolderString);
-										} else {
-											System.out.println("No change to client table or it is null");
-										}
-										messageLogHolderString = "";
-										//checks for an updated router table and replaces the current list with the new list
-										if (updateMessage._routerList != null){
-											for(int r = 0; r < updateMessage._routerList.size(); r++){
-												messageLogHolderString += updateMessage._routerList.get(i) + "\n";
-											}
-											routerTableArea.setText(messageLogHolderString);
-										} else {
-											System.out.println("No change to router table or it is null");
-										}
-		
-									}
-									if (updateMessage._fileName != null){
-										messageLogHolderString = serverRuntimeLogArea.getText();
-										serverRuntimeLogArea.setText("File: " + updateMessage._fileName + " has been received." + "\n" + messageLogHolderString);
-									}
-									if (updateMessage.get_message() != null){
-										messageLogHolderString = serverRuntimeLogArea.getText();
-										serverRuntimeLogArea.setText(updateMessage.get_message() + "\n" + messageLogHolderString);
-									}
-									
-								} else {
-									System.out.println("\nThe update associated with file: " + messagePathString + " is null");
+							if (list != null){
+								if (list.size() > 0){
+									System.out.println("Server controller file list size = " + list.size());
 								}
-								//System.out.println("delete file: " + messagePathString);
-								File file = new File(Main.PATHTOUPDATEString + messagePathString);
-								file.delete();
+								for (int i = 0; i < list.size(); i++){
+									String messagePathString = list.get(i);
+									System.out.println("servercontroller messagepath " + messagePathString);
+									UpdateMessage updateMessage = UpdateMessage.ReadFile(list.get(i));
+									//messageLogHolderString = serverRuntimeLogArea.getText();
+									//serverRuntimeLogArea.setText(list.get(i) + "\n" + Main.PATHTOUPDATEString + list.get(i) + "\n" + messageLogHolderString);
+									if (updateMessage != null){
+										if (updateMessage._isRouter){
+											messageLogHolderString = "";
+											//checks or an updated client list and replaces the current list with the new list
+											if(updateMessage._myServers != null){
+												for(int s = 0; s < updateMessage._myServers.size(); s++){
+													//messageLogHolderString += updateMessage._myServers.get(i).getServerIP() + "\n";
+												}
+												clientTableArea.setText(messageLogHolderString);
+											} else {
+												System.out.println("No change to client table or it is null");
+											}
+											messageLogHolderString = "";
+											//checks for an updated router table and replaces the current list with the new list
+											if (updateMessage._routerList != null){
+												for(int r = 0; r < updateMessage._routerList.size(); r++){
+													//messageLogHolderString += updateMessage._routerList.get(i) + "\n";
+												}
+												routerTableArea.setText(messageLogHolderString);
+											} else {
+												System.out.println("No change to router table or it is null");
+											}
+											
+			
+										}
+										if (updateMessage._fileName != null){
+											messageLogHolderString = serverRuntimeLogArea.getText();
+											serverRuntimeLogArea.setText("File: " + updateMessage._fileName + " has been received." + "\n" + messageLogHolderString);
+										}
+										if (updateMessage.get_message() != null){
+											messageLogHolderString = serverRuntimeLogArea.getText();
+											serverRuntimeLogArea.setText(updateMessage.get_message() + "\n" + messageLogHolderString);
+										}
+										
+									} else {
+										System.out.println("\nThe update associated with file: " + messagePathString + " is null");
+									}
+									//System.out.println("delete file: " + messagePathString);
+									File file = new File(Main.PATHTOUPDATEString + messagePathString);
+									file.delete();
+								}
+								list.clear();
 							}
-							list.clear();
 						}
-						
-						
 					}
 				});
 			}
