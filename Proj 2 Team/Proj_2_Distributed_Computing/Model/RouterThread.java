@@ -47,7 +47,7 @@ public class RouterThread extends Thread {
 				}
 				else if(_incoming.getIPToRemove() != null)
 					_myServers.remove(searchServers(_incoming.getIPToRemove()));
-				
+				addToReport("Server List Updated.", true);
 			}else if(_incoming.getType() == 'c'){
 				addToReport("Client is Looking for IP.", false);
 				String IP = findIPFromName();
