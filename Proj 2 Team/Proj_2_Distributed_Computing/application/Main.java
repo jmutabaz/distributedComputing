@@ -55,7 +55,7 @@ public class Main extends Application {
 		File file1 = new File(".");  
 		try {
 			System.out.println("Current dir : " + file1.getCanonicalPath());
-			String path = file1.getCanonicalPath() + "/POBox";
+			String path = file1.getCanonicalPath() + "/POBox/";
 			System.out.println("the path is " + path);
 			PATHTOUPDATEString = path;
 			System.out.println("Updated path name: " + PATHTOUPDATEString);

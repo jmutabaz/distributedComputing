@@ -165,7 +165,7 @@ public class ServerScreenController implements Initializable, ControlledScreen {
 								}
 								
 								for (int i = 0; i < list.size(); i++){
-									UpdateMessage updateMessage = UpdateMessage.ReadFile("/" + list.get(i));
+									UpdateMessage updateMessage = UpdateMessage.ReadFile(list.get(i));
 									messageLogHolderString = serverRuntimeLogArea.getText();
 									serverRuntimeLogArea.setText(list.get(i) + "\n" + Main.PATHTOUPDATEString + "/" + list.get(i) + "\n" + messageLogHolderString);
 									if (updateMessage._shouldRestart){

@@ -263,7 +263,7 @@ public class ClientScreenController implements Initializable, ControlledScreen {
 							}
 							
 							for (int i = 0; i < list.size(); i++){
-								String messagePathString = "/" + list.get(i);
+								String messagePathString = list.get(i);
 								System.out.println("Client message path name: " + messagePathString);
 								UpdateMessage updateMessage = UpdateMessage.ReadFile(messagePathString);
 								if (updateMessage != null){
