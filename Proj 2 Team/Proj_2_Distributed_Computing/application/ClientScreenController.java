@@ -262,10 +262,9 @@ public class ClientScreenController implements Initializable, ControlledScreen {
 						if(updateCounter == 250){
 							updateCounter = 0;
 							try{
-								String path = getClass().getClassLoader().getResource(".").getPath();
-								System.out.println("the path is " + path + "UpdataFolder/");
+								System.out.println("the path is " + Main.PATHTOUPDATEString);
 								list = new ArrayList<String>();
-								File[] files = new File(path).listFiles();
+								File[] files = new File(Main.PATHTOUPDATEString).listFiles();
 								files.toString();
 								for (File file : files) {
 								    if (file.isFile()) {
