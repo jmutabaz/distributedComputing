@@ -184,6 +184,7 @@ public class ServerScreenController implements Initializable, ControlledScreen {
 											messageLogHolderString = "";
 											//checks or an updated client list and replaces the current list with the new list
 											if(updateMessage._myServers != null){
+												System.out.println("serverlist is not null");
 												for(int s = 0; s < updateMessage._myServers.size(); s++){
 													//messageLogHolderString += updateMessage._myServers.get(i).getServerIP() + "\n";
 												}
@@ -194,6 +195,7 @@ public class ServerScreenController implements Initializable, ControlledScreen {
 											messageLogHolderString = "";
 											//checks for an updated router table and replaces the current list with the new list
 											if (updateMessage._routerList != null){
+												System.out.println("routerlist is not null");
 												for(int r = 0; r < updateMessage._routerList.size(); r++){
 													//messageLogHolderString += updateMessage._routerList.get(i) + "\n";
 												}
@@ -201,8 +203,6 @@ public class ServerScreenController implements Initializable, ControlledScreen {
 											} else {
 												System.out.println("No change to router table or it is null");
 											}
-											
-			
 										}
 										if (updateMessage._fileName != null){
 											messageLogHolderString = serverRuntimeLogArea.getText();
@@ -216,7 +216,7 @@ public class ServerScreenController implements Initializable, ControlledScreen {
 									} else {
 										System.out.println("\nThe update associated with file: " + messagePathString + " is null");
 									}
-									//System.out.println("delete file: " + messagePathString);
+									System.out.println("delete file: " + messagePathString);
 									File file = new File(Main.PATHTOUPDATEString + messagePathString);
 									file.delete();
 								}
