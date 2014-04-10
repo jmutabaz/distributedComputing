@@ -22,7 +22,7 @@ import java.util.zip.Inflater;
 import application.Main;
 
 public class UpdateMessage implements Serializable {
-	private static String _filePath = Main.IPADDRESSSTRING;
+	private static String _filePath = Main.PATHTOUPDATEString;
 	private String _message;
 	private int _count;
 	public String _fileName;

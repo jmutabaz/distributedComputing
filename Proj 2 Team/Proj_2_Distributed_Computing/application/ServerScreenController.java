@@ -6,6 +6,7 @@ import java.util.ResourceBundle;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import Model.SocketClient;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -43,6 +44,7 @@ public class ServerScreenController implements Initializable, ControlledScreen {
 										counter							= 0,
 										ServerPortNumber				= 5555;
 	private			String				messageLogHolderString			= "";
+	private			SocketClient 		cli;
 	
 	//private		dataType to store Tables	clientRouterTable,
 	//											serverRouterTable;
@@ -89,7 +91,9 @@ public class ServerScreenController implements Initializable, ControlledScreen {
 		boolean setup = false;
 		if (!setup) {
 			try {
-				//server setup logic
+				//Rhett - Adding ServerRouter StartUp.
+				cli = new SocketClient(Main.IPADDRESSSTRING, hostServerRouterIPAddressField.getText(), "", 3, null);
+				cli.start();
 			} catch (NumberFormatException e) {
 				messageLogHolderString = serverRuntimeLogArea.getText();
 				serverRuntimeLogArea.setText("Port Number must be a number between x - y\n" + messageLogHolderString);
@@ -108,6 +112,7 @@ public class ServerScreenController implements Initializable, ControlledScreen {
 			timer.cancel();
 			timer = null;
 		}
+		cli.killMe();
 		//reset all server setting
 	}
 	
@@ -137,8 +142,8 @@ public class ServerScreenController implements Initializable, ControlledScreen {
 							counter = 0;
 							clock++;
 							runTimeLabel.setText("" + clock);
-							//messageLogHolderString = serverRuntimeLogArea.getText();
-							//serverRuntimeLogArea.setText("Clock tick: " + clock + "\n" + messageLogHolderString);
+							messageLogHolderString = serverRuntimeLogArea.getText();
+							serverRuntimeLogArea.setText("Clock tick: " + clock + "\n" + messageLogHolderString);
 						}
 					}
 				});
