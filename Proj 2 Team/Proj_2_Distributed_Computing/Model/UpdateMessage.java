@@ -70,6 +70,21 @@ public class UpdateMessage implements Serializable {
 	
 	//--------------------GET AND SET--------------------//
 	
+	public void setRouterList(List<String> in){
+		_routerList = in;
+	}
+	public List<String> getRouterList(){
+		return _routerList;
+	}
+	
+	public void setServerList(List<ServerID> in){
+		_myServers = in;
+	}
+	public List<ServerID> getServerList(){
+		return _myServers;
+	}
+	
+	
 	public void setCount(int count){
 		_count = (count > 0 ? count:-1);
 	}

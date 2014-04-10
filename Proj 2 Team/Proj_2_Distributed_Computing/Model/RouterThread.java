@@ -240,8 +240,10 @@ public class RouterThread extends Thread {
 		_myCount++;
 		if(updateList)
 		{
-			msg._myServers = _myServers;
-			msg._routerList = _routerList;
+			msg.setServerList(_myServers);
+			msg.setRouterList(_routerList);
+			//msg._myServers = _myServers;
+			//msg._routerList = _routerList;
 		}
 		msg._isRouter = true;
 		msg._fileName = "RouterThread" + _count + "Report" + _myCount;
