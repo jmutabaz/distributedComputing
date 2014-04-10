@@ -105,4 +105,12 @@ public class UpdateMessage implements Serializable {
 	public String get_message() {
 		return _message;
 	}
+
+	
+
+	//-------------------- To String --------------------//
+	
+	
+	
+	
 }

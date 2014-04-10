@@ -151,7 +151,7 @@ public class ServerScreenController implements Initializable, ControlledScreen {
 							//messageLogHolderString = serverRuntimeLogArea.getText();
 							//serverRuntimeLogArea.setText("Clock tick: " + clock + "\n" + messageLogHolderString);
 						}
-						if(updateCounter == 250){
+						if(updateCounter == 2500){
 							updateCounter = 0;
 							try{
 								
