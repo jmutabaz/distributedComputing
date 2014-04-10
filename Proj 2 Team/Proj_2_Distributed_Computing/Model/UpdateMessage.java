@@ -114,7 +114,7 @@ public class UpdateMessage implements Serializable {
 
 	@Override
 	public String toString() {
-		String resultString =  "UpdateMessage [_message=" + _message + ", _count=" + _count
+		String resultString =  "\n[\nUpdateMessage _message=" + _message + ", _count=" + _count
 				+ ", _fileName=" + _fileName + ", _shouldRestart="
 				+ _shouldRestart + ", _isRouter=" + _isRouter + "\n";
 		String listString = "";
