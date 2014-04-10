@@ -40,7 +40,7 @@
       <right>
         <Pane prefHeight="200.0" prefWidth="250.0">
           <children>
-            <TextArea fx:id="serverRouterTableArea" editable="false" focusTraversable="false" layoutX="0.0" layoutY="0.0" prefHeight="400.0" prefWidth="220.0" wrapText="true" />
+            <TextArea id="serverRouterTableArea" fx:id="routerTableArea" editable="false" focusTraversable="false" layoutX="0.0" layoutY="0.0" prefHeight="400.0" prefWidth="220.0" wrapText="true" />
           </children>
         </Pane>
       </right>
