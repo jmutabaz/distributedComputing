@@ -267,8 +267,8 @@ public class ClientScreenController implements Initializable, ControlledScreen {
 								System.out.println("Client message path name: " + messagePathString);
 								UpdateMessage updateMessage = UpdateMessage.ReadFile(messagePathString);
 								if (updateMessage != null){
-									messageLogHolderString = messageLogArea.getText();
-									messageLogArea.setText(list.get(i) + "\n" + Main.PATHTOUPDATEString + "/" + list.get(i) + "\n" + messageLogHolderString);
+									//messageLogHolderString = messageLogArea.getText();
+									//messageLogArea.setText(list.get(i) + "\n" + Main.PATHTOUPDATEString + "/" + list.get(i) + "\n" + messageLogHolderString);
 									if (updateMessage._shouldRestart){
 										messageLogHolderString = messageLogArea.getText();
 										messageLogArea.setText("Error Sending message to remote client" + "\n" + messageLogHolderString);
@@ -284,9 +284,14 @@ public class ClientScreenController implements Initializable, ControlledScreen {
 										messageLogHolderString = messageLogArea.getText();
 										messageLogArea.setText(updateMessage.get_message() + "\n" + messageLogHolderString);
 									}
+									
 								} else {
 									System.out.println("\nThe update associated with file: " + messagePathString + " is null");
 								}
+								// delete the file
+								System.out.println("delete file: " + messagePathString);
+								File file = new File(Main.PATHTOUPDATEString + messagePathString);
+								file.delete();
 							}
 						}
 					}
