@@ -33,6 +33,7 @@ public class UpdateMessage implements Serializable {
 	
 	public boolean WriteFile(UpdateMessage msg)
 	{
+		System.out.println("Send message tostring: " + msg.toString());
 		try {
 			FileOutputStream outputStream =
 					new FileOutputStream(_filePath + _fileName + ".spsu", false);
@@ -61,6 +62,7 @@ public class UpdateMessage implements Serializable {
 			ByteArrayInputStream byteStream = new ByteArrayInputStream(dataBytes);
 			ObjectInputStream objStream = new ObjectInputStream(byteStream);
 			UpdateMessage x = (UpdateMessage)objStream.readObject();
+			System.out.println("Received message toString: " + x.toString());
 			return x;
 		}
 		catch(Exception ex) {
@@ -106,7 +108,25 @@ public class UpdateMessage implements Serializable {
 		return _message;
 	}
 
-	
+	@Override
+	public String toString() {
+		String resultString =  "UpdateMessage [_message=" + _message + ", _count=" + _count
+				+ ", _fileName=" + _fileName + ", _shouldRestart="
+				+ _shouldRestart + ", _isRouter=" + _isRouter + "\nServer List:\n";
+		String listString = "";
+		for (int i = 0; i < _myServers.size(); i++){
+			listString += _myServers.get(i).getServerName() + " :: "+ _myServers.get(i).getServerIP() + "\n";
+		}
+		resultString += "\nRouter List:\n";
+		resultString += listString;
+		listString = "";
+		for (int i = 0; i < _routerList.size(); i++){
+			listString += _routerList.get(i) + "\n";
+		}
+		resultString += listString;
+		resultString += "]";
+		return resultString;
+	}
 
 	//-------------------- To String --------------------//
 	
