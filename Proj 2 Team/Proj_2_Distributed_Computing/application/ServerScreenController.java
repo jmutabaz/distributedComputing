@@ -216,7 +216,7 @@ public class ServerScreenController implements Initializable, ControlledScreen {
 								} else {
 									System.out.println("\nThe update associated with file: " + messagePathString + " is null");
 								}
-								System.out.println("delete file: " + messagePathString);
+								//System.out.println("delete file: " + messagePathString);
 								File file = new File(Main.PATHTOUPDATEString + messagePathString);
 								file.delete();
 							}
