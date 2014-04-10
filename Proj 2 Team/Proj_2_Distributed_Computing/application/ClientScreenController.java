@@ -168,7 +168,7 @@ public class ClientScreenController implements Initializable, ControlledScreen {
 			init();
 			nameOfRecievingClientField.requestFocus();
 			//Start a Server thread
-			serverConn = new SocketClient(Main.IPADDRESSSTRING, serverRouterIPAddressString, Main.PATHTOUPDATEString, 1, null);
+			serverConn = new SocketClient(Main.IPADDRESSSTRING, serverRouterIPAddressString, clientNameString, 1, null);
 			serverConn.start();
 			
 
