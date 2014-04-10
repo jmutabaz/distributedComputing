@@ -85,5 +85,7 @@ public class UpdateMessage implements Serializable {
 	public String getMessage(int count){
 		return _message;
 	}
-	
+	public String get_message() {
+		return _message;
+	}
 }

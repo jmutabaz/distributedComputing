@@ -10,6 +10,7 @@ import java.util.ArrayList;
 
 import Model.Message;
 import Model.SocketClient;
+import Model.UpdateMessage;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -227,6 +228,7 @@ public class ClientScreenController implements Initializable, ControlledScreen {
 		messageLogHolderString = messageLogArea.getText();
 		//Add new at top of box.
 		messageLogArea.setText("Start Update Loop\n" + messageLogHolderString);
+		System.out.println("Client Controller sees the path as: " + Main.PATHTOUPDATEString);
 		clientsIPAddressLabel.setText(Main.IPADDRESSSTRING);
 		timer.schedule(new TimerTask() {
 			public void run() {
@@ -243,16 +245,38 @@ public class ClientScreenController implements Initializable, ControlledScreen {
 						if(updateCounter == 250){
 							updateCounter = 0;
 							try{
-								System.out.println("Client Controller sees the path as: " + Main.PATHTOUPDATEString);
+								
 								list = new ArrayList<String>();
 								File[] files = new File(Main.PATHTOUPDATEString).listFiles();
 								files.toString();
 								for (File file : files) {
 								    if (file.isFile()) {
 								        list.add(file.getName());
-								        messageLogHolderString = messageLogArea.getText();
-										messageLogArea.setText(list.get(0) + "\n" + messageLogHolderString);
 								    }
+								}
+								
+								for (int i = 0; i < list.size(); i++){
+									UpdateMessage updateMessage = UpdateMessage.ReadFile(Main.PATHTOUPDATEString + "/" + list.get(i));
+									messageLogHolderString = messageLogArea.getText();
+									messageLogArea.setText(list.get(i) + "\n" + Main.PATHTOUPDATEString + "/" + list.get(i) + "\n" + messageLogHolderString);
+									if (updateMessage._shouldRestart){
+										messageLogHolderString = messageLogArea.getText();
+										messageLogArea.setText("Error Sending message to remote client" + "\n" + messageLogHolderString);
+									}
+									if (updateMessage._isRouter){
+										System.out.println(" Error router message in Client ");
+									}
+									if (updateMessage._fileName != null){
+										messageLogHolderString = messageLogArea.getText();
+										messageLogArea.setText("File: " + updateMessage._fileName + " has been received." + "\n" + messageLogHolderString);
+									}
+									if (updateMessage.get_message() != null){
+										messageLogHolderString = messageLogArea.getText();
+										messageLogArea.setText(updateMessage.get_message() + "\n" + messageLogHolderString);
+									}
+										
+								
+								
 								}
 							} catch(Exception e){
 								System.out.println("Problem opening folder");

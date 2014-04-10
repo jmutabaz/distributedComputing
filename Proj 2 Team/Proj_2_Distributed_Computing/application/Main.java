@@ -55,10 +55,9 @@ public class Main extends Application {
 		File file1 = new File(".");  
 		try {
 			System.out.println("Current dir : " + file1.getCanonicalPath());
-			System.out.println("the path is " + file1 + "/POBox");
-			String path = getClass().getClassLoader().getResource(".").getPath();
-			System.out.println("the path is " + file1 + "/POBox");
-			PATHTOUPDATEString = file1 +  "/POBox";
+			String path = file1.getCanonicalPath() + "/POBox";
+			System.out.println("the path is " + path);
+			PATHTOUPDATEString = path;
 			System.out.println("Updated path name: " + PATHTOUPDATEString);
 		} catch (IOException e1) {
 			// TODO Auto-generated catch block
