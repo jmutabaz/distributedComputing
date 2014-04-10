@@ -6,6 +6,8 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.UnknownHostException;
 
+import application.Main;
+
 
 public class Server extends Thread {
 	private String _routerIP;
@@ -49,7 +51,7 @@ public class Server extends Thread {
 					}else{
 						//SaveFile
 						if(msg.getDataLength() > 0){
-							msg.writeFileFromData(msg.getFileName());
+							msg.writeFileFromData(Main.PATHTOUPDATEString + msg.getFileName());
 							complete.setData("File " + msg.getFileName() + " Saved.");
 							addToReport("File Saved. Named - " + msg.getFileName());
 						}else{
