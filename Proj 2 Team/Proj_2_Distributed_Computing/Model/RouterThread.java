@@ -82,7 +82,7 @@ public class RouterThread extends Thread {
 			if(_incoming.getType() != 'r')
 				_out.writeObject(out);
 		}catch(Exception ex){
-			addToReport("ERROR: " + ex.toString(), false);
+			addToReport("run method Router Thread class ERROR: " + ex.toString(), false);
 			return;
 		}
 	}
@@ -150,7 +150,7 @@ public class RouterThread extends Thread {
 				}
 			}
 		}catch(Exception ex){
-			addToReport("ERROR: " + ex.toString(), false);
+			addToReport("updateOthers method Router Thread class ERROR: " + ex.toString(), false);
 		}
 		return null;
 	}
@@ -196,7 +196,7 @@ public class RouterThread extends Thread {
 				}
 			}
 		}catch(Exception ex){
-			addToReport("ERROR: " + ex.toString(), false);
+			addToReport("searchOthersMethod Router Thread class ERROR: " + ex.toString(), false);
 		}
 		return null;
 	}
@@ -229,7 +229,7 @@ public class RouterThread extends Thread {
 			_tempOut = new ObjectOutputStream(_tempSoc.getOutputStream());
 			_tempIn = new ObjectInputStream(_tempSoc.getInputStream());
 		}catch(Exception ex){
-			addToReport("ERROR: " + ex.toString(),false);
+			addToReport("Connect method Router Thread class ERROR: " + ex.toString(),false);
 			return false;
 		}
 		return true;
