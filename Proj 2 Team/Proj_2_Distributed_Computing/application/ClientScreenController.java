@@ -42,7 +42,6 @@ public class ClientScreenController implements Initializable, ControlledScreen {
 	@FXML	Button		exitButton;
 
 	@FXML	TextField	clientsNameField;
-	@FXML	TextField	clientsPortNumberField;
 	@FXML	TextField	serverRouterIPAddressField;
 	@FXML	TextField	nameOfRecievingClientField;
 
@@ -55,8 +54,7 @@ public class ClientScreenController implements Initializable, ControlledScreen {
 	private			boolean				clientSetup						= true;
 	private 		int 				clock 							= 0,
 										counter							= 0,
-										updateCounter					= 0,
-										clientPortNumber				= 0;
+										updateCounter					= 0;
 	private			String				messageLogHolderString			= "",
 										serverRouterIPAddressString		= "",
 										clientNameString				= "",
@@ -166,7 +164,6 @@ public class ClientScreenController implements Initializable, ControlledScreen {
 			messageLogArea.setText("Client's Name: " + clientNameString 
 					+ "\nServer-Router IP: " + serverRouterIPAddressString
 					+ "\nClient IP address: " + clientIPAddressString
-					+ "\nPort Number: " + clientPortNumber 
 					+ "\n" + messageLogHolderString);
 			init();
 			nameOfRecievingClientField.requestFocus();
@@ -175,9 +172,9 @@ public class ClientScreenController implements Initializable, ControlledScreen {
 			serverConn.start();
 			
 
-		} catch (NumberFormatException e) {
+		} catch (Exception e) {
 			messageLogHolderString = messageLogArea.getText();
-			messageLogArea.setText("Port Number must be a number between x - y\n" + messageLogHolderString);
+			messageLogArea.setText("Problem in Client setup\n" + messageLogHolderString);
 			reset();
 		}
 	}
@@ -194,9 +191,6 @@ public class ClientScreenController implements Initializable, ControlledScreen {
 		clientsNameField.setEditable(true);
 		clientsNameField.setFocusTraversable(true);
 		clientsNameField.setText("");
-		clientsPortNumberField.setEditable(true);
-		clientsPortNumberField.setFocusTraversable(true);
-		clientsPortNumberField.setText("");
 		serverRouterIPAddressField.setEditable(true);
 		serverRouterIPAddressField.setFocusTraversable(true);
 		serverRouterIPAddressField.setText("");
@@ -206,6 +200,7 @@ public class ClientScreenController implements Initializable, ControlledScreen {
 		messageSendingPane.setVisible(false);
 		fileNameString = "";
 		timer.cancel();
+		serverConn.killMe();
 	}
 
 	void init(){
@@ -277,8 +272,8 @@ public class ClientScreenController implements Initializable, ControlledScreen {
 										System.out.println(" Error router message in Client ");
 									}
 									if (updateMessage._fileName != null){
-										messageLogHolderString = messageLogArea.getText();
-										messageLogArea.setText("File: " + updateMessage._fileName + " has been received." + "\n" + messageLogHolderString);
+										//messageLogHolderString = messageLogArea.getText();
+										//messageLogArea.setText("File: " + updateMessage._fileName + " has been received." + "\n" + messageLogHolderString);
 									}
 									if (updateMessage.get_message() != null){
 										messageLogHolderString = messageLogArea.getText();
