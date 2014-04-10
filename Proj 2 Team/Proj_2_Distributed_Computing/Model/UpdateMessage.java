@@ -53,7 +53,7 @@ public class UpdateMessage implements Serializable {
 	public static UpdateMessage ReadFile(String filename)
 	{
 		try {
-			Path path = Paths.get(_filePath + filename + ".spsu");
+			Path path = Paths.get(_filePath + filename);
 			byte[] dataBytes = Files.readAllBytes(path);
 			//dataBytes = Message.decompress(dataBytes);
 			ByteArrayInputStream byteStream = new ByteArrayInputStream(dataBytes);
