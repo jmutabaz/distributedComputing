@@ -6,6 +6,8 @@ import java.net.Socket;
 import java.util.ArrayList;
 import java.util.List;
 
+import application.Main;
+
 /*
  * I've got a lovely bunch of coconuts!
  * By: (Rhett && Paul && (1/8*John) ? true:false)
@@ -176,6 +178,7 @@ public class RouterThread extends Thread {
 		 * By: Rhett, Paul
 		 * 		Searches other routers for person.
 		 */
+		removeRouter(Main.IPADDRESSSTRING);
 		try{
 			for(String i : _routerList){
 				if(!connect(i)){
