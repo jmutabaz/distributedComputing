@@ -193,7 +193,7 @@ public class ServerScreenController implements Initializable, ControlledScreen {
 												System.out.println("serverlist is not null");
 												for(int s = 0; s < updateMessage._myServers.size(); s++){
 													messageLogHolderString += updateMessage._myServers.get(s).getServerIP() + "\n";
-													System.out.println(updateMessage._myServers.get(s).getServerIP() + "\n");
+													System.out.println(updateMessage._myServers.get(s).getServerName() + "\n");
 												}
 												if (messageLogHolderString != ""){
 													clientTableArea.setText(messageLogHolderString);
