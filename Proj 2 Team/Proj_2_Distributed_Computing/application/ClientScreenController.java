@@ -118,12 +118,10 @@ public class ClientScreenController implements Initializable, ControlledScreen {
 			fileMessageBoxArea.setText(fileNameString);
 			System.out.println("filename = " + fileNameString);
 			if (fileNameString != null){
-				sendMessageButton.setVisible(true);
 				messageLogHolderString = messageLogArea.getText();
 				messageLogArea.setText("File : " + fileNameString 
 						+ " Loaded" + messageLogHolderString);
 			}
-			sendMessageButton.setVisible(true);
 		}
 	}
 
@@ -132,7 +130,7 @@ public class ClientScreenController implements Initializable, ControlledScreen {
 		Message msg = new Message();
 		msg.setMyIP(Main.IPADDRESSSTRING);
 		msg.setServerName(nameOfRecievingClientField.getText());
-		if (messgaeToSendArea.getText().length() > 0){
+		if (messgaeToSendArea.getText() != ""){
 			msg.setData(messgaeToSendArea.getText()); // the string to send
 			msg.setType(true); // true if string false if file
 			// if sending a message
