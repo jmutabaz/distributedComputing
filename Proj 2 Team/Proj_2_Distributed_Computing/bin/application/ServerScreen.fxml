@@ -44,7 +44,7 @@
         <Pane prefHeight="100.0" prefWidth="800.0">
           <children>
             <TextField fx:id="hostServerRouterIPAddressField" layoutX="440.0" layoutY="45.0" prefWidth="200.0" />
-            <Label layoutX="44.0" layoutY="22.0" text="Server-Router">
+            <Label layoutX="44.0" layoutY="22.0" text="Router">
               <font>
                 <Font name="System Bold" size="30.0" />
               </font>
@@ -55,11 +55,11 @@
               </font>
             </Label>
             <Label font="$x1" layoutX="671.0" layoutY="75.0" text="Router Table" />
-            <Label fx:id="hostServerRouterIPAddressLabel" layoutX="437.0" layoutY="16.0" text="Server-Router Peer" />
-            <Button fx:id="startServerRouterButton" layoutX="651.0" layoutY="26.0" mnemonicParsing="false" onAction="#startServerButtonPressed" prefHeight="35.331931250002526" prefWidth="119.99997792968497" text="Start Server" />
+            <Label fx:id="hostServerRouterIPAddressLabel" layoutX="437.0" layoutY="16.0" text="Router Peer" />
+            <Button fx:id="startServerRouterButton" layoutX="651.0" layoutY="26.0" mnemonicParsing="false" onAction="#startServerButtonPressed" prefHeight="35.331931250002526" prefWidth="119.99997792968497" text="Start Router" />
             <Label fx:id="serversIPAddressLabel" layoutX="294.0" layoutY="46.0" text="000.000.000.000" />
-            <Label layoutX="290.0" layoutY="18.0" text="Server-Router's" />
-            <Label font="$x1" layoutX="81.0" layoutY="75.0" text="Server Runtime Log" />
+            <Label layoutX="290.0" layoutY="18.0" text="Router's" />
+            <Label font="$x1" layoutX="81.0" layoutY="75.0" text="Router Runtime Log" />
             <Label layoutX="290.0" layoutY="32.0" text="IP Address:" />
             <Label layoutX="437.0" layoutY="30.0" text="IP Address to Connect to:" />
           </children>
