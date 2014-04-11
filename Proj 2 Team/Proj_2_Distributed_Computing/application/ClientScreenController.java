@@ -127,24 +127,31 @@ public class ClientScreenController implements Initializable, ControlledScreen {
 
 	@FXML
 	void sendMessageButtonPressed(ActionEvent event){
+		boolean flag = true;
 		Message msg = new Message();
 		msg.setMyIP(Main.IPADDRESSSTRING);
 		msg.setServerName(nameOfRecievingClientField.getText());
+		msg.setClient(clientsNameField.getText());
+		//Sets Up message depending on text area.
+		//If true, string to cap, false is a file.
 		if (!messgaeToSendArea.getText().equals("")){
 			msg.setData(messgaeToSendArea.getText()); // the string to send
 			msg.setType(true); // true if string false if file
-			// if sending a message
-			//do
 		} else {
-			if (fileNameString != ""){
-				msg.readFileIntoData(fileNameString); // file to send
+			if (!fileNameString.equals("")){
+				flag = msg.readFileIntoData(fileNameString); // file to send
 				msg.setType(false);
-				//BANANA - Get File Name
-				msg.setFileName("NewFile.jpg");
+				File f = new File(fileNameString);
+				msg.setFileName(f.getName());
+			}
+			else{
+				flag = false;
 			}
 		}
-		clientConn = new SocketClient(Main.IPADDRESSSTRING, serverRouterIPAddressField.getText(), nameOfRecievingClientField.getText(), 2, msg);
-		clientConn.start();
+		if(flag){
+			clientConn = new SocketClient(Main.IPADDRESSSTRING, serverRouterIPAddressField.getText(), nameOfRecievingClientField.getText(), 2, msg);
+			clientConn.start();
+		}
 
 		fileNameString = "";
 		fileMessageBoxArea.setText("");

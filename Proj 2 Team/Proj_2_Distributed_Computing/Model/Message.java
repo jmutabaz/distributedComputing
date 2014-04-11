@@ -19,6 +19,7 @@ public class Message implements Serializable {
 	private byte[] _data; // Byte[] of data Object
 	private String _fileName; // Name of File.
 	private String _serverName; //Name of Server to send to.
+	private String _sendingName; //Name of Client that sent message.
 	public boolean done = false;
 
 	public Message(){
@@ -122,6 +123,14 @@ public class Message implements Serializable {
 		}
 	}
 
+	public void setClient(String name){
+		_sendingName = name;
+	}
+
+	public String getClient(){
+		return _sendingName;
+	}
+	
 	public void setMyIP(String myIP){
 		_myIP = myIP;
 	}

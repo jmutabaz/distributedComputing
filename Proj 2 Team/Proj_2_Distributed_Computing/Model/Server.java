@@ -33,43 +33,53 @@ public class Server extends Thread {
 		 * By: Rhett and Paul
 		 * 		
 		 */
-		addToReport("Starting Up.");
-		addToReport("Registering with Router.");
+		addToReport("Starting, Registering with Router...");
 		if(register()){
 			try{
 				while(!_kill){
 					waitForPrey();
+					addToReport("Inbound Message.");
 					Message msg = (Message)_in.readObject();
 					Message complete = new Message();
-					addToReport("Processing Message.");
+					complete.setServerName(msg.getServerName());
 					if(msg.getType())
 					{
 						//Cap String.
-						addToReport("String to Cap: " + (String)msg.getData(true));
+						addToReport("//---------From: " + msg.getClient() + "\n" + 
+								"String to Cap: " + (String)msg.getData(true) + "\n" +
+								"//---------");
 						complete.setData(((String)msg.getData(true)).toUpperCase());
 						complete.setType(true);
 					}else{
 						//SaveFile
 						if(msg.getDataLength() > 0){
-							msg.writeFileFromData("/UpdateMessage/" + msg.getFileName());
-							complete.setData("File " + msg.getFileName() + " Saved.");
-							addToReport("File Saved. Named - " + msg.getFileName());
+							if(msg.writeFileFromData("/UpdateMessage/" + msg.getFileName()))
+							{
+								complete.setData("File " + msg.getFileName() + " Saved.");
+								addToReport("//---------From: " + msg.getClient() + "\n" + 
+										"File Saved: " + msg.getFileName() + "\n" + 
+										"//---------");
+							}
+							else
+							{
+								addToReport("**File \"" + msg.getFileName() + "\" From: " + msg.getClient() + " Couldn't be Saved.");
+							}
 						}else{
 							complete.setData("File Not Saved.");
-							addToReport("File Wasn't Saved.");
+							addToReport("**No File To Save.");
 						}
 						complete.setType(true);
 					}
 					//log((String)complete.getData(true));
 					complete.done = true;
 					_out.writeObject(complete);
-					addToReport("Message Complete.");
+					addToReport("Message Complete, Waiting on Next Message.");
 				}
 			}catch(Exception ex){
-				addToReport("Server Error: " + ex.toString());
+				addToReport("**Server Error: " + ex.toString());
 			}
 		}else{
-			addToReport("Failed To Register...", true);
+			//addToReport("**Failed To Register...", true);
 		}
 	}
 
@@ -82,15 +92,14 @@ public class Server extends Thread {
 			Socket newSocket = null;
 			try {
 				_serverSocket = new ServerSocket(5555);
-				addToReport("Waiting for Connection.");
+				addToReport("Ready For Messages.");
 				newSocket = _serverSocket.accept();
-				addToReport("Client Connected.");
 				_socket = newSocket;
 				_out = new ObjectOutputStream(_socket.getOutputStream());
 				_in = new ObjectInputStream(_socket.getInputStream());
 			}
 			catch (IOException e) {
-				addToReport("Couldn't Listen for Connections.", true);
+				addToReport("**Couldn't Listen for Connections.", true);
 				return;
 			}
 			_serverSocket.close();
@@ -110,10 +119,8 @@ public class Server extends Thread {
 			_out = new ObjectOutputStream(_socket.getOutputStream());
 			_in = new ObjectInputStream(_socket.getInputStream());
 		}catch(Exception ex){
-			addToReport("Failed to Connect to Router.", true);
 			return false;
 		}
-		addToReport("Connected to Router.");
 		return true;
 	}
 
@@ -127,21 +134,23 @@ public class Server extends Thread {
 			msg.setIPToAdd(_myIP);
 			msg.setName(_myName);
 			if(!connect()){
-				addToReport("Connection Failed.");
+				addToReport("**Failed to Connect to Router.", true);
 				return false;
 			}
+			addToReport("Connected.");
 			_out.writeObject(msg);
-			addToReport("Waiting For A Response.");
+			addToReport("Waiting For A Response...");
 			RouterMessage newMsg = (RouterMessage)_in.readObject();
 			if(newMsg.getError() == '\0')
 			{
-				addToReport("Registered.");
+				addToReport("Registered on Router: " + _routerIP);
 				return true;
 			}else{
-				addToReport("Couldn't Register.");
+				addToReport("**Couldn't Register.", true);
 				return false;
 			}
 		}catch(Exception ex){
+			addToReport("**Couldn't Register.", true);
 			return false;
 		}
 	}
@@ -162,10 +171,10 @@ public class Server extends Thread {
 			RouterMessage newMsg = (RouterMessage)_in.readObject();
 			if(newMsg.getType() == 't')
 			{
-				addToReport("DeRegistered.");
+				addToReport("DeRegistered from " + _routerIP + ".");
 				return true;
 			}else{
-				addToReport("Couldn't DeRegister.");
+				addToReport("**Couldn't DeRegister.");
 				return false;
 			}
 		}catch(Exception ex){

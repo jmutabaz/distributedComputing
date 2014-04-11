@@ -39,28 +39,28 @@ public class Router extends Thread {
 				_serverSocket = new ServerSocket(_port);
 			}
 			catch (IOException e) {
-				addToReport("Couldn't Listen, Error: " + e.toString(), false);
+				addToReport("**Couldn't Listen, Error: " + e.toString(), false);
 				return;
 			}
-			addToReport("Router Listening...", false);
+			addToReport("Ready For Clients.", false);
 			while (_running == true)
 			{
 				try {
+					addToReport("Router Thread Started, Count: " + (_myServers != null ? _myServers.size():"0"), false);
 					newSocket = _serverSocket.accept();
 					RouterThread t = new RouterThread(newSocket, _myServers, _routerList, _count);
 					t.start();
-					addToReport("Router Thread Started, Count: " + (_myServers != null ? _myServers.size():"None Yet..."), false);
 				}
 				catch (IOException e) {
 					
 				}
 			}
-			addToReport("Router Closing.", false);
+			addToReport("Closing Router.", false);
 			newSocket.close();
 			_serverSocket.close();
 			
 		}catch(Exception ex){
-			addToReport("Error: " + ex.toString(), false);
+			addToReport("**Error: " + ex.toString(), false);
 		}
 		
 	}
@@ -72,7 +72,7 @@ public class Router extends Thread {
 		 * 		Contacts the routerIP and gets a list of other Routers logged on.
 		 */
 		if(routerIP == null || routerIP.equals("")){//First Router?
-			addToReport("I'm Setup and the First Router.", false);
+			addToReport("I'm the First Router.", false);
 			return true;
 		}
 		//Contacts other routerIP to get the list of Routers.
@@ -90,12 +90,12 @@ public class Router extends Thread {
 			RouterMessage newMsg = (RouterMessage)in.readObject();
 			_routerList = newMsg.getRouterList();
 			_routerList.add(routerIP);
-			addToReport("Got Router List.", true);
+			addToReport("Found Router List from " + routerIP + ".", true);
 			in.close();
 			out.close();
 			socket.close();
 		}catch(Exception ex){
-			addToReport("Couldn't Get Setup.", false);
+			addToReport("**Couldn't Get Setup.", false);
 			return false;
 		}
 		return true;
@@ -120,7 +120,7 @@ public class Router extends Thread {
 				socket.close();
 				addToReport("DeRegistered.", false);
 			}catch(Exception ex){
-				addToReport("Couldn't Contact " + x, false);
+				addToReport("**Couldn't Contact " + x, false);
 			}
 		}
 	}

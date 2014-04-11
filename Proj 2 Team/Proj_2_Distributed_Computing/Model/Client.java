@@ -33,14 +33,12 @@ public class Client extends Thread {
 		 * 		Starts up Client, gets IP from Router.
 		 * 		Connects to Server and Sends Message.
 		 */
-		addToReport("Starting Up.");
-		//Get Server IP.
-		addToReport("Getting Server IP from Router.");
+		addToReport("Starting Up, Getting Server IP from Router.");
 		if(!getServerIP()){
-			addToReport("Failed to Get IP from Router.");
+			addToReport("**Failed to Get IP from Router.");
 			return;
 		}else{
-			addToReport("Got IP from Router.");
+			addToReport("Found IP \"" + _desIP + "\" from Router.");
 		}
 
 
@@ -55,13 +53,14 @@ public class Client extends Thread {
 			}
 			//Send Message...
 			_out.writeObject(_msg);
-			addToReport("Message Sent.");
+			addToReport("Message Sent and Waiting on Response.");
 			Message n = new Message();
-			//Get Response Message...
 			n = (Message)_in.readObject();
-			addToReport("Server response is: " + (String)n.getData(true));
+			addToReport("//---------From: " + n.getServerName() + "\n" + 
+					"Response: " + (String)n.getData(true) + "\n" + 
+					"//---------");
 		}catch(Exception ex){
-			addToReport(ex.toString());
+			addToReport("**Sending Error: " + ex.toString());
 		}
 	}
 
@@ -98,18 +97,17 @@ public class Client extends Thread {
 			ObjectInputStream newIn = new ObjectInputStream(newSocket.getInputStream());
 			
 			newOut.writeObject(msg);
-			addToReport("Waiting for Lookup Response.");
+			addToReport("Router Is Looking Up IP.");
 			resp = (RouterMessage)newIn.readObject();
 			newIn.close();
 			newOut.close();
 			newSocket.close();
 		}catch(Exception x){
-			addToReport("Lookup Error: " + x.toString());
+			addToReport("**Lookup Error: " + x.toString(), true);
 			return false;
 		}
 		
 		if(resp.getIPLookup() == null){
-			addToReport("Server Doesn't Exist.");
 			return false;
 		}
 		
