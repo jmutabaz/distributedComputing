@@ -59,6 +59,9 @@ public class SocketClient extends Thread {
 		try{
 			_ser = new Server(_routerIP, 5555, _myIp, _name);
 			_ser.start();
+			/*while(_ser.isAlive()){
+				Thread.sleep(500);
+			}*/
 			_ser.join();
 			return true;
 		}
@@ -79,6 +82,9 @@ public class SocketClient extends Thread {
 		try{
 			_cli = new Client(_routerIP, 5555, _msg);
 			_cli.start();
+			/*while(_cli.isAlive()){
+				Thread.sleep(500);
+			}*/
 			_cli.join();
 			return true;
 		}
@@ -91,7 +97,9 @@ public class SocketClient extends Thread {
 	private boolean RunServerRouter() {
 		try{
 			_router = new Router(_routerIP, 5555, _myIp);
-			_router.start();
+			/*while(_router.isAlive()){
+				Thread.sleep(500);
+			}*/
 			_router.join();
 			return true;
 		}catch(Exception ex){
