@@ -64,8 +64,8 @@ public class ClientScreenController implements Initializable, ControlledScreen {
 										fileNameString					= "",
 										messageToSendString				= "";
 	private 		FileChooser			fileChooser 					= new FileChooser();
-	private			SocketClient		clientConn						;
-	private			SocketClient		serverConn						;
+	private			SocketClient		clientConn						= null;
+	private			SocketClient		serverConn						= null;
 
 	private			ArrayList<String> 	list;
 
