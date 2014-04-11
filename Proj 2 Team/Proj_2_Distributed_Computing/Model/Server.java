@@ -10,16 +10,16 @@ import application.Main;
 
 
 public class Server extends Thread {
-	private String _routerIP;
-	private int _portNum;
-	private Socket _socket;
-	private ObjectOutputStream _out;
-	private ObjectInputStream _in;
-	public boolean _kill = false;
-	private String _myIP;
-	private String _myName;
-	private ServerSocket _serverSocket = null;
-	private int _count = 0;
+	private 				String 				_routerIP;
+	private 				int 				_portNum;
+	private 				Socket 				_socket;
+	private 				ObjectOutputStream 	_out;
+	private 				ObjectInputStream 	_in;
+	public 					boolean 			_kill 				= false;
+	private 				String 				_myIP;
+	private 				String 				_myName;
+	private 				ServerSocket 		_serverSocket 		= null;
+	private 				int 				_count 				= 0;
 
 	public Server(String routerIP, int port, String myIP, String myName){
 		_routerIP = routerIP;
@@ -183,11 +183,14 @@ public class Server extends Thread {
 	}
 	
 	public void killMeOff(){
+		System.out.println("Server Class kill method called");
 		try {
 			_serverSocket.close();
 			deRegister();
 			_kill = true;
+			System.out.println("Server Thread successfully killed");
 		} catch (IOException e) {
+			System.out.print("Error closing the thread in Server Class");
 		}
 	}
 

@@ -7,14 +7,14 @@ import java.net.UnknownHostException;
 
 public class SocketClient extends Thread {
 
-	private Server _ser;
-	private Client _cli;
-	private Router _router;
-	private String _routerIP;
-	private String _myIp;
-	private String _name;
-	private int _runType;
-	private Message _msg;
+	private 				Server 				_ser;
+	private 				Client 				_cli;
+	private 				Router 				_router;
+	private 				String 				_routerIP;
+	private 				String 				_myIp;
+	private 				String 				_name;
+	private 				int 				_runType;
+	private 				Message 			_msg;
 
 	public SocketClient(String MyIP, String routerIP, String name, int runType, Message msg){
 		_myIp = MyIP;
@@ -43,6 +43,7 @@ public class SocketClient extends Thread {
 	public void killMe(){
 		switch(_runType){
 		case 1:
+			System.out.println("Killing server thread");
 			KillServer();
 			break;
 		case 2:

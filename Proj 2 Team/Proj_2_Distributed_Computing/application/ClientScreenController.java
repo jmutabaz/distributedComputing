@@ -53,21 +53,20 @@ public class ClientScreenController implements Initializable, ControlledScreen {
 	private			Timer 				timer;
 	private			boolean				clientSetup						= true;
 	private 		int 				clock 							= 0,
-			counter							= 0,
-			updateCounter					= 0;
+										counter							= 0,
+										updateCounter					= 0;
 	private			String				messageLogHolderString			= "",
-			serverRouterIPAddressString		= "",
-			clientNameString				= "",
-			handlerClientNameString			= "",
-			clientIPAddressString			= "",
-			handlerClientIPAddressString	= "",
-			fileNameString					= "",
-			messageToSendString				= "";
+										serverRouterIPAddressString		= "",
+										clientNameString				= "",
+										handlerClientNameString			= "",
+										clientIPAddressString			= "",
+										handlerClientIPAddressString	= "",
+										fileNameString					= "",
+										messageToSendString				= "";
 	private 		FileChooser			fileChooser 					= new FileChooser();
 	private			SocketClient		clientConn						;
 	private			SocketClient		serverConn						;
-
-	private			ArrayList<String> 	list;
+	private			ArrayList<String> 	list							;
 
 	@FXML
 	void exitClientButtonPressed(ActionEvent event){
@@ -82,12 +81,6 @@ public class ClientScreenController implements Initializable, ControlledScreen {
 	@FXML
 	void startClientButtonPressed(ActionEvent event){
 		if (clientSetup){
-			//	parse in IP address
-			//	parse in Port Number
-			//	make left pane visible 
-			// 	hide message send button
-			//	change Start Client button's text to read reset client
-			//	start update loop
 			init();
 			clientSetup();
 			messageLogHolderString = messageLogArea.getText();	
@@ -201,19 +194,26 @@ public class ClientScreenController implements Initializable, ControlledScreen {
 		serverRouterIPAddressField.setEditable(true);
 		serverRouterIPAddressField.setFocusTraversable(true);
 		serverRouterIPAddressField.setText("");
-		serverRouterIPAddressString = null;
+		serverRouterIPAddressString = "";
 		startClientButton.setText("Start Client");
 		fileMessageBoxArea.setText("No File Loaded"); 
 		messageSendingPane.setVisible(false);
 		fileNameString = "";
 		timer.cancel();
-		serverConn.killMe();
+		if (serverConn != null){
+			serverConn.killMe();
+			serverConn = null;
+		}
 	}
 
 	void init(){
 		if (timer != null) {
 			timer.cancel();
 			timer = null;
+		}
+		if (serverConn != null){
+			serverConn.killMe();
+			serverConn = null;
 		}
 		messageLogHolderString = messageLogArea.getText();
 		messageLogArea.setText("Reset Client\n" + messageLogHolderString);
@@ -247,7 +247,6 @@ public class ClientScreenController implements Initializable, ControlledScreen {
 						if(updateCounter == 250){
 							updateCounter = 0;
 							try{
-
 								list = new ArrayList<String>();
 								File[] files = new File(Main.PATHTOUPDATEString).listFiles();
 								files.toString();
@@ -256,8 +255,6 @@ public class ClientScreenController implements Initializable, ControlledScreen {
 										list.add(file.getName());
 									}
 								}
-
-
 							} catch(Exception e){
 								System.out.println("Problem opening folder");
 								//messageLogHolderString = messageLogArea.getText();

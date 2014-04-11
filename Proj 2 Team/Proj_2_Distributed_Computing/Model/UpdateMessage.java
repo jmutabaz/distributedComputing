@@ -22,14 +22,14 @@ import java.util.zip.Inflater;
 import application.Main;
 
 public class UpdateMessage implements Serializable {
-	private static String _filePath = Main.PATHTOUPDATEString;
-	private String _message;
-	private int _count;
-	public String _fileName;
-	public List<ServerID> _myServers;
-	public List<String> _routerList;
-	public boolean _shouldRestart;
-	public boolean _isRouter;
+	private static 			String 				_filePath 				= Main.PATHTOUPDATEString;
+	private 				String 				_message				;
+	private 				int 				_count					;
+	public 					String	 			_fileName				;
+	public 					List<ServerID> 		_myServers				;
+	public 					List<String> 		_routerList				;
+	public 					boolean 			_shouldRestart			;
+	public 					boolean 			_isRouter				;
 	
 	public boolean WriteFile(UpdateMessage msg)
 	{
@@ -94,7 +94,6 @@ public class UpdateMessage implements Serializable {
 		return _myServers;
 	}
 	
-	
 	public void setCount(int count){
 		_count = (count > 0 ? count:-1);
 	}
@@ -114,6 +113,9 @@ public class UpdateMessage implements Serializable {
 		return _message;
 	}
 
+	
+	//-------------------- To String --------------------//
+	
 	@Override
 	public String toString() {
 		String resultString =  "\n[\nUpdateMessage _message=" + _message + ", _count=" + _count
@@ -141,9 +143,6 @@ public class UpdateMessage implements Serializable {
 		return resultString;
 	}
 
-	//-------------------- To String --------------------//
-	
-	
 	
 	
 }

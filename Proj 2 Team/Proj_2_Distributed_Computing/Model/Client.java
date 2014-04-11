@@ -7,14 +7,14 @@ import java.net.UnknownHostException;
 
 
 public class Client extends Thread {
-	private String _routerIP;
-	private int _portNum;
-	private Socket _socket;
-	private ObjectOutputStream _out;
-	private ObjectInputStream _in;
-	private Message _msg;
-	private int _count = 0;
-	public String _desIP;
+	private 				String	 			_routerIP;
+	private 				int 				_portNum;
+	private 				Socket 				_socket;
+	private 				ObjectOutputStream 	_out;
+	private 				ObjectInputStream 	_in;
+	private 				Message 			_msg;
+	private 				int 				_count 				= 0;
+	public 					String 				_desIP;
 
 	public Client(String routerIP, int port, Message msg){
 		/*
@@ -40,8 +40,6 @@ public class Client extends Thread {
 		}else{
 			addToReport("Found IP \"" + _desIP + "\" from Router.");
 		}
-
-
 		//Send Message.
 		try{
 			//Connects...
@@ -95,7 +93,6 @@ public class Client extends Thread {
 			Socket newSocket = new Socket(_routerIP, _portNum);
 			ObjectOutputStream newOut = new ObjectOutputStream(newSocket.getOutputStream());
 			ObjectInputStream newIn = new ObjectInputStream(newSocket.getInputStream());
-			
 			newOut.writeObject(msg);
 			addToReport("Router Is Looking Up IP.");
 			resp = (RouterMessage)newIn.readObject();
@@ -106,11 +103,9 @@ public class Client extends Thread {
 			addToReport("**Lookup Error: " + x.toString(), true);
 			return false;
 		}
-		
 		if(resp.getIPLookup() == null){
 			return false;
 		}
-		
 		_desIP = resp.getIPLookup();
 		return true;
 	}

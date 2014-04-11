@@ -12,13 +12,13 @@ import java.util.List;
  * incoming connections and route them where needed.
  */
 public class Router extends Thread {
-	private List<ServerID> _myServers = new ArrayList<ServerID>();
-	private List<String> _routerList = new ArrayList<String>();
-	private int _port;
-	private String _myIP;
-	public boolean _running;
-	private ServerSocket _serverSocket = null;
-	private int _count = 0;
+	private 				List<ServerID> 				_myServers 				= new ArrayList<ServerID>();
+	private 				List<String> 				_routerList 			= new ArrayList<String>();
+	private 				int 						_port;
+	private 				String 						_myIP;
+	public 					boolean 					_running;
+	private 				ServerSocket 				_serverSocket 			= null;
+	private 				int 						_count 					= 0;
 	
 	public Router(String otherRouterIP, int port, String myIP){
 		_myIP = myIP;
@@ -106,6 +106,7 @@ public class Router extends Thread {
 		 * By Rhett
 		 * 		Contacts all other Routers and Tells them that I am going offline.
 		 */
+		System.out.println("Router Class deRegister");
 		for(String x : _routerList){
 			Socket socket;
 			ObjectOutputStream out;
@@ -119,8 +120,10 @@ public class Router extends Thread {
 				out.close();
 				socket.close();
 				addToReport("DeRegistered.", false);
+				System.out.println("Router Class deRegister successfully");
 			}catch(Exception ex){
 				addToReport("**Couldn't Contact " + x, false);
+				System.out.println("Router Class deRegister ERROR could not deregister");
 			}
 		}
 	}
@@ -130,11 +133,15 @@ public class Router extends Thread {
 		 * By Rhett
 		 * 		If the Router is listening for connections, it stops then deregisters.
 		 */
+		System.out.println("Router Class killmeoff method");
 		try {
+			System.out.println("Router Class killmeof method closing socket");
 			_serverSocket.close();
 		} catch (IOException e) {
 			//Eating It is OKAY.
+			System.out.println("Router Class killMeOff method ERROR closing socket");
 		}
+		System.out.println("Router Class killMeOff method deregister");
 		deRegister();
 		_running = false;
 	}

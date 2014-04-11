@@ -14,13 +14,13 @@ import java.util.zip.Deflater;
 import java.util.zip.Inflater;
 
 public class Message implements Serializable {
-	private String _myIP; // My IP Address
-	private boolean _type; // File or String. // true = String, false = File.
-	private byte[] _data; // Byte[] of data Object
-	private String _fileName; // Name of File.
-	private String _serverName; //Name of Server to send to.
-	private String _sendingName; //Name of Client that sent message.
-	public boolean done = false;
+	private 				String 					_myIP; 						// My IP Address
+	private 				boolean 				_type; 						// File or String. // true = String, false = File.
+	private 				byte[] 					_data; 						// Byte[] of data Object
+	private 				String 					_fileName; 					// Name of File.
+	private 				String 					_serverName; 				//Name of Server to send to.
+	private 				String 					_sendingName; 				//Name of Client that sent message.
+	public 					boolean 				done 					= false;
 
 	public Message(){
 

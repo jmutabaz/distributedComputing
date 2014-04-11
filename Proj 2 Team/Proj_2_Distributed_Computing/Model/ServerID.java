@@ -4,8 +4,8 @@ import java.io.Serializable;
 import java.util.List;
 
 public class ServerID implements Serializable  {
-	private String _serverName;
-	private String _serverIP;
+	private 				String 				_serverName;
+	private 				String 				_serverIP;
 	
 	public ServerID(String name, String ip){
 		setServerName(name);
