@@ -91,6 +91,7 @@ public class ClientScreenController implements Initializable, ControlledScreen {
 			init();
 			clientSetup();
 			messageLogHolderString = messageLogArea.getText();	
+			messgaeToSendArea.setText("");
 			messageLogArea.setText("Start Client\n" + messageLogHolderString);
 			startUpdateLoop();
 			clientSetup = false;
@@ -137,18 +138,25 @@ public class ClientScreenController implements Initializable, ControlledScreen {
 		// msg.setType = true
 		// setData to the string to send
 		//
-		msg.setData(fileNameString); // the string to send
-		msg.setType(true); // true if string false if file
 		
+		if (messgaeToSendArea.getText() != ""){
+			msg.setData(messgaeToSendArea.getText()); // the string to send
+			msg.setType(true); // true if string false if file
+			//clientConn.RunClient(msg.getDestination(), 5555, msg);
 		// if sending a message
 		//do
-		msg.readFileIntoData(fileNameString); // file to send
-		
-		
-		
+		} else {
+			if (fileNameString != ""){
+			msg.readFileIntoData(fileNameString); // file to send
+			msg.setType(false);
+			//clientConn.RunClient(msg.getDestination(), 5555, msg);
+			}
+		}
 		//
 		
-		//clientConn.RunClient(msg.getDestination(), 5555, msg);
+		fileNameString = "";
+		fileMessageBoxArea.setText("");
+		messgaeToSendArea.setText("");
 	}
 
 	void clientSetup(){
