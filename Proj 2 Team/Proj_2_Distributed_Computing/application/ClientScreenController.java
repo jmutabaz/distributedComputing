@@ -132,27 +132,23 @@ public class ClientScreenController implements Initializable, ControlledScreen {
 		Message msg = new Message();
 		msg.setMyIP(Main.IPADDRESSSTRING);
 		msg.setServerName(handlerClientNameString);
-		
-		//if sending a file
-		//do
-		// msg.setType = true
-		// setData to the string to send
-		//
-		
 		if (messgaeToSendArea.getText() != ""){
 			msg.setData(messgaeToSendArea.getText()); // the string to send
 			msg.setType(true); // true if string false if file
-			//clientConn.RunClient(msg.getDestination(), 5555, msg);
+			clientConn = new SocketClient(Main.IPADDRESSSTRING, serverRouterIPAddressField.getText(), nameOfRecievingClientField.getText(), 2, msg);
+			clientConn.start();
 		// if sending a message
 		//do
 		} else {
 			if (fileNameString != ""){
 			msg.readFileIntoData(fileNameString); // file to send
 			msg.setType(false);
-			//clientConn.RunClient(msg.getDestination(), 5555, msg);
+			//BANANA - Get File Name
+			msg.setFileName("NewFile.jpg");
+			clientConn = new SocketClient(Main.IPADDRESSSTRING, serverRouterIPAddressField.getText(), nameOfRecievingClientField.getText(), 2, msg);
+			clientConn.start();
 			}
 		}
-		//
 		
 		fileNameString = "";
 		fileMessageBoxArea.setText("");
