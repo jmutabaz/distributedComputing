@@ -52,7 +52,7 @@ public class Router extends Thread {
 					t.start();
 				}
 				catch (IOException e) {
-					
+					System.out.println("Router Class Run method IOException " + e.toString());
 				}
 			}
 			addToReport("Closing Router.", false);
@@ -60,7 +60,7 @@ public class Router extends Thread {
 			_serverSocket.close();
 			
 		}catch(Exception ex){
-			addToReport("**Error: " + ex.toString(), false);
+			addToReport("Run Method Router Class **Error " + ex.toString(), false);
 		}
 		
 	}

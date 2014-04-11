@@ -166,6 +166,7 @@ public class ClientScreenController implements Initializable, ControlledScreen {
 					+ "\nClient IP address: " + clientIPAddressString
 					+ "\n" + messageLogHolderString);
 			init();
+			messageSendingPane.setVisible(true);
 			nameOfRecievingClientField.requestFocus();
 			//Start a Server thread
 			serverConn = new SocketClient(Main.IPADDRESSSTRING, serverRouterIPAddressString, clientNameString, 1, null);
@@ -199,7 +200,10 @@ public class ClientScreenController implements Initializable, ControlledScreen {
 		fileMessageBoxArea.setText("No File Loaded"); 
 		messageSendingPane.setVisible(false);
 		fileNameString = "";
-		timer.cancel();
+		if (timer != null) {
+			timer.cancel();
+			timer = null;
+		}
 		if (serverConn != null){
 			serverConn.killMe();
 			serverConn = null;
