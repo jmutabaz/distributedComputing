@@ -54,7 +54,7 @@
                 <Font name="System Bold" size="30.0" />
               </font>
             </Label>
-            <Label layoutX="320.0" layoutY="14.0" text="Server-Router IP Address" />
+            <Label layoutX="320.0" layoutY="14.0" text="Router IP Address" />
             <Label layoutX="150.0" layoutY="51.0" text="Client's IP Address" />
             <Label fx:id="clientsIPAddressLabel" layoutX="155.0" layoutY="66.0" text="000.000.000.000" />
             <Label layoutX="646.0" layoutY="15.0" text="Run Time" />
