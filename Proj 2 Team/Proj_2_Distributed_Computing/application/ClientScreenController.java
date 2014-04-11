@@ -53,16 +53,16 @@ public class ClientScreenController implements Initializable, ControlledScreen {
 	private			Timer 				timer;
 	private			boolean				clientSetup						= true;
 	private 		int 				clock 							= 0,
-										counter							= 0,
-										updateCounter					= 0;
+			counter							= 0,
+			updateCounter					= 0;
 	private			String				messageLogHolderString			= "",
-										serverRouterIPAddressString		= "",
-										clientNameString				= "",
-										handlerClientNameString			= "",
-										clientIPAddressString			= "",
-										handlerClientIPAddressString	= "",
-										fileNameString					= "",
-										messageToSendString				= "";
+			serverRouterIPAddressString		= "",
+			clientNameString				= "",
+			handlerClientNameString			= "",
+			clientIPAddressString			= "",
+			handlerClientIPAddressString	= "",
+			fileNameString					= "",
+			messageToSendString				= "";
 	private 		FileChooser			fileChooser 					= new FileChooser();
 	private			SocketClient		clientConn						;
 	private			SocketClient		serverConn						;
@@ -131,25 +131,23 @@ public class ClientScreenController implements Initializable, ControlledScreen {
 	void sendMessageButtonPressed(ActionEvent event){
 		Message msg = new Message();
 		msg.setMyIP(Main.IPADDRESSSTRING);
-		msg.setServerName(handlerClientNameString);
+		msg.setServerName(nameOfRecievingClientField.getText());
 		if (messgaeToSendArea.getText() != ""){
 			msg.setData(messgaeToSendArea.getText()); // the string to send
 			msg.setType(true); // true if string false if file
-			clientConn = new SocketClient(Main.IPADDRESSSTRING, serverRouterIPAddressField.getText(), nameOfRecievingClientField.getText(), 2, msg);
-			clientConn.start();
-		// if sending a message
-		//do
+			// if sending a message
+			//do
 		} else {
 			if (fileNameString != ""){
-			msg.readFileIntoData(fileNameString); // file to send
-			msg.setType(false);
-			//BANANA - Get File Name
-			msg.setFileName("NewFile.jpg");
-			clientConn = new SocketClient(Main.IPADDRESSSTRING, serverRouterIPAddressField.getText(), nameOfRecievingClientField.getText(), 2, msg);
-			clientConn.start();
+				msg.readFileIntoData(fileNameString); // file to send
+				msg.setType(false);
+				//BANANA - Get File Name
+				msg.setFileName("NewFile.jpg");
 			}
 		}
-		
+		clientConn = new SocketClient(Main.IPADDRESSSTRING, serverRouterIPAddressField.getText(), nameOfRecievingClientField.getText(), 2, msg);
+		clientConn.start();
+
 		fileNameString = "";
 		fileMessageBoxArea.setText("");
 		messgaeToSendArea.setText("");
@@ -174,7 +172,7 @@ public class ClientScreenController implements Initializable, ControlledScreen {
 			//Start a Server thread
 			serverConn = new SocketClient(Main.IPADDRESSSTRING, serverRouterIPAddressString, clientNameString, 1, null);
 			serverConn.start();
-			
+
 
 		} catch (Exception e) {
 			messageLogHolderString = messageLogArea.getText();
@@ -244,17 +242,17 @@ public class ClientScreenController implements Initializable, ControlledScreen {
 						if(updateCounter == 250){
 							updateCounter = 0;
 							try{
-								
+
 								list = new ArrayList<String>();
 								File[] files = new File(Main.PATHTOUPDATEString).listFiles();
 								files.toString();
 								for (File file : files) {
-								    if (file.isFile()) {
-								        list.add(file.getName());
-								    }
+									if (file.isFile()) {
+										list.add(file.getName());
+									}
 								}
-								
-								
+
+
 							} catch(Exception e){
 								System.out.println("Problem opening folder");
 								//messageLogHolderString = messageLogArea.getText();
@@ -286,7 +284,7 @@ public class ClientScreenController implements Initializable, ControlledScreen {
 											messageLogHolderString = messageLogArea.getText();
 											messageLogArea.setText(updateMessage.get_message() + "\n" + messageLogHolderString);
 										}
-										
+
 									} else {
 										System.out.println("\nThe update associated with file: " + messagePathString + " is null");
 									}
