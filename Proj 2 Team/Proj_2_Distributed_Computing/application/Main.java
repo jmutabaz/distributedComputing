@@ -29,6 +29,7 @@ public class Main extends Application {
 	public  static	String						fileName;
 	public 	static 	String						IPADDRESSSTRING;
 	public  static	String						PATHTOUPDATEString;
+	public	static	String						PATHFILESAVEString;
 
 	@Override
 	public void start(Stage primaryStage) {
@@ -59,6 +60,7 @@ public class Main extends Application {
 			String path = file1.getCanonicalPath() + "/POBox/";
 			System.out.println("the path is " + path);
 			PATHTOUPDATEString = path;
+			path = file1.getCanonicalPath() + "/ReceivedFiles/";
 			System.out.println("Updated path name: " + PATHTOUPDATEString);
 		} catch (IOException e1) {
 			// TODO Auto-generated catch block
