@@ -214,7 +214,7 @@ public class ClientScreenController implements Initializable, ControlledScreen {
 		clock = 0;
 		counter = 0;
 		messageSendingPane.setVisible(true);
-		sendMessageButton.setVisible(false);
+		
 	}
 
 
