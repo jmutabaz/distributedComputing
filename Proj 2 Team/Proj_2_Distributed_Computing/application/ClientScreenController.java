@@ -130,7 +130,7 @@ public class ClientScreenController implements Initializable, ControlledScreen {
 		Message msg = new Message();
 		msg.setMyIP(Main.IPADDRESSSTRING);
 		msg.setServerName(nameOfRecievingClientField.getText());
-		if (messgaeToSendArea.getText() != ""){
+		if (!messgaeToSendArea.getText().equals("")){
 			msg.setData(messgaeToSendArea.getText()); // the string to send
 			msg.setType(true); // true if string false if file
 			// if sending a message
