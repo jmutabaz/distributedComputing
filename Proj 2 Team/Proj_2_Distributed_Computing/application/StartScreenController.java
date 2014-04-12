@@ -48,7 +48,7 @@ public class StartScreenController implements Initializable, ControlledScreen {
 	
 	@FXML
 	void startClientButtonPressed(ActionEvent event){
-		testLabel.setText("Start Client buttton depressed");
+		//testLabel.setText("Start Client buttton depressed");
 		if(getIPAddress()){
 			myController.setScreen(Main.CLIENT_SCREEN);
 		} else {
@@ -58,7 +58,7 @@ public class StartScreenController implements Initializable, ControlledScreen {
 	
 	@FXML
 	void startServerButtonPressed(ActionEvent event){
-		testLabel.setText("Start Server buttton depressed");
+		//testLabel.setText("Start Server buttton depressed");
 		if(getIPAddress()){
 			myController.setScreen(Main.SERVER_SCREEN);
 		} else {
