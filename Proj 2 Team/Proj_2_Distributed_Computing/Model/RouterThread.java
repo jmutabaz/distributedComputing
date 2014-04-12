@@ -239,6 +239,7 @@ public class RouterThread extends Thread {
 	private void addToReport(String report, boolean updateList){
 		UpdateMessage msg = new UpdateMessage();
 		_myCount++;
+		msg._updateList = updateList;
 		if(updateList)
 		{
 			msg.setServerList(_myServers);

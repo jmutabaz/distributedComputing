@@ -159,7 +159,6 @@ public class Router extends Thread {
 		msg._updateList = updateList;
 		if(updateList)
 		{
-			
 			msg._myServers = _myServers;
 			msg._routerList = _routerList;
 		}
