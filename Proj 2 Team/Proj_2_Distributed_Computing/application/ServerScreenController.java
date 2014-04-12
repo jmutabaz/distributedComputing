@@ -227,10 +227,11 @@ public class ServerScreenController implements Initializable, ControlledScreen {
 					if (updateMessage._isRouter){
 						messageLogHolderString = "";
 						//checks or an updated client list and replaces the current list with the new list
-						if (updateMessage._myServers.size() == 0){
-							clientTableArea.setText(messageLogHolderString);
-						}
+						
 						if(updateMessage._updateList){
+							if (updateMessage._myServers.size() == 0){
+								clientTableArea.setText(messageLogHolderString);
+							}
 							System.out.println("serverlist is not null");
 							for(int s = 0; s < updateMessage._myServers.size(); s++){
 								messageLogHolderString += updateMessage._myServers.get(s).getServerName() + "\n";
