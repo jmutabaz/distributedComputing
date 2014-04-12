@@ -85,12 +85,12 @@ public class ClientScreenController implements Initializable, ControlledScreen {
 			clientSetup();
 			messageLogHolderString = messageLogArea.getText();	
 			messgaeToSendArea.setText("");
-			messageLogArea.setText("Start Client\n" + messageLogHolderString);
+			messageLogArea.setText("Start Peer\n" + messageLogHolderString);
 			startUpdateLoop();
 			clientSetup = false;
 		} else {
 			messageLogHolderString = messageLogArea.getText();	
-			messageLogArea.setText("Restart Client\n" + messageLogHolderString);
+			messageLogArea.setText("Restart Peer\n" + messageLogHolderString);
 
 			reset();
 			clientSetup = true;
@@ -162,7 +162,7 @@ public class ClientScreenController implements Initializable, ControlledScreen {
 			serverRouterIPAddressString = serverRouterIPAddressField.getText();
 			serverRouterIPAddressField.setEditable(false);
 			serverRouterIPAddressField.setFocusTraversable(false);
-			startClientButton.setText("Reset Client");
+			startClientButton.setText("Reset Peer");
 			init();
 			messageSendingPane.setVisible(true);
 			nameOfRecievingClientField.requestFocus();
@@ -172,8 +172,9 @@ public class ClientScreenController implements Initializable, ControlledScreen {
 
 
 		} catch (Exception e) {
-			messageLogHolderString = messageLogArea.getText();
-			messageLogArea.setText("Problem in Client setup\n" + messageLogHolderString);
+			//messageLogHolderString = messageLogArea.getText();
+			//messageLogArea.setText("Problem in Client setup\n" + messageLogHolderString);
+			System.out.println("Problem in Client setup\n" + messageLogHolderString);
 			reset();
 		}
 	}
@@ -186,7 +187,7 @@ public class ClientScreenController implements Initializable, ControlledScreen {
 			timer = null;
 		}
 		messageLogHolderString = messageLogArea.getText();
-		messageLogArea.setText("Client Reset\n" + messageLogHolderString);
+		messageLogArea.setText("Peer Reset\n" + messageLogHolderString);
 		clientsNameField.setEditable(true);
 		clientsNameField.setFocusTraversable(true);
 		clientsNameField.setText("");
@@ -194,7 +195,7 @@ public class ClientScreenController implements Initializable, ControlledScreen {
 		serverRouterIPAddressField.setFocusTraversable(true);
 		serverRouterIPAddressField.setText("");
 		serverRouterIPAddressString = "";
-		startClientButton.setText("Start Client");
+		startClientButton.setText("Start Peer");
 		fileMessageBoxArea.setText(""); 
 		messageSendingPane.setVisible(false);
 		fileNameString = "";
@@ -272,10 +273,12 @@ public class ClientScreenController implements Initializable, ControlledScreen {
 										//messageLogHolderString = messageLogArea.getText();
 										//messageLogArea.setText(list.get(i) + "\n" + Main.PATHTOUPDATEString + "/" + list.get(i) + "\n" + messageLogHolderString);
 										if (updateMessage._shouldRestart){
-											messageLogHolderString = messageLogArea.getText();
-											messageLogArea.setText("Error Sending message to remote client" + "\n" + messageLogHolderString);
+											//messageLogHolderString = messageLogArea.getText();
+											//messageLogArea.setText("Error Sending message to remote client" + "\n" + messageLogHolderString);
+											System.out.println("Error Sending message to remote client" + "\n" + messageLogHolderString);
+											
 										}
-										if (updateMessage._isRouter){
+										if (updateMessage._isRouter){ 
 											System.out.println(" Error router message in Client ");
 										}
 										if (updateMessage.get_message() != null){

@@ -33,7 +33,7 @@
             <Button fx:id="loadFileButton" layoutX="13.0" layoutY="177.0" mnemonicParsing="false" onAction="#loadFileButtonPressed" text="Load File" />
             <TextArea id="loadedFileNameLabel" fx:id="fileMessageBoxArea" editable="false" focusTraversable="false" layoutX="17.0" layoutY="222.0" prefHeight="121.0" prefWidth="158.0" wrapText="true" />
             <Button fx:id="sendMessageButton" layoutX="42.0" layoutY="353.0" mnemonicParsing="false" onAction="#sendMessageButtonPressed" prefHeight="39.90234375" prefWidth="133.0" text="Send Message" visible="true" />
-            <Label layoutX="15.0" layoutY="15.0" text="Name of Recieving Client" />
+            <Label layoutX="15.0" layoutY="15.0" text="Name of Recieving Peer" />
             <Label layoutX="15.0" layoutY="200.0" text="Loaded File Name" />
             <Label layoutX="15.0" layoutY="57.0" text="Type in Message to Send" />
             <Label layoutX="15.0" layoutY="157.0" text="or select a file to send" />
@@ -48,20 +48,20 @@
           <children>
             <TextField fx:id="clientsNameField" layoutX="155.0" layoutY="30.0" prefWidth="141.0" />
             <TextField fx:id="serverRouterIPAddressField" layoutX="325.0" layoutY="29.0" prefWidth="133.0" />
-            <Button fx:id="startClientButton" layoutX="500.0" layoutY="18.0" mnemonicParsing="false" onAction="#startClientButtonPressed" prefHeight="39.90234375" prefWidth="103.0" text="Start Client" />
-            <Label layoutX="25.0" layoutY="11.0" text="Client">
+            <Button fx:id="startClientButton" layoutX="500.0" layoutY="18.0" mnemonicParsing="false" onAction="#startClientButtonPressed" prefHeight="39.90234375" prefWidth="103.0" text="Start Peer" />
+            <Label layoutX="25.0" layoutY="11.0" text="Peer">
               <font>
                 <Font name="System Bold" size="30.0" />
               </font>
             </Label>
             <Label layoutX="320.0" layoutY="14.0" text="Router IP Address" />
-            <Label layoutX="150.0" layoutY="51.0" text="Client's IP Address" />
+            <Label layoutX="150.0" layoutY="51.0" text="Peer's IP Address" />
             <Label fx:id="clientsIPAddressLabel" layoutX="155.0" layoutY="66.0" text="000.000.000.000" />
             <Label layoutX="646.0" layoutY="15.0" text="Run Time" />
             <Label layoutX="646.0" layoutY="45.0" text="Messages Recieved" />
             <Label fx:id="messagesRecievedLabel" layoutX="651.0" layoutY="60.0" text="00000" />
             <Label fx:id="runTimeLabel" layoutX="651.0" layoutY="30.0" text="00000" />
-            <Label layoutX="150.0" layoutY="15.0" text="Client's Name" />
+            <Label layoutX="150.0" layoutY="15.0" text="Peer's Name" />
           </children>
         </Pane>
       </top>
