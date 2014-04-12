@@ -30,6 +30,7 @@ public class UpdateMessage implements Serializable {
 	public 					List<String> 		_routerList				;
 	public 					boolean 			_shouldRestart			;
 	public 					boolean 			_isRouter				;
+	public 					boolean 			_updateList				;
 	
 	public boolean WriteFile(UpdateMessage msg)
 	{

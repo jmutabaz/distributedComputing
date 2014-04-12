@@ -156,8 +156,10 @@ public class Router extends Thread {
 		UpdateMessage msg = new UpdateMessage();
 		_count++;
 		msg._fileName = "Router" + _count;
+		msg._updateList = updateList;
 		if(updateList)
 		{
+			
 			msg._myServers = _myServers;
 			msg._routerList = _routerList;
 		}
