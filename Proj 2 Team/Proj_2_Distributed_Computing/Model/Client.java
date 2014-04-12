@@ -38,7 +38,7 @@ public class Client extends Thread {
 			addToReport("**Failed to Get IP from Router.");
 			return;
 		}else{
-			addToReport("Found IP of Client \"" + _msg.getClient() + "\" from Router.");
+			addToReport("Found IP of Client \"" + _msg.getServerName() + "\" from Router.");
 			//addToReport("Found IP \"" + _desIP + "\" from Router.");
 		}
 		//Send Message.
@@ -48,7 +48,7 @@ public class Client extends Thread {
 				addToReport("Couldn't Connect to Peer.");
 				return;
 			}else{
-				addToReport("Connected to " + _msg.getServerName() + ".");
+				//addToReport("Connected to " + _msg.getServerName() + ".");
 			}
 			//Send Message...
 			_out.writeObject(_msg);

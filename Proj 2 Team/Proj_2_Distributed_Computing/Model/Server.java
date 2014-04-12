@@ -73,7 +73,7 @@ public class Server extends Thread {
 					//log((String)complete.getData(true));
 					complete.done = true;
 					_out.writeObject(complete);
-					addToReport("Message Complete, Waiting on Next Message.");
+					addToReport("Message Complete.");
 				}
 			}catch(Exception ex){
 				System.out.println("**Server Error: " + ex.toString());
