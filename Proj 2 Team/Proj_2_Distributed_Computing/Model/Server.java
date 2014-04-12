@@ -53,7 +53,7 @@ public class Server extends Thread {
 					}else{
 						//SaveFile
 						if(msg.getDataLength() > 0){
-							if(msg.writeFileFromData("/UpdateMessage/" + msg.getFileName()))
+							if(msg.writeFileFromData(Main.PATHFILESAVEString + msg.getFileName()))
 							{
 								complete.setData("File " + msg.getFileName() + " Saved.");
 								addToReport("//---------From: " + msg.getClient() + "\n" + 
