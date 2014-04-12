@@ -144,7 +144,7 @@ public class Server extends Thread {
 			RouterMessage newMsg = (RouterMessage)_in.readObject();
 			if(newMsg.getError() == '\0')
 			{
-				addToReport("Registered on Router: " + _routerIP);
+				addToReport("Registered to Router.");
 				return true;
 			}else{
 				addToReport("**Couldn't Register.", true);
