@@ -33,12 +33,12 @@ public class Server extends Thread {
 		 * By: Rhett and Paul
 		 * 		
 		 */
-		addToReport("Starting, Registering with Router...");//Do we really want this PANANA
+		//addToReport("Starting, Registering with Router.");//Do we really want this PANANA
 		if(register()){
 			try{
 				while(!_kill){
 					waitForPrey();
-					addToReport("Inbound Message.");//Do we really want this PANANA
+					//addToReport("Inbound Message.");//Do we really want this PANANA
 					Message msg = (Message)_in.readObject();
 					Message complete = new Message();
 					complete.setServerName(msg.getServerName());
@@ -138,9 +138,9 @@ public class Server extends Thread {
 				addToReport("**Failed to Connect to Router.", true);
 				return false;
 			}
-			addToReport("Connected.");
+			//addToReport("Connected.");
 			_out.writeObject(msg);
-			addToReport("Waiting For A Response...");
+			//addToReport("Waiting For A Response...");
 			RouterMessage newMsg = (RouterMessage)_in.readObject();
 			if(newMsg.getError() == '\0')
 			{
