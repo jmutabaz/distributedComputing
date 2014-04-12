@@ -43,21 +43,25 @@ public class Router extends Thread {
 				return;
 			}
 			addToReport("Ready For Clients.", false);
+			RouterThread t;
 			while (_running == true)
 			{
 				try {
 					addToReport("Router Thread Started, Count: " + (_myServers != null ? _myServers.size():"0"), false);
 					newSocket = _serverSocket.accept();
-					RouterThread t = new RouterThread(newSocket, _myServers, _routerList, _count);
+					t = new RouterThread(newSocket, _myServers, _routerList, _count);
 					t.start();
 				}
 				catch (IOException e) {
 					System.out.println("Router Class Run method IOException " + e.toString());
 				}
+				
+				
 			}
 			addToReport("Closing Router.", false);
 			newSocket.close();
 			_serverSocket.close();
+			_running = false;
 			
 		}catch(Exception ex){
 			addToReport("Run Method Router Class **Error " + ex.toString(), false);
@@ -136,6 +140,7 @@ public class Router extends Thread {
 		System.out.println("Router Class killmeoff method");
 		try {
 			System.out.println("Router Class killmeof method closing socket");
+			_running = false;
 			_serverSocket.close();
 		} catch (IOException e) {
 			//Eating It is OKAY.
@@ -143,7 +148,7 @@ public class Router extends Thread {
 		}
 		System.out.println("Router Class killMeOff method deregister");
 		deRegister();
-		_running = false;
+		
 	}
 	
 	private void addToReport(String report, boolean updateList){
