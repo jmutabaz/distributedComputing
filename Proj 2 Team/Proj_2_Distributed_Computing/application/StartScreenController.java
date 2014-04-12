@@ -76,25 +76,22 @@ public class StartScreenController implements Initializable, ControlledScreen {
 	private boolean getIPAddress() {
 		System.out.println("checking IP address");
 		boolean getIPAddress = true;
-		if (iPAddressTextField.getText().length() == 0 || iPAddressTextField.getText() == ""){
-			Main.IPADDRESSSTRING = Main.LOCALHOSTIPADDRESString;
-			return true;
-		} else {
-			while(getIPAddress){
-				Main.IPADDRESSSTRING = iPAddressTextField.getText();
-				System.out.println("IP address = " + Main.IPADDRESSSTRING);
-				// test IP address
-				 if (!validateIP(Main.IPADDRESSSTRING)){
-				 	iPAddressErrorLabel.setText("The IP Address you entered is not valid please enter a valid IP Address");
-				 	System.out.println("The IP Address you entered is not valid please enter a valid IP Address");
-				 	return false;
-				 } else{
-				 	getIPAddress = false;
-				 	System.out.println("The IP address has been set as: " + Main.IPADDRESSSTRING);
-				 	return true;
-				 }
-			}
+	
+		while(getIPAddress){
+			Main.IPADDRESSSTRING = iPAddressTextField.getText();
+			System.out.println("IP address = " + Main.IPADDRESSSTRING);
+			// test IP address
+			 if (!validateIP(Main.IPADDRESSSTRING)){
+			 	iPAddressErrorLabel.setText("The IP Address you entered is not valid please enter a valid IP Address");
+			 	System.out.println("The IP Address you entered is not valid please enter a valid IP Address");
+			 	return false;
+			 } else{
+			 	getIPAddress = false;
+			 	System.out.println("The IP address has been set as: " + Main.IPADDRESSSTRING);
+			 	return true;
+			 }
 		}
+	
 		return false;
 	}
 	
