@@ -130,7 +130,7 @@ public class RouterThread extends Thread {
 				return k.getServerIP();
 			}
 		}
-		return null;
+		return "-1";
 	}
 	
 	public String updateOthers(){
