@@ -37,7 +37,6 @@ public class RouterThread extends Thread {
 	public void run(){
 		try{
 			RouterMessage out = new RouterMessage();
-			
 			_incoming = (RouterMessage)_in.readObject();
 			
 			if(_incoming.getType() == 's'){
@@ -78,7 +77,6 @@ public class RouterThread extends Thread {
 					IP = searchOthers();
 				out.setIPLookup(IP);
 			}
-			
 			addToReport("Sending Out Message.", false);
 			out.setType('t');
 			if(_incoming.getType() != 'r')
