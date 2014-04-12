@@ -114,9 +114,18 @@ public class UpdateMessage implements Serializable {
 		return _message;
 	}
 
+	public static String get_filePath() {
+		return _filePath;
+	}
+
+	public static void set_filePath(String _filePath) {
+		UpdateMessage._filePath = _filePath;
+	}
 	
 	//-------------------- To String --------------------//
 	
+	
+
 	@Override
 	public String toString() {
 		String resultString =  "\n[\nUpdateMessage _message=" + _message + ", _count=" + _count
