@@ -60,7 +60,8 @@ public class Router extends Thread {
 			}
 			addToReport("Closing Router.", false);
 			newSocket.close();
-			_serverSocket.close();
+			if(_serverSocket != null)
+				_serverSocket.close();
 			_running = false;
 			
 		}catch(Exception ex){
