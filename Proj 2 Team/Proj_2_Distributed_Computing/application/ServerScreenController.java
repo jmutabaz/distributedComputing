@@ -82,12 +82,12 @@ public class ServerScreenController implements Initializable, ControlledScreen {
 			serverSetup();
 			startServerRouterButton.setText("Reset Router");
 			messageLogHolderString = serverRuntimeLogArea.getText();	
-			serverRuntimeLogArea.setText("Start Router\n" + messageLogHolderString);
+			serverRuntimeLogArea.setText("Starting Router\n" + messageLogHolderString);
 			startUpdateLoop();
 			serverSetup = false;
 		} else {
 			messageLogHolderString = serverRuntimeLogArea.getText();	
-			serverRuntimeLogArea.setText("Restart Router\n" + messageLogHolderString);
+			serverRuntimeLogArea.setText("Reseting Router\n" + messageLogHolderString);
 			startServerRouterButton.setText("Start Router");
 			reset();
 			serverSetup = true;

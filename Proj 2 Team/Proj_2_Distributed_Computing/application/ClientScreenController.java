@@ -85,12 +85,12 @@ public class ClientScreenController implements Initializable, ControlledScreen {
 			clientSetup();
 			messageLogHolderString = messageLogArea.getText();	
 			messgaeToSendArea.setText("");
-			messageLogArea.setText("Start Peer\n" + messageLogHolderString);
+			messageLogArea.setText("Starting Peer\n" + messageLogHolderString);
 			startUpdateLoop();
 			clientSetup = false;
 		} else {
 			messageLogHolderString = messageLogArea.getText();	
-			messageLogArea.setText("Restart Peer\n" + messageLogHolderString);
+			messageLogArea.setText("Restarting Peer\n" + messageLogHolderString);
 
 			reset();
 			clientSetup = true;
