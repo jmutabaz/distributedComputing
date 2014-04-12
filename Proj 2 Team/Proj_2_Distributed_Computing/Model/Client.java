@@ -88,7 +88,7 @@ public class Client extends Thread {
 		RouterMessage resp = null;
 		RouterMessage msg = new RouterMessage();
 		msg.setIPLookup(_msg.getServerName());
-		msg.setType('l');
+		msg.setType('c');
 		
 		try{
 			Socket newSocket = new Socket(_routerIP, _portNum);
