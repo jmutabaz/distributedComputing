@@ -31,6 +31,7 @@ public class UpdateMessage implements Serializable {
 	public 					boolean 			_shouldRestart			;
 	public 					boolean 			_isRouter				;
 	public 					boolean 			_updateList				;
+	public 					boolean 			_clientNotFound			;
 	
 	public boolean WriteFile(UpdateMessage msg)
 	{

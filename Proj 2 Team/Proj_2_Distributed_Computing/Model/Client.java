@@ -105,7 +105,7 @@ public class Client extends Thread {
 			return false;
 		}
 		if(resp.getIPLookup().equals("-1")){
-			addToReport("Peer "+msg.getIPLookup()+" could not be Located", false);
+			addToReport("Peer "+msg.getIPLookup()+" could not be Located", 1);
 			return false;
 		}
 		_desIP = resp.getIPLookup();
@@ -127,6 +127,17 @@ public class Client extends Thread {
 		UpdateMessage msg = new UpdateMessage();
 		_count++;
 		msg._shouldRestart = shouldRestart;
+		msg._fileName = "Client" + _count;
+		msg.setMessage(report);
+		msg.setCount(_count);
+		msg.WriteFile(msg);
+		System.out.println("<!--Client: " + report + "-->");
+	}
+	private void addToReport(String report, int invalidClient){
+		UpdateMessage msg = new UpdateMessage();
+		_count++;
+		msg._shouldRestart = false;
+		msg._clientNotFound = true;
 		msg._fileName = "Client" + _count;
 		msg.setMessage(report);
 		msg.setCount(_count);
