@@ -48,7 +48,7 @@
           <children>
             <TextField fx:id="clientsNameField" layoutX="155.0" layoutY="30.0" prefWidth="141.0" />
             <TextField fx:id="serverRouterIPAddressField" layoutX="325.0" layoutY="29.0" prefWidth="133.0" />
-            <Button fx:id="startClientButton" layoutX="500.0" layoutY="18.0" mnemonicParsing="false" onAction="#startClientButtonPressed" onKeyPressed="#startClientButtonPressed" prefHeight="39.90234375" prefWidth="103.0" text="Start Peer" />
+            <Button fx:id="startClientButton" layoutX="500.0" layoutY="18.0" mnemonicParsing="false" onAction="#startClientButtonPressed" onKeyReleased="#startClientButtonPressed" prefHeight="39.90234375" prefWidth="103.0" text="Start Peer" />
             <Label layoutX="25.0" layoutY="11.0" text="Peer">
               <font>
                 <Font name="System Bold" size="30.0" />
