@@ -113,7 +113,7 @@ public class ClientScreenController implements Initializable, ControlledScreen {
 			if (fileNameString != null){
 				messageLogHolderString = messageLogArea.getText();
 				messageLogArea.setText("File : " + fileNameString 
-						+ " Loaded" + messageLogHolderString);
+						+ " Loaded\n" + messageLogHolderString);
 			}
 		}
 	}
