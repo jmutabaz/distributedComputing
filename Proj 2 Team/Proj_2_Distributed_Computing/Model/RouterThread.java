@@ -77,12 +77,13 @@ public class RouterThread extends Thread {
 					IP = searchOthers();
 				out.setIPLookup(IP);
 			}
-			addToReport("Sending Out Message.", false);
+			//addToReport("Sending Out Message.", false);
 			out.setType('t');
 			if(_incoming.getType() != 'r')
 				_out.writeObject(out);
 		}catch(Exception ex){
-			addToReport("run method Router Thread class ERROR: " + ex.toString(), false);
+			System.out.println("run method Router Thread class ERROR: " + ex.toString());
+			//addToReport("run method Router Thread class ERROR: " + ex.toString(), false);
 			return;
 		}
 	}
@@ -104,7 +105,7 @@ public class RouterThread extends Thread {
 		/*
 		 * By: Rhett, Paul
 		 */
-		System.out.println("--"+id.getServerIP()+":"+id.getServerName());
+		//System.out.println("--"+id.getServerIP()+":"+id.getServerName());
 			for(ServerID i : _myServers){
 				if(i.getServerIP().equals(id.getServerIP()) && i.getServerName().equals(id.getServerName()))
 					return 't';
@@ -150,7 +151,8 @@ public class RouterThread extends Thread {
 				}
 			}
 		}catch(Exception ex){
-			addToReport("updateOthers method Router Thread class ERROR: " + ex.toString(), false);
+			System.out.println("updateOthers method Router Thread class ERROR: " + ex.toString());
+			//addToReport("updateOthers method Router Thread class ERROR: " + ex.toString(), false);
 		}
 		return null;
 	}
@@ -197,7 +199,8 @@ public class RouterThread extends Thread {
 				}
 			}
 		}catch(Exception ex){
-			addToReport("searchOthersMethod Router Thread class ERROR: " + ex.toString(), false);
+			System.out.println("searchOthersMethod Router Thread class ERROR: " + ex.toString());
+			//addToReport("searchOthersMethod Router Thread class ERROR: " + ex.toString(), false);
 		}
 		return null;
 	}
@@ -230,7 +233,8 @@ public class RouterThread extends Thread {
 			_tempOut = new ObjectOutputStream(_tempSoc.getOutputStream());
 			_tempIn = new ObjectInputStream(_tempSoc.getInputStream());
 		}catch(Exception ex){
-			addToReport("Connect method Router Thread class ERROR: " + ex.toString(),false);
+			System.out.println("Connect method Router Thread class ERROR: " + ex.toString());
+			//addToReport("Connect method Router Thread class ERROR: " + ex.toString(),false);
 			return false;
 		}
 		return true;

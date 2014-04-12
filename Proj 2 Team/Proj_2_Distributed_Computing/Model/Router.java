@@ -39,7 +39,8 @@ public class Router extends Thread {
 				_serverSocket = new ServerSocket(_port);
 			}
 			catch (IOException e) {
-				addToReport("**Couldn't Listen, Error: " + e.toString(), false);
+				System.out.println("**Couldn't Listen, Error: " + e.toString());
+				//addToReport("**Couldn't Listen, Error: " + e.toString(), false);
 				return;
 			}
 			addToReport("Ready For Clients.", false);
@@ -50,7 +51,7 @@ public class Router extends Thread {
 					newSocket = _serverSocket.accept();
 					t = new RouterThread(newSocket, _myServers, _routerList, _count);
 					t.start();
-					addToReport("Router Thread Started, Count: " + (_myServers != null ? _myServers.size():"0"), false);
+					//addToReport("Router Thread Started, Count: " + (_myServers != null ? _myServers.size():"0"), false);
 				}
 				catch (IOException e) {
 					System.out.println("Router Class Run method IOException " + e.toString());
@@ -65,7 +66,8 @@ public class Router extends Thread {
 			_running = false;
 			
 		}catch(Exception ex){
-			addToReport("Run Method Router Class **Error " + ex.toString(), false);
+			System.out.println("Run Method Router Class **Error " + ex.toString());
+			//addToReport("Run Method Router Class **Error " + ex.toString(), false);
 		}
 		
 	}
