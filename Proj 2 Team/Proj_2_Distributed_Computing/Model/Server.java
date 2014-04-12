@@ -33,12 +33,12 @@ public class Server extends Thread {
 		 * By: Rhett and Paul
 		 * 		
 		 */
-		addToReport("Starting, Registering with Router...");
+		addToReport("Starting, Registering with Router...");//Do we really want this PANANA
 		if(register()){
 			try{
 				while(!_kill){
 					waitForPrey();
-					addToReport("Inbound Message.");
+					addToReport("Inbound Message.");//Do we really want this PANANA
 					Message msg = (Message)_in.readObject();
 					Message complete = new Message();
 					complete.setServerName(msg.getServerName());
@@ -76,7 +76,8 @@ public class Server extends Thread {
 					addToReport("Message Complete, Waiting on Next Message.");
 				}
 			}catch(Exception ex){
-				addToReport("**Server Error: " + ex.toString());
+				System.out.println("**Server Error: " + ex.toString());
+				//addToReport("**Server Error: " + ex.toString());
 			}
 		}else{
 			//addToReport("**Failed To Register...", true);

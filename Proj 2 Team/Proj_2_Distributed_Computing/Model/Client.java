@@ -94,7 +94,7 @@ public class Client extends Thread {
 			ObjectOutputStream newOut = new ObjectOutputStream(newSocket.getOutputStream());
 			ObjectInputStream newIn = new ObjectInputStream(newSocket.getInputStream());
 			newOut.writeObject(msg);
-			addToReport("Router Is Looking Up IP.");
+			//addToReport("Router Is Looking Up IP.");
 			resp = (RouterMessage)newIn.readObject();
 			newIn.close();
 			newOut.close();
