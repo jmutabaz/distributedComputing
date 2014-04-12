@@ -185,9 +185,9 @@ public class Server extends Thread {
 	public void killMeOff(){
 		System.out.println("Server Class kill method called");
 		try {
+			_kill = true;
 			_serverSocket.close();
 			deRegister();
-			_kill = true;
 			System.out.println("Server Thread successfully killed");
 		} catch (IOException e) {
 			System.out.print("Error closing the thread in Server Class");
