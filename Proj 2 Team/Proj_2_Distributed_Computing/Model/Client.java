@@ -38,7 +38,8 @@ public class Client extends Thread {
 			addToReport("**Failed to Get IP from Router.");
 			return;
 		}else{
-			addToReport("Found IP \"" + _desIP + "\" from Router.");
+			addToReport("Found IP of Client \"" + _msg.getClient() + "\" from Router.");
+			//addToReport("Found IP \"" + _desIP + "\" from Router.");
 		}
 		//Send Message.
 		try{
