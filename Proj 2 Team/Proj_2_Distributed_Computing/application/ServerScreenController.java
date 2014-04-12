@@ -167,8 +167,8 @@ public class ServerScreenController implements Initializable, ControlledScreen {
 	
 	
 	void startUpdateLoop(){
-		messageLogHolderString = serverRuntimeLogArea.getText();
-		serverRuntimeLogArea.setText("Start Update Loop\n" + messageLogHolderString);
+		//messageLogHolderString = serverRuntimeLogArea.getText();
+		//serverRuntimeLogArea.setText("Start Update Loop\n" + messageLogHolderString);
 		routerTableArea.setText("hello");
 		clientTableArea.setText("Hello");
 		serversIPAddressLabel.setText(Main.IPADDRESSSTRING);
