@@ -73,8 +73,8 @@ public class RouterThread extends Thread {
 			}else if(_incoming.getType() == 'l'){
 				addToReport("Router Searching for IP.", false);
 				String IP = findIPFromName();
-				if(IP == null)
-					IP = searchOthers();
+				//if(IP == null)
+				//	IP = searchOthers();
 				out.setIPLookup(IP);
 			}
 			//addToReport("Sending Out Message.", false);
