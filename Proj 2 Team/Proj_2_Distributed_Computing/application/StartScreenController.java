@@ -1,5 +1,7 @@
 package application;
 
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -20,13 +22,29 @@ public class StartScreenController implements Initializable, ControlledScreen {
 	
 	@FXML 	Button		startClient;
 	@FXML	Button		startServer;
+	@FXML	Button		useLocalHostIPAddress;
+	@FXML	Button		useWANIPaddress;
 	@FXML	Button		exit;
 	
 	@FXML	Label		testLabel;
+	@FXML	Label		lANIPAddressLabel;
+	@FXML	Label		wANIPAddressLabel;
 	@FXML	Label		iPAddressErrorLabel;
 	
 	@FXML	TextField	iPAddressTextField;
 	
+	
+	@FXML 
+	void useWANIPAddress(ActionEvent event){
+		Main.IPADDRESSSTRING = Main.INETHOSTIPADDRESString;
+		iPAddressTextField.setText(Main.IPADDRESSSTRING);
+	}
+	
+	@FXML
+	void useLANIPAddress(ActionEvent event){
+		Main.IPADDRESSSTRING = Main.LOCALHOSTIPADDRESString;
+		iPAddressTextField.setText(Main.IPADDRESSSTRING);
+	}
 	
 	@FXML
 	void startClientButtonPressed(ActionEvent event){
@@ -58,24 +76,32 @@ public class StartScreenController implements Initializable, ControlledScreen {
 	private boolean getIPAddress() {
 		System.out.println("checking IP address");
 		boolean getIPAddress = true;
-		
-		while(getIPAddress){
-			Main.IPADDRESSSTRING = iPAddressTextField.getText();
-			System.out.println("IP address = " + Main.IPADDRESSSTRING);
-			// test IP address
-			 if (!validateIP(Main.IPADDRESSSTRING)){
-			 	iPAddressErrorLabel.setText("The IP Address you entered is not valid please enter a valid IP Address");
-			 	System.out.println("The IP Address you entered is not valid please enter a valid IP Address");
-			 	return false;
-			 } else{
-			 	getIPAddress = false;
-			 	System.out.println("The IP address has been set as: " + Main.IPADDRESSSTRING);
-			 	return true;
-			 }
-			 
+		if (iPAddressTextField.getText().length() == 0 || iPAddressTextField.getText() == ""){
+			Main.IPADDRESSSTRING = Main.LOCALHOSTIPADDRESString;
+			return true;
+		} else {
+			while(getIPAddress){
+				Main.IPADDRESSSTRING = iPAddressTextField.getText();
+				System.out.println("IP address = " + Main.IPADDRESSSTRING);
+				// test IP address
+				 if (!validateIP(Main.IPADDRESSSTRING)){
+				 	iPAddressErrorLabel.setText("The IP Address you entered is not valid please enter a valid IP Address");
+				 	System.out.println("The IP Address you entered is not valid please enter a valid IP Address");
+				 	return false;
+				 } else{
+				 	getIPAddress = false;
+				 	System.out.println("The IP address has been set as: " + Main.IPADDRESSSTRING);
+				 	return true;
+				 }
+			}
 		}
 		return false;
 	}
+	
+	
+	
+	
+	
 	
 	public boolean validateIP(String IP)
 	{
@@ -123,5 +149,7 @@ public class StartScreenController implements Initializable, ControlledScreen {
 		// TODO Auto-generated method stub
 		rootScreen.setStyle("-fx-background-color: beige");
 		Main.SC = this;
+		wANIPAddressLabel.setText(Main.INETHOSTIPADDRESString);
+		lANIPAddressLabel.setText(Main.LOCALHOSTIPADDRESString);
 	}
 }

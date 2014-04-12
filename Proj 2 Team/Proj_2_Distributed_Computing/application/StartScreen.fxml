@@ -35,6 +35,9 @@
       <top>
         <Pane prefHeight="300.0" prefWidth="800.0">
           <children>
+            <TextField fx:id="iPAddressTextField" layoutX="120.0" layoutY="253.0" prefWidth="199.9998779296875" />
+            <Button fx:id="useLocalHostIPAddress" layoutX="342.0" layoutY="218.0" mnemonicParsing="false" onAction="#useLANIPAddress" text="Get LAN IP" />
+            <Button fx:id="useWANIPaddress" layoutX="342.0" layoutY="254.0" mnemonicParsing="false" onAction="#useWANIPAddress" text="Get WAN IP" />
             <Label layoutX="50.0" layoutY="30.0" text="Distributed Computing">
               <font>
                 <Font name="System Bold" size="30.0" fx:id="x2" />
@@ -49,8 +52,9 @@
             <Label font="$x2" layoutX="50.0" layoutY="60.0" text="Project 2 --" />
             <Label font="$x2" layoutX="50.0" layoutY="90.0" text="Peer-to-Peer Tiered Network Communtications" />
             <Label layoutX="120.0" layoutY="238.0" text="Enter your IP Address" />
-            <TextField fx:id="iPAddressTextField" layoutX="120.0" layoutY="253.0" prefWidth="199.9998779296875" />
             <Label fx:id="iPAddressErrorLabel" layoutX="120.0" layoutY="210.0" text="" />
+            <Label fx:id="lANIPAddressLabel" layoutX="464.0" layoutY="221.0" prefWidth="169.99990000000253" text="" />
+            <Label fx:id="wANIPAddressLabel" layoutX="464.0" layoutY="256.0" prefWidth="90.0" text="" />
           </children>
         </Pane>
       </top>
