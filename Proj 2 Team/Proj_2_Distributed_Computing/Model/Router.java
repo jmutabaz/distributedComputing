@@ -120,7 +120,7 @@ public class Router extends Thread {
 				out = new ObjectOutputStream(socket.getOutputStream());
 				RouterMessage msg = new RouterMessage();
 				msg.setType('r');
-				msg.setIPToRemove("_myIP");
+				msg.setIPToRemove(_myIP);
 				out.writeObject(msg);
 				out.close();
 				socket.close();
