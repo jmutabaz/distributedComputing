@@ -8,6 +8,10 @@ import java.util.Timer;
 import java.util.TimerTask;
 import java.util.ArrayList;
 
+import com.sun.javafx.geom.BaseBounds;
+import com.sun.javafx.geom.transform.BaseTransform;
+import com.sun.javafx.scene.BoundsAccessor;
+
 import Model.Message;
 import Model.SocketClient;
 import Model.UpdateMessage;
@@ -15,10 +19,12 @@ import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.effect.Effect;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.FileChooser;
@@ -148,7 +154,7 @@ public class ClientScreenController implements Initializable, ControlledScreen {
 			clientConn = new SocketClient(Main.IPADDRESSSTRING, serverRouterIPAddressField.getText(), nameOfRecievingClientField.getText(), 2, msg);
 			clientConn.start();
 		}
-
+		messageSendingPane.setStyle("-fx-background-color: lightblue");
 		fileNameString = "";
 		fileMessageBoxArea.setText("");
 		messgaeToSendArea.setText("");
@@ -277,6 +283,10 @@ public class ClientScreenController implements Initializable, ControlledScreen {
 											//messageLogArea.setText("Error Sending message to remote client" + "\n" + messageLogHolderString);
 											System.out.println("Error Sending message to remote client" + "\n" + messageLogHolderString);
 											
+										}
+										if (updateMessage._clientNotFound){
+											messageSendingPane.setStyle("-fx-background-color: red");
+											nameOfRecievingClientField.requestFocus();
 										}
 										if (updateMessage._isRouter){ 
 											System.out.println(" Error router message in Client ");
