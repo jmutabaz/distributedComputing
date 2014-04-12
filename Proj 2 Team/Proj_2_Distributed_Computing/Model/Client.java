@@ -88,7 +88,7 @@ public class Client extends Thread {
 		RouterMessage resp = null;
 		RouterMessage msg = new RouterMessage();
 		msg.setIPLookup(_msg.getServerName());
-		msg.setType('c');
+		msg.setType('c');// This is a message of client type for router thread
 		
 		try{
 			Socket newSocket = new Socket(_routerIP, _portNum);
@@ -105,6 +105,7 @@ public class Client extends Thread {
 			return false;
 		}
 		if(resp.getIPLookup() == null){
+			addToReport("Client "+msg.getIPLookup()+" could not be Located", false);
 			return false;
 		}
 		_desIP = resp.getIPLookup();
