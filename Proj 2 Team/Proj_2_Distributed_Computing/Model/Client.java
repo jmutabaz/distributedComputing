@@ -35,7 +35,7 @@ public class Client extends Thread {
 		 */
 		addToReport("Getting Peers IP from Router.");
 		if(!getServerIP()){
-			addToReport("**Failed to Get IP from Router.");
+			//addToReport("**Failed to Get IP from Router.");
 			return;
 		}else{
 			addToReport("Recieved IP of Peer \"" + _msg.getServerName() + "\" from Router.");
@@ -105,7 +105,7 @@ public class Client extends Thread {
 			return false;
 		}
 		if(resp.getIPLookup().equals("-1")){
-			addToReport("Client "+msg.getIPLookup()+" could not be Located", false);
+			addToReport("Peer "+msg.getIPLookup()+" could not be Located", false);
 			return false;
 		}
 		_desIP = resp.getIPLookup();
