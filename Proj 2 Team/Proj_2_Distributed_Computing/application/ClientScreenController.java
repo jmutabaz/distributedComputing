@@ -227,9 +227,9 @@ public class ClientScreenController implements Initializable, ControlledScreen {
 
 	void startUpdateLoop(){
 		//Getting the Text.
-		messageLogHolderString = messageLogArea.getText();
+		//messageLogHolderString = messageLogArea.getText();
 		//Add new at top of box.
-		messageLogArea.setText("Start Update Loop\n" + messageLogHolderString);
+		//messageLogArea.setText("Start Update Loop\n" + messageLogHolderString);
 		System.out.println("Client Controller sees the path as: " + Main.PATHTOUPDATEString);
 		clientsIPAddressLabel.setText(Main.IPADDRESSSTRING);
 		timer.schedule(new TimerTask() {
