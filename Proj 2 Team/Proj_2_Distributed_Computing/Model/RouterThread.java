@@ -56,12 +56,7 @@ public class RouterThread extends Thread {
 					_incoming.setType('l');
 					IP = searchOthers();
 				}
-				if(IP == null){
-					out.setIPLookup("-1");
-				}
-				else{
-					out.setIPLookup(IP);
-				}
+				out.setIPLookup(IP);
 			}else if(_incoming.getType() == 'r'){
 				if(_incoming.getIPToAdd() != null)
 					addToRouterList(_incoming.getIPToAdd());
@@ -78,9 +73,11 @@ public class RouterThread extends Thread {
 			}else if(_incoming.getType() == 'l'){
 				addToReport("Router Searching for IP.", false);
 				String IP = findIPFromName();
-				//if(IP == null)
-				//	IP = searchOthers();
-				out.setIPLookup(IP);
+				if(IP == null)
+					out.setIPLookup("-1");
+				else{
+					out.setIPLookup(IP);
+				}
 			}
 			//addToReport("Sending Out Message.", false);
 			out.setType('t');
