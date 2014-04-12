@@ -33,7 +33,7 @@ public class Client extends Thread {
 		 * 		Starts up Client, gets IP from Router.
 		 * 		Connects to Server and Sends Message.
 		 */
-		addToReport("Starting Up, Getting Server IP from Router.");
+		addToReport("Starting Up, Getting Peers IP from Router.");
 		if(!getServerIP()){
 			addToReport("**Failed to Get IP from Router.");
 			return;
@@ -44,7 +44,7 @@ public class Client extends Thread {
 		try{
 			//Connects...
 			if(!connect()){
-				addToReport("Couldn't Connect to Server.");
+				addToReport("Couldn't Connect to Peer.");
 				return;
 			}else{
 				addToReport("Connected to " + _msg.getServerName() + ".");
