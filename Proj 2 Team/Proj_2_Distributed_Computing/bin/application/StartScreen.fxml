@@ -37,7 +37,7 @@
           <children>
             <TextField fx:id="iPAddressTextField" layoutX="186.0" layoutY="221.0" prefWidth="199.9998779296875" />
             <Button fx:id="useLocalHostIPAddress" layoutX="186.0" layoutY="245.0" mnemonicParsing="false" onAction="#useLANIPAddress" prefWidth="93.0" text="Get LAN IP" />
-            <Button fx:id="useWANIPaddress" layoutX="186.0" layoutY="267.0" mnemonicParsing="false" onAction="#useWANIPAddress" text="Get WAN IP" />
+            <Button fx:id="useWANIPaddress" layoutX="186.0" layoutY="267.0" mnemonicParsing="false" onAction="#useWANIPAddress" prefWidth="93.0" text="Get WAN IP" />
             <Label layoutX="50.0" layoutY="30.0" text="Distributed Computing">
               <font>
                 <Font name="System Bold" size="30.0" fx:id="x2" />
