@@ -163,11 +163,6 @@ public class ClientScreenController implements Initializable, ControlledScreen {
 			serverRouterIPAddressField.setEditable(false);
 			serverRouterIPAddressField.setFocusTraversable(false);
 			startClientButton.setText("Reset Client");
-			messageLogHolderString = messageLogArea.getText();
-			messageLogArea.setText("Client's Name: " + clientNameString 
-					+ "\nServer-Router IP: " + serverRouterIPAddressString
-					+ "\nClient IP address: " + clientIPAddressString
-					+ "\n" + messageLogHolderString);
 			init();
 			messageSendingPane.setVisible(true);
 			nameOfRecievingClientField.requestFocus();
@@ -200,7 +195,7 @@ public class ClientScreenController implements Initializable, ControlledScreen {
 		serverRouterIPAddressField.setText("");
 		serverRouterIPAddressString = "";
 		startClientButton.setText("Start Client");
-		fileMessageBoxArea.setText("No File Loaded"); 
+		fileMessageBoxArea.setText(""); 
 		messageSendingPane.setVisible(false);
 		fileNameString = "";
 		if (timer != null) {
@@ -222,8 +217,6 @@ public class ClientScreenController implements Initializable, ControlledScreen {
 			serverConn.killMe();
 			serverConn = null;
 		}
-		messageLogHolderString = messageLogArea.getText();
-		messageLogArea.setText("Reset Client\n" + messageLogHolderString);
 		timer = new Timer();
 		clock = 0;
 		counter = 0;
