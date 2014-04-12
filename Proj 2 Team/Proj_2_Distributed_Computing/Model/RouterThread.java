@@ -56,7 +56,12 @@ public class RouterThread extends Thread {
 					_incoming.setType('l');
 					IP = searchOthers();
 				}
-				out.setIPLookup(IP);
+				if(IP == null){
+					out.setIPLookup("");
+				}
+				else{
+					out.setIPLookup(IP);
+				}
 			}else if(_incoming.getType() == 'r'){
 				if(_incoming.getIPToAdd() != null)
 					addToRouterList(_incoming.getIPToAdd());

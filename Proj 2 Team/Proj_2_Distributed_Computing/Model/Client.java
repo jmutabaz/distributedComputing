@@ -104,7 +104,7 @@ public class Client extends Thread {
 			addToReport("**Lookup Error: " + x.toString(), true);
 			return false;
 		}
-		if(resp.getIPLookup() == null){
+		if(resp.getIPLookup().equals("")){
 			addToReport("Client "+msg.getIPLookup()+" could not be Located", false);
 			return false;
 		}
