@@ -57,7 +57,7 @@ public class RouterThread extends Thread {
 					IP = searchOthers();
 				}
 				if(IP == null){
-					out.setIPLookup("");
+					out.setIPLookup("-1");
 				}
 				else{
 					out.setIPLookup(IP);
