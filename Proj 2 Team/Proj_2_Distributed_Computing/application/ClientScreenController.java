@@ -117,6 +117,9 @@ public class ClientScreenController implements Initializable, ControlledScreen {
 			}
 		}
 	}
+	
+	
+	
 
 	@FXML
 	void sendMessageButtonPressed(ActionEvent event){
@@ -281,10 +284,6 @@ public class ClientScreenController implements Initializable, ControlledScreen {
 										}
 										if (updateMessage._isRouter){
 											System.out.println(" Error router message in Client ");
-										}
-										if (updateMessage.get_filePath() != null){
-											messageLogHolderString = messageLogArea.getText();
-											messageLogArea.setText("File: " + updateMessage.get_filePath() + " has been received." + "\n" + messageLogHolderString);
 										}
 										if (updateMessage.get_message() != null){
 											messageLogHolderString = messageLogArea.getText();
