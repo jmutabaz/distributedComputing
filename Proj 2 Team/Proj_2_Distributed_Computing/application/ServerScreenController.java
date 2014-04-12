@@ -227,6 +227,9 @@ public class ServerScreenController implements Initializable, ControlledScreen {
 					if (updateMessage._isRouter){
 						messageLogHolderString = "";
 						//checks or an updated client list and replaces the current list with the new list
+						if (updateMessage._myServers.size() == 0){
+							clientTableArea.setText(messageLogHolderString);
+						}
 						if(updateMessage._updateList){
 							System.out.println("serverlist is not null");
 							for(int s = 0; s < updateMessage._myServers.size(); s++){
@@ -243,6 +246,9 @@ public class ServerScreenController implements Initializable, ControlledScreen {
 						//checks for an updated router table and replaces the current list with the new list
 						if (updateMessage._updateList){
 							System.out.println("routerlist is not null");
+							if (updateMessage._routerList.size() == 0){
+								routerTableArea.setText(messageLogHolderString);
+							}
 							for(int r = 0; r < updateMessage._routerList.size(); r++){
 								if (updateMessage._routerList.get(r).equals(Main.IPADDRESSSTRING)){
 									System.out.println("Removed own IP address from Router Table");
