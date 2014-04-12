@@ -47,10 +47,10 @@ public class Router extends Thread {
 			while (_running == true)
 			{
 				try {
-					addToReport("Router Thread Started, Count: " + (_myServers != null ? _myServers.size():"0"), false);
 					newSocket = _serverSocket.accept();
 					t = new RouterThread(newSocket, _myServers, _routerList, _count);
 					t.start();
+					addToReport("Router Thread Started, Count: " + (_myServers != null ? _myServers.size():"0"), false);
 				}
 				catch (IOException e) {
 					System.out.println("Router Class Run method IOException " + e.toString());
