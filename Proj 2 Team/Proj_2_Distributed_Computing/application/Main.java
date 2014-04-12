@@ -62,6 +62,7 @@ public class Main extends Application {
 			PATHTOUPDATEString = path;
 			path = file1.getCanonicalPath() + "/ReceivedFiles/";
 			System.out.println("Updated path name: " + PATHTOUPDATEString);
+			PATHFILESAVEString = path;
 		} catch (IOException e1) {
 			// TODO Auto-generated catch block
 			System.out.println("problem getting canonical path");

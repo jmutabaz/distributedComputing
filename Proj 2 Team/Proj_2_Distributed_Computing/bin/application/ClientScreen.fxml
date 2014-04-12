@@ -28,14 +28,14 @@
       <left>
         <Pane fx:id="messageSendingPane" prefHeight="400.0" prefWidth="180.0" visible="false">
           <children>
-            <TextField fx:id="nameOfRecievingClientField" layoutX="20.0" layoutY="30.0" prefWidth="141.0" />
+            <TextField fx:id="nameOfRecievingClientField" layoutX="20.0" layoutY="30.0" prefWidth="141.0" visible="true" />
+            <TextArea fx:id="messgaeToSendArea" layoutX="17.0" layoutY="72.0" prefHeight="81.689453125" prefWidth="141.0" wrapText="true" />
             <Button fx:id="loadFileButton" layoutX="13.0" layoutY="177.0" mnemonicParsing="false" onAction="#loadFileButtonPressed" text="Load File" />
+            <TextArea id="loadedFileNameLabel" fx:id="fileMessageBoxArea" layoutX="17.0" layoutY="222.0" prefHeight="121.0" prefWidth="158.0" wrapText="true" />
             <Button fx:id="sendMessageButton" layoutX="72.0" layoutY="353.0" mnemonicParsing="false" onAction="#sendMessageButtonPressed" prefHeight="39.90234375" prefWidth="103.0" text="Send Message" visible="true" />
             <Label layoutX="15.0" layoutY="15.0" text="Name of Recieving Client" />
             <Label layoutX="15.0" layoutY="200.0" text="Loaded File Name" />
-            <TextArea id="loadedFileNameLabel" fx:id="fileMessageBoxArea" layoutX="17.0" layoutY="222.0" prefHeight="121.0" prefWidth="158.0" wrapText="true" />
             <Label layoutX="15.0" layoutY="57.0" text="Type in Message to Send" />
-            <TextArea fx:id="messgaeToSendArea" layoutX="17.0" layoutY="72.0" prefHeight="81.689453125" prefWidth="141.0" wrapText="true" />
             <Label layoutX="15.0" layoutY="157.0" text="or select a file to send" />
           </children>
         </Pane>
