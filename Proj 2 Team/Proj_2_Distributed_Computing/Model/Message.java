@@ -20,6 +20,7 @@ public class Message implements Serializable {
 	private 				String 					_fileName; 					// Name of File.
 	private 				String 					_serverName; 				//Name of Server to send to.
 	private 				String 					_sendingName; 				//Name of Client that sent message.
+	private 				Long 					_startTime; 				//Name of Client that sent message.
 	public 					boolean 				done 					= false;
 
 	public Message(){
@@ -161,5 +162,21 @@ public class Message implements Serializable {
 
 	public boolean getType(){
 		return _type;
+	}
+	
+	public void setStartTime(Long time){
+		_startTime = time;
+	}
+	
+	public void setStartTime(){
+		_startTime = System.currentTimeMillis();
+	}
+
+	public Long getStartTime(){
+		return _startTime;
+	}
+	
+	public String getTotalTime(){
+		return Double.toString((System.currentTimeMillis() - _startTime)/1000.00);
 	}
 }

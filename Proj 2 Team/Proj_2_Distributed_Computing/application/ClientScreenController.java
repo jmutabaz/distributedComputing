@@ -151,6 +151,7 @@ public class ClientScreenController implements Initializable, ControlledScreen {
 			}
 		}
 		if(flag){
+			msg.setStartTime();
 			clientConn = new SocketClient(Main.IPADDRESSSTRING, serverRouterIPAddressField.getText(), nameOfRecievingClientField.getText(), 2, msg);
 			clientConn.start();
 		}

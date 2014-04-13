@@ -72,6 +72,8 @@ public class Server extends Thread {
 					}
 					//log((String)complete.getData(true));
 					complete.done = true;
+					if(msg.getServerName() != null)
+						complete.setStartTime(msg.getStartTime());
 					_out.writeObject(complete);
 					addToReport("Message Complete.");
 				}

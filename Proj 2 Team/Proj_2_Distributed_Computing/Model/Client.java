@@ -55,7 +55,9 @@ public class Client extends Thread {
 			addToReport("Message Sent and Waiting on Response.");
 			Message n = new Message();
 			n = (Message)_in.readObject();
-			addToReport("//---------From: " + n.getServerName() + "\n" + 
+			addToReport("//---------From: " + n.getServerName() + 
+					(n.getStartTime() != null ? ("Time Taken: " + n.getTotalTime() + " Seconds."):"") +
+					"\n" + 
 					"Response: " + (String)n.getData(true) + "\n" + 
 					"//---------");
 		}catch(Exception ex){
