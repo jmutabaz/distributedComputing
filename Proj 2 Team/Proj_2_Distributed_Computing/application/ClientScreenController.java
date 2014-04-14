@@ -77,8 +77,8 @@ public class ClientScreenController implements Initializable, ControlledScreen {
 	@FXML
 	void exitClientButtonPressed(ActionEvent event){
 		// delete all children then exit to start screen
-		startClientButtonPressed(event);
-		
+		//startClientButtonPressed(event);
+		reset();
 		
 		myController.setScreen(Main.START_SCREEN);
 	}

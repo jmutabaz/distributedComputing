@@ -43,7 +43,8 @@ public class ServerScreenController implements Initializable, ControlledScreen {
 	//variables
 	private			Timer 				timer;
 	private			boolean				serverSetup						= true,
-										setup 							= false;
+										setup 							= false,
+										exitThis						= false;
 	private 		int 				clock 							= 0,
 										counter							= 0,
 										updateCounter					= 0,
@@ -59,8 +60,9 @@ public class ServerScreenController implements Initializable, ControlledScreen {
 	@FXML
 	void exitServerButtonPressed(ActionEvent event){
 		// delete all children then exit to start screen
-		startServerButtonPressed(event);
-		
+		exitThis = true;
+		//startServerButtonPressed(event);
+		reset();
 		myController.setScreen(Main.START_SCREEN);
 	}
 	
