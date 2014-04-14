@@ -190,13 +190,13 @@ public class RouterThread extends Thread {
 					else{
 						_tempOut.writeObject(_incoming);
 						RouterMessage msg = (RouterMessage)_tempIn.readObject();
-						if(msg.getIPLookup() != null)
+						if(msg.getIPLookup() != "-1")
 							return msg.getIPLookup();
 					}
 				}else{
 					_tempOut.writeObject(_incoming);
 					RouterMessage msg = (RouterMessage)_tempIn.readObject();
-					if(msg.getIPLookup() != null)
+					if(msg.getIPLookup() != "-1")
 						return msg.getIPLookup();
 				}
 			}
