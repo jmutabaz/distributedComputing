@@ -62,6 +62,7 @@ public class Server extends Thread {
 							}
 							else
 							{
+								complete.setData("File Not Saved. Folder May Not Exist: \"ReceivedFiles\".");
 								addToReport("**File \"" + msg.getFileName() + "\" From: " + msg.getClient() + " Couldn't be Saved.");
 							}
 						}else{
