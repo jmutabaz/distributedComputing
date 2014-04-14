@@ -81,6 +81,7 @@ public class ClientScreenController implements Initializable, ControlledScreen {
 			timer.cancel();
 			timer = null;
 		}
+		reset();
 		myController.setScreen(Main.START_SCREEN);
 	}
 

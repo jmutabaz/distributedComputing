@@ -66,6 +66,7 @@ public class ServerScreenController implements Initializable, ControlledScreen {
 		if(cli != null){
 			cli.killMe();
 		}
+		reset();
 		myController.setScreen(Main.START_SCREEN);
 	}
 	
