@@ -77,11 +77,9 @@ public class ClientScreenController implements Initializable, ControlledScreen {
 	@FXML
 	void exitClientButtonPressed(ActionEvent event){
 		// delete all children then exit to start screen
-		if (timer != null) {
-			timer.cancel();
-			timer = null;
-		}
 		reset();
+		
+		
 		myController.setScreen(Main.START_SCREEN);
 	}
 
@@ -190,10 +188,7 @@ public class ClientScreenController implements Initializable, ControlledScreen {
 
 
 	void reset() {
-		if (timer != null) {
-			timer.cancel();
-			timer = null;
-		}
+		
 		messageLogHolderString = messageLogArea.getText();
 		messageLogArea.setText("Peer Reset\n" + messageLogHolderString);
 		clientsNameField.setEditable(true);

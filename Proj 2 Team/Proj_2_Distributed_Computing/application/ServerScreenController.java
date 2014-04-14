@@ -59,14 +59,8 @@ public class ServerScreenController implements Initializable, ControlledScreen {
 	@FXML
 	void exitServerButtonPressed(ActionEvent event){
 		// delete all children then exit to start screen
-		if (timer != null) {
-			timer.cancel();
-			timer = null;
-		}
-		if(cli != null){
-			cli.killMe();
-		}
 		reset();
+		
 		myController.setScreen(Main.START_SCREEN);
 	}
 	
