@@ -32,7 +32,6 @@ public class Router extends Thread {
 		 * By: Rhett and Paul
 		 * 		Starts the process of listing for incoming connections.
 		 */
-		_running = true;
 		try{
 			Socket newSocket = null;
 			try {
