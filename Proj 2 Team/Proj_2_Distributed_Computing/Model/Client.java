@@ -71,7 +71,7 @@ public class Client extends Thread {
 		 * 		Establishes Connection to Server to send Message to.
 		 */
 		try{
-			_socket = new Socket(_desIP, _portNum);
+			_socket = new Socket(_desIP, 5556);
 			_out = new ObjectOutputStream(_socket.getOutputStream());
 			_in = new ObjectInputStream(_socket.getInputStream());
 		}catch(Exception x){
