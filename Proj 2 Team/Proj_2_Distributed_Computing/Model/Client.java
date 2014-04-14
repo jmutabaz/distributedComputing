@@ -56,7 +56,7 @@ public class Client extends Thread {
 			Message n = new Message();
 			n = (Message)_in.readObject();
 			addToReport("//---------From: " + n.getServerName() + 
-					(n.getStartTime() != null ? ("Time Taken: " + n.getTotalTime() + " Seconds."):"") +
+					(n.getStartTime() != null ? (" Time Taken: " + n.getTotalTime() + " Seconds."):"") +
 					"\n" + 
 					"Response: " + (String)n.getData(true) + "\n" + 
 					"//---------");
