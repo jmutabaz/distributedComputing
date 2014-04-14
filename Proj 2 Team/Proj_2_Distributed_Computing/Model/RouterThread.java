@@ -52,7 +52,7 @@ public class RouterThread extends Thread {
 			}else if(_incoming.getType() == 'c'){
 				addToReport("Client is Looking for IP.", false);
 				String IP = findIPFromName();
-				if(IP == null){
+				if(IP == "-1"){
 					_incoming.setType('l');
 					IP = searchOthers();
 				}

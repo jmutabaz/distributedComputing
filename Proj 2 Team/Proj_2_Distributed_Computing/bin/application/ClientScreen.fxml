@@ -58,8 +58,8 @@
             <Label layoutX="150.0" layoutY="51.0" text="Peer's IP Address" />
             <Label fx:id="clientsIPAddressLabel" layoutX="155.0" layoutY="66.0" text="000.000.000.000" />
             <Label layoutX="646.0" layoutY="15.0" text="Run Time" />
-            <Label layoutX="646.0" layoutY="45.0" text="Messages Recieved" />
-            <Label fx:id="messagesRecievedLabel" layoutX="651.0" layoutY="60.0" text="00000" />
+            <Label layoutX="646.0" layoutY="45.0" text="" />
+            <Label fx:id="messagesRecievedLabel" layoutX="651.0" layoutY="60.0" text="" />
             <Label fx:id="runTimeLabel" layoutX="651.0" layoutY="30.0" text="00000" />
             <Label layoutX="150.0" layoutY="15.0" text="Peer's Name" />
           </children>
