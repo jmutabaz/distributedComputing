@@ -43,7 +43,8 @@ public class Router extends Thread {
 				//addToReport("**Couldn't Listen, Error: " + e.toString(), false);
 				return;
 			}
-			addToReport("Ready For Clients.", false);
+			if(_running)
+				addToReport("Ready For Clients.", false);
 			RouterThread t;
 			while (_running == true)
 			{
