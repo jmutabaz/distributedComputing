@@ -94,7 +94,7 @@ public class Server extends Thread {
 		try{
 			Socket newSocket = null;
 			try {
-				_serverSocket = new ServerSocket(5556);
+				_serverSocket = new ServerSocket(_portNum);
 				addToReport("Ready For Messages.");
 				newSocket = _serverSocket.accept();
 				_socket = newSocket;

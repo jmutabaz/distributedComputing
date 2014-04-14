@@ -58,7 +58,7 @@ public class SocketClient extends Thread {
 
 	private boolean RunServer() {
 		try{
-			_ser = new Server(_routerIP, 5555, _myIp, _name);
+			_ser = new Server(_routerIP, 5556, _myIp, _name);
 			_ser.start();
 			_ser.join();
 			return true;
@@ -78,7 +78,7 @@ public class SocketClient extends Thread {
 
 	private boolean RunClient() {
 		try{
-			_cli = new Client(_routerIP, 5555, _msg);
+			_cli = new Client(_routerIP, 5556, _msg);
 			_cli.start();
 			_cli.join();
 			return true;
