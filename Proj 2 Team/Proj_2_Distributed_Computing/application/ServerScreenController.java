@@ -136,6 +136,8 @@ public class ServerScreenController implements Initializable, ControlledScreen {
 		}
 		//reset all server setting
 		getMessages();
+		routerTableArea.setText("");
+		clientTableArea.setText("");
 	}
 	
 	void init(){
@@ -169,8 +171,8 @@ public class ServerScreenController implements Initializable, ControlledScreen {
 	void startUpdateLoop(){
 		//messageLogHolderString = serverRuntimeLogArea.getText();
 		//serverRuntimeLogArea.setText("Start Update Loop\n" + messageLogHolderString);
-		routerTableArea.setText("hello");
-		clientTableArea.setText("Hello");
+		routerTableArea.setText("");
+		clientTableArea.setText("");
 		serversIPAddressLabel.setText(Main.IPADDRESSSTRING);
 		timer.schedule(new TimerTask() {
 			public void run() {
