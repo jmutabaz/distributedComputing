@@ -73,7 +73,7 @@ public class RouterThread extends Thread {
 			}else if(_incoming.getType() == 'l'){
 				addToReport("Router Searching for IP.", false);
 				String IP = findIPFromName();
-				if(IP == null)
+				if(IP == "-1")
 					out.setIPLookup("-1");
 				else{
 					out.setIPLookup(IP);
